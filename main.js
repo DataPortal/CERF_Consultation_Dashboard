@@ -33,10 +33,13 @@ function barChart(canvasId, dataObj){
 
 function doughnutChart(canvasId, dataObj){
   destroyChart(canvasId);
+
   const labels = Object.keys(dataObj || {});
-  const values = Object.values(dataObj || {});
+  const values = Object.values(dataObj || {}).map(v => Number(v || 0));
   const el = document.getElementById(canvasId);
   if(!el) return;
+
+  const total = values.reduce((a,b) => a + b, 0);
 
   charts[canvasId] = new Chart(el, {
     type: 'doughnut',
@@ -44,8 +47,36 @@ function doughnutChart(canvasId, dataObj){
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: { legend: { position: 'bottom' } }
-    }
+      cutout: '58%',
+      plugins: {
+        legend: { position: 'bottom' },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const v = ctx.parsed || 0;
+              const pct = total ? (v * 100 / total) : 0;
+              return ` ${ctx.label}: ${v} (${pct.toFixed(0)}%)`;
+            }
+          }
+        },
+        datalabels: {
+          display: (ctx) => {
+            const v = ctx.dataset.data[ctx.dataIndex] || 0;
+            if(!total) return false;
+            const pct = (v * 100 / total);
+            return pct >= 8; // évite d'encombrer si très petit
+          },
+          formatter: (value) => {
+            if(!total) return '';
+            const pct = (value * 100 / total);
+            return `${pct.toFixed(0)}%`;
+          },
+          color: '#ffffff',
+          font: { weight: '800', size: 12 }
+        }
+      }
+    },
+    plugins: [ChartDataLabels]
   });
 }
 
