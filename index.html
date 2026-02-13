@@ -3,112 +3,131 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CERF – Dashboard (UN Women x UNFPA)</title>
-
+  <title>CERF – Tableau de bord (UN Women × UNFPA)</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 
 <body>
+  <!-- Bandeau UN Women (bleu) -->
   <header class="topbar">
-    <div class="brand">
-      <div class="kicker">Produit conjoint UN Women × UNFPA</div>
-      <h1>Consultation CERF – Dashboard</h1>
-      <div class="subkicker">Résultats agrégés & suivi</div>
-    </div>
-
-    <div class="actions">
-      <div class="filter">
-        <label for="orgFilter">Type d’organisation</label>
-        <select id="orgFilter">
-          <option value="__all__">Toutes</option>
-        </select>
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="kicker">Produit conjoint UN Women × UNFPA</div>
+        <h1>Consultation CERF – Résultats</h1>
+        <div class="subkicker">Table complète + analyses agrégées</div>
       </div>
 
-      <a class="btn btn-ghost" href="table.html">Voir toutes les réponses (table)</a>
-      <button id="btnPdf" class="btn">Exporter PDF</button>
+      <div class="actions">
+        <div class="filter">
+          <label for="orgFilter">Type d’organisation</label>
+          <select id="orgFilter">
+            <option value="__all__">Toutes</option>
+          </select>
+        </div>
+
+        <div class="filter">
+          <label for="provinceFilter">Province</label>
+          <select id="provinceFilter">
+            <option value="__all__">Toutes</option>
+          </select>
+        </div>
+
+        <div class="filter">
+          <label for="q">Recherche</label>
+          <input id="q" class="input" placeholder="Rechercher (mots, services, provinces, narratifs…)" />
+        </div>
+
+        <button id="btnCsv" class="btn btn-orange">Exporter CSV</button>
+        <button id="btnPdf" class="btn">Exporter PDF</button>
+      </div>
     </div>
   </header>
 
   <main id="report" class="container">
-    <!-- Top KPIs -->
+
+    <!-- KPI (sans info système) -->
     <section class="kpis">
       <div class="kpi">
         <div class="kpi-label">Contributions</div>
-        <div class="kpi-value" id="total">—</div>
-        <div class="kpi-meta" id="generatedAt">—</div>
+        <div class="kpi-value" id="kpiTotal">—</div>
       </div>
 
       <div class="kpi">
         <div class="kpi-label">Vue</div>
-        <div class="kpi-value" id="scopeLabel">Toutes</div>
-        <div class="kpi-meta">Filtre appliqué</div>
+        <div class="kpi-value" id="kpiScope">Toutes</div>
       </div>
 
       <div class="kpi">
-        <div class="kpi-label">Couverture</div>
-        <div class="kpi-value" id="provinceCount">—</div>
-        <div class="kpi-meta">Provinces citées (priorités)</div>
+        <div class="kpi-label">Résultats visibles</div>
+        <div class="kpi-value" id="kpiRows">—</div>
       </div>
     </section>
 
-    <!-- Charts row -->
-    <section class="grid grid-2">
-      <div class="card">
-        <div class="card-title">Service SSR/VBG le plus interrompu (Top 1)</div>
-        <canvas id="chartService"></canvas>
+    <!-- TABLE (page principale) -->
+    <section class="card">
+      <div class="card-head">
+        <h2 class="card-title">Table des contributions (détails + narratifs)</h2>
       </div>
-
-      <div class="card">
-        <div class="card-title">Gravité des ruptures de référencement</div>
-        <canvas id="chartGravite"></canvas>
+      <div class="card-body">
+        <div id="list" class="list"></div>
       </div>
     </section>
 
-    <!-- Map + Provinces -->
-    <section class="grid grid-2">
-      <div class="card">
-        <div class="card-title">Carte – Provinces prioritaires (mentions)</div>
-        <div class="card-subtitle">Nécessite <code>rdc_provinces.geojson</code> (name/NAME_1/province).</div>
-        <div id="map" class="map"></div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Provinces prioritaires (classement)</div>
-        <canvas id="chartProvinces"></canvas>
-      </div>
-    </section>
-
-    <!-- Bottom charts -->
+    <!-- GRAPHIQUES (sans carte) -->
     <section class="grid grid-3">
       <div class="card">
-        <div class="card-title">Groupes sous-desservis</div>
-        <canvas id="chartGroupes"></canvas>
+        <div class="card-head"><h2 class="card-title">Services SSR/VBG – Top 1</h2></div>
+        <div class="card-body"><canvas id="chartTop1"></canvas></div>
       </div>
 
       <div class="card">
-        <div class="card-title">Risques opérationnels</div>
-        <canvas id="chartRisques"></canvas>
+        <div class="card-head"><h2 class="card-title">Services SSR/VBG – Top 2</h2></div>
+        <div class="card-body"><canvas id="chartTop2"></canvas></div>
       </div>
 
       <div class="card">
-        <div class="card-title">Digital : avantages vs limites</div>
-        <canvas id="chartDigital"></canvas>
+        <div class="card-head"><h2 class="card-title">Services SSR/VBG – Top 3</h2></div>
+        <div class="card-body"><canvas id="chartTop3"></canvas></div>
       </div>
     </section>
 
-    <footer class="footnote">
-      Données affichées en agrégé (dashboard). Les réponses détaillées sont disponibles dans la page “table”.
-    </footer>
+    <section class="grid grid-2">
+      <div class="card">
+        <div class="card-head"><h2 class="card-title">Gravité des ruptures</h2></div>
+        <div class="card-body"><canvas id="chartGravite"></canvas></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2 class="card-title">Provinces prioritaires</h2></div>
+        <div class="card-body"><canvas id="chartProvinces"></canvas></div>
+      </div>
+    </section>
+
+    <section class="grid grid-3">
+      <div class="card">
+        <div class="card-head"><h2 class="card-title">Groupes sous-desservis</h2></div>
+        <div class="card-body"><canvas id="chartGroupes"></canvas></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2 class="card-title">Risques opérationnels</h2></div>
+        <div class="card-body"><canvas id="chartRisques"></canvas></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2 class="card-title">Digital : avantages vs limites</h2></div>
+        <div class="card-body"><canvas id="chartDigital"></canvas></div>
+      </div>
+    </section>
+
   </main>
 
   <!-- libs -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 
   <!-- app -->
-  <script src="main.js?v=20260213-7"></script>
+  <script src="main.js?v=20260213-11"></script>
 </body>
 </html>
