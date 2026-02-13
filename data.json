@@ -1,12 +1,25 @@
 {
-  "generated_at": "2026-02-13T12:39:04.106430+00:00",
+  "generated_at": "2026-02-13T13:09:31.385394+00:00",
   "labels": {
     "org_type": {
-      "wlo": "Organisation conduite par des femmes",
-      "ong_nat": "ONG nationale",
-      "ong_int": "ONG internationale",
-      "agence_onu": "Agence des Nations Unies",
-      "gouvernement": "Gouvernement / Autorité",
+      "ingo": "ONG internationale",
+      "ngo": "ONG nationale",
+      "wlo": "Organisation conduite par des femmes (WLO)",
+      "un": "Agence des Nations Unies",
+      "gov": "Gouvernement / Autorité",
+      "autre": "Autre"
+    },
+    "cluster": {
+      "protection": "Protection",
+      "coordination": "Coordination",
+      "gbv": "VBG",
+      "giha": "GIHA",
+      "health": "Santé",
+      "wash": "WASH",
+      "shelter": "Abris",
+      "food": "Sécurité alimentaire",
+      "nutrition": "Nutrition",
+      "education": "Éducation",
       "autre": "Autre"
     },
     "province": {
@@ -37,296 +50,350 @@
       "tshopo": "Tshopo",
       "tshuapa": "Tshuapa"
     },
-    "service": {
-      "ssr": "Services SSR",
-      "clinique_72h": "Prise en charge clinique <72h",
-      "mhpss": "Soutien psychosocial",
-      "juridique": "Assistance juridique",
-      "abri": "Hébergement sécurisé"
-    },
-    "gravite": {
-      "faible": "Faible",
-      "moderee": "Modérée",
-      "elevee": "Élevée",
-      "critique": "Critique"
-    },
     "consent": {
       "yes": "Oui",
       "no": "Non"
     },
-    "groupes": {
-      "adolescentes_10_14": "Adolescentes 10–14 ans",
-      "adolescentes_15_19": "Adolescentes 15–19 ans",
-      "deplacees": "Femmes déplacées",
-      "cheffes_menage": "Femmes cheffes de ménage",
-      "handicap": "Femmes en situation de handicap",
-      "survivantes_vbg": "Survivantes de VBG",
+    "service": {
+      "medical_72h": "Prise en charge médicale <72h",
+      "mhpss": "Soutien psychosocial (MHPSS)",
+      "juridique": "Assistance juridique",
+      "abri": "Hébergement sécurisé",
+      "ssr": "Services SSR",
       "autre": "Autre"
     },
-    "risque": {
-      "insecurite": "Insécurité",
-      "acces_limite": "Accès humanitaire limité",
-      "ressources_humaines": "Manque de ressources humaines",
-      "approvisionnement": "Rupture chaîne d’approvisionnement",
-      "donnees": "Risques liés aux données / confidentialité",
+    "gravity": {
+      "faible": "Faible",
+      "moderee": "Modérée",
+      "grave": "Grave",
+      "critique": "Critique"
+    },
+    "restore_time": {
+      "moins_7j": "Moins de 7 jours",
+      "entre_7_30j": "7 à 30 jours",
+      "plus_30j": "Plus de 30 jours"
+    },
+    "approaches": {
+      "cash": "Cash / assistance",
+      "agr": "AGR / moyens d’existence",
+      "safe_space": "Espaces sûrs",
+      "case_mgmt": "Gestion de cas",
+      "referral": "Renforcement du référencement",
       "autre": "Autre"
+    },
+    "additionality": {
+      "scale": "Extension de la couverture",
+      "system": "Renforcement système / coordination",
+      "data": "Données / suivi / redevabilité",
+      "quality": "Amélioration qualité des services",
+      "autre": "Autre"
+    },
+    "innovation_level": {
+      "faible": "Faible",
+      "moyenne": "Moyenne",
+      "elevee": "Élevée"
+    },
+    "obstacles": {
+      "administratif": "Contraintes administratives",
+      "fiduciaire": "Contraintes fiduciaires",
+      "securite": "Problèmes de sécurité",
+      "acces": "Accès / présence limitée",
+      "acces_info": "Accès limité à l’information",
+      "capacite": "Capacités organisationnelles limitées",
+      "autre": "Autre"
+    },
+    "governance": {
+      "quota": "Quotas de participation / leadership",
+      "fin_direct": "Financement direct / subventions",
+      "co_lead": "Co-leadership / gouvernance conjointe",
+      "redevabilite": "Mécanismes de redevabilité",
+      "autre": "Autre"
+    },
+    "capacity": {
+      "gestion_projet": "Gestion de projet",
+      "gbv": "VBG (standards/qualité)",
+      "coordination": "Coordination",
+      "giha": "GIHA / mainstreaming",
+      "data": "Suivi & données",
+      "autre": "Autre"
+    },
+    "underserved": {
+      "ado_10_14": "Adolescentes 10–14 ans",
+      "ado_15_19": "Adolescentes 15–19 ans",
+      "handicap": "Femmes/filles en situation de handicap",
+      "cheffes": "Femmes cheffes de ménage",
+      "deplacees": "Femmes déplacées",
+      "survivantes": "Survivantes de VBG",
+      "autre": "Autre"
+    },
+    "meca": {
+      "points_focaux": "Points focaux / relais communautaires",
+      "boites": "Boîtes à suggestions",
+      "hotline": "Hotline",
+      "digitaux": "Canaux digitaux",
+      "autre": "Autre"
+    },
+    "feedback_channel": {
+      "whatsapp_sms": "WhatsApp / SMS",
+      "hotline": "Hotline",
+      "in_person": "En présentiel (points focaux)",
+      "boites": "Boîtes à suggestions",
+      "autre": "Autre"
+    },
+    "risks": {
+      "securite": "Insécurité",
+      "acces": "Accès humanitaire limité",
+      "donnees": "Confidentialité / données",
+      "rh": "Ressources humaines limitées",
+      "supply": "Chaîne d’approvisionnement",
+      "autre": "Autre"
+    },
+    "funds": {
+      "cbpf_hrf": "CBPF/HRF",
+      "wphf": "WPHF",
+      "untf": "UNTF EVAW/G",
+      "bilateral": "Bailleurs bilatéraux",
+      "autre": "Autre"
+    },
+    "critical_need": {
+      "restore": "Rétablissement / continuité des services",
+      "access": "Accès & référencement",
+      "protection": "Protection immédiate",
+      "coordination": "Coordination",
+      "data": "Données / suivi"
     },
     "digital_adv": {
       "rapidite": "Suivi plus rapide",
-      "transparence": "Transparence accrue",
-      "donnees_desag": "Données désagrégées plus rapidement",
-      "meilleur_ciblage": "Meilleur ciblage",
+      "tracabilite": "Traçabilité",
+      "temps_reel": "Temps réel",
+      "desag": "Désagrégation améliorée",
       "autre": "Autre"
     },
     "digital_lim": {
       "connectivite": "Coupures réseau / électricité",
-      "confidentialite": "Confidentialité",
+      "confidentialite": "Risques de confidentialité",
+      "litteratie": "Faible littératie numérique",
+      "couts": "Coûts de maintenance",
       "exclusion": "Exclusion numérique",
-      "cout": "Coûts de maintenance",
       "autre": "Autre"
     },
-    "obstacles_wlo": {
-      "administratif": "Contraintes administratives",
-      "fiduciaire": "Contraintes fiduciaires",
-      "securite": "Problèmes de sécurité",
-      "acces_info": "Accès limité à l’information",
-      "capacite": "Capacités organisationnelles limitées",
+    "un_support": {
+      "brokerage": "Facilitation / intermédiation (brokerage)",
+      "capacity": "Renforcement des capacités",
+      "compliance": "Protection des données / conformité",
+      "coordination": "Appui coordination",
       "autre": "Autre"
     }
   },
   "summary": {
-    "total_responses": 5,
+    "total_responses": 1,
+    "org_types": {
+      "ONG internationale": 1
+    },
+    "clusters": {
+      "Protection": 1,
+      "Coordination": 1,
+      "VBG": 1,
+      "GIHA": 1
+    },
+    "province_base": {
+      "Nord-Kivu": 1
+    },
+    "other_provinces": {
+      "Nord-Kivu": 1,
+      "Sud-Kivu": 1
+    },
     "top_service_1": {
-      "Soutien psychosocial": 2,
-      "Assistance juridique": 1,
-      "Services SSR": 1,
-      "Prise en charge clinique <72h": 1
+      "Prise en charge médicale <72h": 1
     },
     "top_service_2": {
-      "Soutien psychosocial": 2,
-      "Hébergement sécurisé": 1,
-      "Prise en charge clinique <72h": 1,
-      "Assistance juridique": 1
+      "Soutien psychosocial (MHPSS)": 1
     },
     "top_service_3": {
-      "Services SSR": 2,
-      "Assistance juridique": 2,
-      "Hébergement sécurisé": 1
+      "Assistance juridique": 1
     },
-    "gravite": {
-      "Critique": 2,
-      "Modérée": 1,
-      "Faible": 1,
+    "referral_gravity": {
+      "Grave": 1
+    },
+    "restore_time": {
+      "Plus de 30 jours": 1
+    },
+    "approaches": {
+      "Cash / assistance": 1,
+      "AGR / moyens d’existence": 1,
+      "Espaces sûrs": 1
+    },
+    "additionality": {
+      "Extension de la couverture": 1,
+      "Renforcement système / coordination": 1,
+      "Données / suivi / redevabilité": 1
+    },
+    "innovation_level": {
       "Élevée": 1
     },
-    "provinces_prioritaires": {
-      "Nord-Kivu": 3,
-      "Sud-Kivu": 3,
-      "Tanganyika": 3,
-      "Kinshasa": 2,
-      "Kwilu": 1,
-      "Équateur": 1,
-      "Kasaï": 1,
-      "Nord-Ubangi": 1,
-      "Kongo Central": 1
+    "obstacles_wlo": {
+      "Contraintes administratives": 1,
+      "Problèmes de sécurité": 1,
+      "Accès / présence limitée": 1
     },
-    "groupes_sous_servis": {
-      "Adolescentes 15–19 ans": 4,
-      "Femmes cheffes de ménage": 4,
-      "Survivantes de VBG": 3,
-      "Adolescentes 10–14 ans": 2,
-      "Femmes en situation de handicap": 2,
-      "Femmes déplacées": 1
+    "governance_mechanisms": {
+      "Quotas de participation / leadership": 1,
+      "Financement direct / subventions": 1
     },
-    "risques_operationnels": {
-      "Accès humanitaire limité": 4,
-      "Risques liés aux données / confidentialité": 4,
-      "Rupture chaîne d’approvisionnement": 3,
-      "Insécurité": 3,
-      "Manque de ressources humaines": 3
+    "capacity_needs": {
+      "Gestion de projet": 1,
+      "VBG (standards/qualité)": 1,
+      "Coordination": 1,
+      "GIHA / mainstreaming": 1
     },
-    "digital_avantages": {
-      "Transparence accrue": 5,
-      "Meilleur ciblage": 5,
-      "Données désagrégées plus rapidement": 3,
-      "Suivi plus rapide": 3
+    "priority_areas": {
+      "Nord-Kivu": 1,
+      "Sud-Kivu": 1
     },
-    "digital_limites": {
-      "Confidentialité": 4,
-      "Coûts de maintenance": 4,
-      "Coupures réseau / électricité": 3,
-      "Exclusion numérique": 2
+    "underserved_groups": {
+      "Adolescentes 10–14 ans": 1,
+      "Femmes/filles en situation de handicap": 1,
+      "Femmes cheffes de ménage": 1
+    },
+    "accountability_mechanisms": {
+      "Points focaux / relais communautaires": 1,
+      "Boîtes à suggestions": 1,
+      "Canaux digitaux": 1
+    },
+    "feedback_channel": {
+      "WhatsApp / SMS": 1
+    },
+    "operational_risks": {
+      "Insécurité": 1,
+      "Accès humanitaire limité": 1,
+      "Confidentialité / données": 1
+    },
+    "funds_leverage": {
+      "CBPF/HRF": 1,
+      "WPHF": 1
+    },
+    "critical_need": {
+      "Rétablissement / continuité des services": 1
+    },
+    "digital_advantages": {
+      "Suivi plus rapide": 1,
+      "Traçabilité": 1,
+      "Temps réel": 1
+    },
+    "digital_limits": {
+      "Faible littératie numérique": 1,
+      "Coûts de maintenance": 1
+    },
+    "un_support": {
+      "Facilitation / intermédiation (brokerage)": 1,
+      "Renforcement des capacités": 1,
+      "Protection des données / conformité": 1
     }
   },
   "by_org_type": {
-    "Agence des Nations Unies": {
+    "ONG internationale": {
       "total_responses": 1,
-      "top_service_1": {
-        "Assistance juridique": 1
+      "org_types": {
+        "ONG internationale": 1
       },
-      "top_service_2": {
-        "Hébergement sécurisé": 1
+      "clusters": {
+        "Protection": 1,
+        "Coordination": 1,
+        "VBG": 1,
+        "GIHA": 1
       },
-      "top_service_3": {
-        "Services SSR": 1
+      "province_base": {
+        "Nord-Kivu": 1
       },
-      "gravite": {
-        "Critique": 1
-      },
-      "provinces_prioritaires": {
-        "Kinshasa": 1,
-        "Kwilu": 1,
+      "other_provinces": {
         "Nord-Kivu": 1,
         "Sud-Kivu": 1
       },
-      "groupes_sous_servis": {
-        "Adolescentes 15–19 ans": 1,
-        "Femmes déplacées": 1,
-        "Femmes cheffes de ménage": 1,
-        "Survivantes de VBG": 1
-      },
-      "risques_operationnels": {
-        "Accès humanitaire limité": 1,
-        "Rupture chaîne d’approvisionnement": 1,
-        "Risques liés aux données / confidentialité": 1
-      },
-      "digital_avantages": {
-        "Transparence accrue": 1,
-        "Données désagrégées plus rapidement": 1,
-        "Meilleur ciblage": 1
-      },
-      "digital_limites": {
-        "Confidentialité": 1,
-        "Exclusion numérique": 1,
-        "Coûts de maintenance": 1
-      }
-    },
-    "Gouvernement / Autorité": {
-      "total_responses": 1,
       "top_service_1": {
-        "Services SSR": 1
+        "Prise en charge médicale <72h": 1
       },
       "top_service_2": {
-        "Soutien psychosocial": 1
+        "Soutien psychosocial (MHPSS)": 1
       },
       "top_service_3": {
         "Assistance juridique": 1
       },
-      "gravite": {
-        "Faible": 1
+      "referral_gravity": {
+        "Grave": 1
       },
-      "provinces_prioritaires": {
-        "Équateur": 1,
-        "Kasaï": 1,
-        "Nord-Ubangi": 1,
-        "Sud-Kivu": 1,
-        "Tanganyika": 1
+      "restore_time": {
+        "Plus de 30 jours": 1
       },
-      "groupes_sous_servis": {
-        "Adolescentes 10–14 ans": 1,
-        "Femmes en situation de handicap": 1,
-        "Survivantes de VBG": 1
+      "approaches": {
+        "Cash / assistance": 1,
+        "AGR / moyens d’existence": 1,
+        "Espaces sûrs": 1
       },
-      "risques_operationnels": {
-        "Insécurité": 1,
-        "Manque de ressources humaines": 1,
-        "Risques liés aux données / confidentialité": 1
+      "additionality": {
+        "Extension de la couverture": 1,
+        "Renforcement système / coordination": 1,
+        "Données / suivi / redevabilité": 1
       },
-      "digital_avantages": {
-        "Suivi plus rapide": 1,
-        "Transparence accrue": 1,
-        "Meilleur ciblage": 1
-      },
-      "digital_limites": {
-        "Confidentialité": 1,
-        "Coûts de maintenance": 1
-      }
-    },
-    "ONG nationale": {
-      "total_responses": 1,
-      "top_service_1": {
-        "Prise en charge clinique <72h": 1
-      },
-      "top_service_2": {
-        "Soutien psychosocial": 1
-      },
-      "top_service_3": {
-        "Assistance juridique": 1
-      },
-      "gravite": {
+      "innovation_level": {
         "Élevée": 1
       },
-      "provinces_prioritaires": {
-        "Kongo Central": 1,
-        "Tanganyika": 1
+      "obstacles_wlo": {
+        "Contraintes administratives": 1,
+        "Problèmes de sécurité": 1,
+        "Accès / présence limitée": 1
       },
-      "groupes_sous_servis": {
-        "Adolescentes 15–19 ans": 1,
+      "governance_mechanisms": {
+        "Quotas de participation / leadership": 1,
+        "Financement direct / subventions": 1
+      },
+      "capacity_needs": {
+        "Gestion de projet": 1,
+        "VBG (standards/qualité)": 1,
+        "Coordination": 1,
+        "GIHA / mainstreaming": 1
+      },
+      "priority_areas": {
+        "Nord-Kivu": 1,
+        "Sud-Kivu": 1
+      },
+      "underserved_groups": {
+        "Adolescentes 10–14 ans": 1,
+        "Femmes/filles en situation de handicap": 1,
         "Femmes cheffes de ménage": 1
       },
-      "risques_operationnels": {
+      "accountability_mechanisms": {
+        "Points focaux / relais communautaires": 1,
+        "Boîtes à suggestions": 1,
+        "Canaux digitaux": 1
+      },
+      "feedback_channel": {
+        "WhatsApp / SMS": 1
+      },
+      "operational_risks": {
+        "Insécurité": 1,
         "Accès humanitaire limité": 1,
-        "Manque de ressources humaines": 1,
-        "Risques liés aux données / confidentialité": 1
+        "Confidentialité / données": 1
       },
-      "digital_avantages": {
+      "funds_leverage": {
+        "CBPF/HRF": 1,
+        "WPHF": 1
+      },
+      "critical_need": {
+        "Rétablissement / continuité des services": 1
+      },
+      "digital_advantages": {
         "Suivi plus rapide": 1,
-        "Transparence accrue": 1,
-        "Meilleur ciblage": 1
+        "Traçabilité": 1,
+        "Temps réel": 1
       },
-      "digital_limites": {
-        "Coupures réseau / électricité": 1,
-        "Confidentialité": 1
-      }
-    },
-    "Organisation conduite par des femmes": {
-      "total_responses": 2,
-      "top_service_1": {
-        "Soutien psychosocial": 2
+      "digital_limits": {
+        "Faible littératie numérique": 1,
+        "Coûts de maintenance": 1
       },
-      "top_service_2": {
-        "Prise en charge clinique <72h": 1,
-        "Assistance juridique": 1
-      },
-      "top_service_3": {
-        "Hébergement sécurisé": 1,
-        "Services SSR": 1
-      },
-      "gravite": {
-        "Modérée": 1,
-        "Critique": 1
-      },
-      "provinces_prioritaires": {
-        "Nord-Kivu": 2,
-        "Kinshasa": 1,
-        "Sud-Kivu": 1,
-        "Tanganyika": 1
-      },
-      "groupes_sous_servis": {
-        "Adolescentes 15–19 ans": 2,
-        "Femmes cheffes de ménage": 2,
-        "Survivantes de VBG": 1,
-        "Adolescentes 10–14 ans": 1,
-        "Femmes en situation de handicap": 1
-      },
-      "risques_operationnels": {
-        "Insécurité": 2,
-        "Accès humanitaire limité": 2,
-        "Rupture chaîne d’approvisionnement": 2,
-        "Manque de ressources humaines": 1,
-        "Risques liés aux données / confidentialité": 1
-      },
-      "digital_avantages": {
-        "Transparence accrue": 2,
-        "Données désagrégées plus rapidement": 2,
-        "Meilleur ciblage": 2,
-        "Suivi plus rapide": 1
-      },
-      "digital_limites": {
-        "Coupures réseau / électricité": 2,
-        "Coûts de maintenance": 2,
-        "Confidentialité": 1,
-        "Exclusion numérique": 1
+      "un_support": {
+        "Facilitation / intermédiation (brokerage)": 1,
+        "Renforcement des capacités": 1,
+        "Protection des données / conformité": 1
       }
     }
   }
