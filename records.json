@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-13T03:38:42.901715+00:00",
+  "generated_at": "2026-02-13T04:15:50.711654+00:00",
   "records": [
     {
       "date": "2026-02-13",
@@ -90,6 +90,36 @@
       "limites_digital": "connectivite confidentialite cout",
       "limites_digital_label": "Coupures réseau / électricité, Confidentialité, Coûts de maintenance",
       "apport_digital": "klouujddhdd"
+    },
+    {
+      "date": "2026-02-13",
+      "org_name": "Ministere",
+      "org_type_label": "Gouvernement / Autorité",
+      "province_base_label": "Tshopo",
+      "territoire_base_label": "tshopo_banalia",
+      "service_top1_label": "Services SSR",
+      "service_top2_label": "Soutien psychosocial",
+      "service_top3_label": "Assistance juridique",
+      "rupture_gravite_label": "Faible",
+      "approches_efficaces": "dsrrototkfkfl",
+      "valeur_ajoutee": "smdmfhflflf",
+      "effet_systemique": "ddyorlfrhfjkd",
+      "obstacles_wlo": "fiduciaire securite",
+      "obstacles_wlo_label": "Contraintes fiduciaires, Problèmes de sécurité",
+      "solutions_wlo": "snsksuriddgd",
+      "provinces_prioritaires": "equateur kasai nord_ubangi sud_kivu tanganyika",
+      "provinces_prioritaires_label": "Équateur, Kasaï, Nord-Ubangi, Sud-Kivu, Tanganyika",
+      "groupes_sous_servis": "adolescentes_10_14 handicap survivantes_vbg",
+      "groupes_sous_servis_label": "Adolescentes 10–14 ans, Femmes en situation de handicap, Survivantes de VBG",
+      "mecanisme_feedback": "ksldsourfnfnf",
+      "risques_operationnels": "insecurite ressources_humaines donnees",
+      "risques_operationnels_label": "Insécurité, Manque de ressources humaines, Risques liés aux données / confidentialité",
+      "mesures_mitigation": "ldkdjuddjdjd",
+      "avantages_digital": "rapidite transparence meilleur_ciblage",
+      "avantages_digital_label": "Suivi plus rapide, Transparence accrue, Meilleur ciblage",
+      "limites_digital": "confidentialite cout",
+      "limites_digital_label": "Confidentialité, Coûts de maintenance",
+      "apport_digital": "lfofirurrnh"
     }
   ]
 }

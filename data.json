@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-13T03:38:42.901715+00:00",
+  "generated_at": "2026-02-13T04:15:50.711654+00:00",
   "labels": {
     "org_type": {
       "wlo": "Organisation conduite par des femmes",
@@ -95,57 +95,63 @@
     }
   },
   "summary": {
-    "total_responses": 3,
+    "total_responses": 4,
     "top_service_1": {
-      "Services SSR": 1,
+      "Services SSR": 2,
       "Assistance juridique": 1,
       "Soutien psychosocial": 1
     },
     "top_service_2": {
       "Prise en charge clinique <72h": 2,
-      "Hébergement sécurisé": 1
+      "Hébergement sécurisé": 1,
+      "Soutien psychosocial": 1
     },
     "top_service_3": {
       "Hébergement sécurisé": 2,
-      "Services SSR": 1
+      "Services SSR": 1,
+      "Assistance juridique": 1
     },
     "gravite": {
       "Élevée": 1,
       "Critique": 1,
-      "Modérée": 1
+      "Modérée": 1,
+      "Faible": 1
     },
     "provinces_prioritaires": {
+      "Sud-Kivu": 4,
       "Nord-Kivu": 3,
-      "Sud-Kivu": 3,
-      "Tanganyika": 2,
+      "Tanganyika": 3,
       "Kinshasa": 2,
-      "Kwilu": 1
+      "Kwilu": 1,
+      "Équateur": 1,
+      "Kasaï": 1,
+      "Nord-Ubangi": 1
     },
     "groupes_sous_servis": {
+      "Survivantes de VBG": 4,
       "Adolescentes 15–19 ans": 3,
       "Femmes cheffes de ménage": 3,
-      "Survivantes de VBG": 3,
+      "Adolescentes 10–14 ans": 2,
       "Femmes déplacées": 2,
-      "Adolescentes 10–14 ans": 1,
-      "Femmes en situation de handicap": 1
+      "Femmes en situation de handicap": 2
     },
     "risques_operationnels": {
+      "Insécurité": 3,
       "Accès humanitaire limité": 3,
+      "Manque de ressources humaines": 3,
       "Rupture chaîne d’approvisionnement": 3,
-      "Insécurité": 2,
-      "Manque de ressources humaines": 2,
-      "Risques liés aux données / confidentialité": 2
+      "Risques liés aux données / confidentialité": 3
     },
     "digital_avantages": {
-      "Transparence accrue": 3,
+      "Transparence accrue": 4,
+      "Meilleur ciblage": 4,
       "Données désagrégées plus rapidement": 3,
-      "Meilleur ciblage": 3,
-      "Suivi plus rapide": 1
+      "Suivi plus rapide": 2
     },
     "digital_limites": {
-      "Coûts de maintenance": 3,
+      "Coûts de maintenance": 4,
+      "Confidentialité": 3,
       "Coupures réseau / électricité": 2,
-      "Confidentialité": 2,
       "Exclusion numérique": 1
     }
   },
@@ -201,6 +207,47 @@
         "Coupures réseau / électricité": 1,
         "Confidentialité": 1,
         "Exclusion numérique": 1
+      }
+    },
+    "Gouvernement / Autorité": {
+      "total_responses": 1,
+      "top_service_1": {
+        "Services SSR": 1
+      },
+      "top_service_2": {
+        "Soutien psychosocial": 1
+      },
+      "top_service_3": {
+        "Assistance juridique": 1
+      },
+      "gravite": {
+        "Faible": 1
+      },
+      "provinces_prioritaires": {
+        "Équateur": 1,
+        "Kasaï": 1,
+        "Nord-Ubangi": 1,
+        "Sud-Kivu": 1,
+        "Tanganyika": 1
+      },
+      "groupes_sous_servis": {
+        "Adolescentes 10–14 ans": 1,
+        "Femmes en situation de handicap": 1,
+        "Survivantes de VBG": 1
+      },
+      "risques_operationnels": {
+        "Insécurité": 1,
+        "Manque de ressources humaines": 1,
+        "Risques liés aux données / confidentialité": 1
+      },
+      "digital_avantages": {
+        "Suivi plus rapide": 1,
+        "Transparence accrue": 1,
+        "Meilleur ciblage": 1
+      },
+      "digital_limites": {
+        "Confidentialité": 1,
+        "Coûts de maintenance": 1
       }
     },
     "Organisation conduite par des femmes": {
