@@ -1,33 +1,27 @@
-console.log("✅ analyse.js chargé");
+console.log("✅ analyse.js (full) chargé");
 
 let PAYLOAD = null;
 
 function topN(obj, n=3){
-  const entries = Object.entries(obj || {}).sort((a,b)=> (b[1]||0)-(a[1]||0));
-  return entries.slice(0,n);
+  return Object.entries(obj || {}).sort((a,b)=>(b[1]||0)-(a[1]||0)).slice(0,n);
 }
-
 function totalCount(obj){
   return Object.values(obj || {}).reduce((a,b)=>a+Number(b||0),0);
 }
-
 function pct(part, total){
   if(!total) return 0;
   return Math.round((part*100)/total);
 }
-
 function bullets(items){
   if(!items || !items.length) return "<ul><li>—</li></ul>";
   return `<ul>${items.map(x=>`<li>${x}</li>`).join("")}</ul>`;
 }
-
 function sentenceList(items){
   if(!items.length) return "";
   if(items.length===1) return items[0];
   if(items.length===2) return `${items[0]} et ${items[1]}`;
   return `${items.slice(0,-1).join(", ")}, et ${items[items.length-1]}`;
 }
-
 function buildOrgFilter(byOrg){
   const sel = document.getElementById("orgFilter");
   sel.innerHTML = `<option value="__all__">Toutes</option>`;
@@ -38,118 +32,102 @@ function buildOrgFilter(byOrg){
   });
   sel.disabled = Object.keys(byOrg||{}).length===0;
 }
-
 function scopeData(orgLabel){
   if(!PAYLOAD) return null;
   if(orgLabel === "__all__") return PAYLOAD.summary;
   return PAYLOAD.by_org_type?.[orgLabel] || PAYLOAD.summary;
 }
-
 function fillKPIs(scope, label){
   document.getElementById("kpiScope").textContent = (label==="__all__") ? "Toutes" : label;
   document.getElementById("kpiTotal").textContent = (scope?.total_responses ?? 0).toString();
-  document.getElementById("kpiProvCount").textContent = Object.keys(scope?.provinces_prioritaires || {}).length.toString();
+  document.getElementById("kpiProvCount").textContent = Object.keys(scope?.priority_areas || {}).length.toString();
 }
 
 function buildNarratives(scope){
-  // ===== Pull tops
   const total = scope?.total_responses ?? 0;
 
-  const topService1 = topN(scope?.top_service_1 || {}, 3).map(([k,v]) => ({k,v}));
-  const topService2 = topN(scope?.top_service_2 || {}, 3).map(([k,v]) => ({k,v}));
-  const topService3 = topN(scope?.top_service_3 || {}, 3).map(([k,v]) => ({k,v}));
+  // Intro
+  const orgTypesTop = topN(scope?.org_types || {}, 3).map(([k,v]) => `${k} (${pct(v,total)}%)`);
+  const clustersTop = topN(scope?.clusters || {}, 4).map(([k,v]) => `${k} (${v} mentions)`);
 
-  const grav = scope?.gravite || {};
+  // Bloc A
+  const s1 = topN(scope?.top_service_1 || {}, 3).map(([k,v]) => `${k} (${pct(v,total)}%)`);
+  const grav = scope?.referral_gravity || {};
   const gravTotal = totalCount(grav);
   const gravTop = topN(grav, 2).map(([k,v]) => `${k} (${pct(v, gravTotal)}%)`);
+  const restore = topN(scope?.restore_time || {}, 2).map(([k,v]) => `${k} (${pct(v,total)}%)`);
+  const approachesTop = topN(scope?.approaches || {}, 4).map(([k,v]) => `${k} (${v} mentions)`);
 
-  const provinces = scope?.provinces_prioritaires || {};
-  const provTotalMentions = totalCount(provinces); // multiselect mentions
-  const provTop = topN(provinces, 5).map(([k,v]) => `${k} (${v} mentions)`);
+  // Bloc B
+  const addTop = topN(scope?.additionality || {}, 3).map(([k,v]) => `${k} (${v} mentions)`);
+  const innovTop = topN(scope?.innovation_level || {}, 2).map(([k,v]) => `${k} (${pct(v,total)}%)`);
 
-  const groupes = scope?.groupes_sous_servis || {};
-  const grpTotalMentions = totalCount(groupes);
-  const grpTop = topN(groupes, 5).map(([k,v]) => `${k} (${v} mentions)`);
+  // Bloc C
+  const obstaclesTop = topN(scope?.obstacles_wlo || {}, 4).map(([k,v]) => `${k} (${v} mentions)`);
+  const govTop = topN(scope?.governance_mechanisms || {}, 3).map(([k,v]) => `${k} (${v} mentions)`);
+  const capTop = topN(scope?.capacity_needs || {}, 4).map(([k,v]) => `${k} (${v} mentions)`);
 
-  const risques = scope?.risques_operationnels || {};
-  const riskTotalMentions = totalCount(risques);
-  const riskTop = topN(risques, 5).map(([k,v]) => `${k} (${v} mentions)`);
+  // Bloc D
+  const areasTop = topN(scope?.priority_areas || {}, 4).map(([k,v]) => `${k} (${v} mentions)`);
+  const underTop = topN(scope?.underserved_groups || {}, 4).map(([k,v]) => `${k} (${v} mentions)`);
+  const fbTop = topN(scope?.feedback_channel || {}, 2).map(([k,v]) => `${k} (${pct(v,total)}%)`);
 
-  const adv = scope?.digital_avantages || {};
-  const advTop = topN(adv, 3).map(([k,v]) => `${k} (${v} mentions)`);
+  // Bloc E
+  const riskTop = topN(scope?.operational_risks || {}, 4).map(([k,v]) => `${k} (${v} mentions)`);
+  const fundsTop = topN(scope?.funds_leverage || {}, 3).map(([k,v]) => `${k} (${v} mentions)`);
+  const critTop = topN(scope?.critical_need || {}, 2).map(([k,v]) => `${k} (${pct(v,total)}%)`);
 
-  const lim = scope?.digital_limites || {};
-  const limTop = topN(lim, 3).map(([k,v]) => `${k} (${v} mentions)`);
+  // Bloc F
+  const digAdvTop = topN(scope?.digital_advantages || {}, 3).map(([k,v]) => `${k} (${v} mentions)`);
+  const digLimTop = topN(scope?.digital_limits || {}, 3).map(([k,v]) => `${k} (${v} mentions)`);
+  const unSupTop = topN(scope?.un_support || {}, 3).map(([k,v]) => `${k} (${v} mentions)`);
 
-  // ===== Build force narrative
-  const forcesTxt = [];
+  // FORCES
+  const forces = [];
   if(total){
-    const s1 = topService1.map(x=>`${x.k} (${pct(x.v, total)}%)`);
-    forcesTxt.push(`La consultation met en évidence des interruptions prioritaires sur ${sentenceList(s1)} (Top 1), ce qui renforce la clarté du ciblage “life-saving”.`);
+    forces.push(`Le profil des répondants est diversifié, avec une présence dominante de ${sentenceList(orgTypesTop)}.`);
+    if(clustersTop.length) forces.push(`Les domaines les plus représentés sont : ${sentenceList(clustersTop)}.`);
+    if(s1.length) forces.push(`Les services life-saving les plus cités (Top 1) sont : ${sentenceList(s1)}.`);
+    if(gravTop.length) forces.push(`La gravité des ruptures de référencement est principalement ${sentenceList(gravTop)}.`);
+    if(areasTop.length) forces.push(`Les zones prioritaires convergent vers : ${sentenceList(areasTop)}.`);
   } else {
-    forcesTxt.push(`Les données disponibles ne permettent pas encore de dégager des tendances robustes (échantillon insuffisant).`);
-  }
-  if(gravTop.length){
-    forcesTxt.push(`Le niveau de gravité perçu se concentre principalement sur ${sentenceList(gravTop)}.`);
-  }
-  if(provTop.length){
-    forcesTxt.push(`Les provinces les plus citées pour la priorisation sont : ${sentenceList(provTop.slice(0,3))}.`);
-  }
-  if(advTop.length){
-    forcesTxt.push(`Sur le suivi/redevabilité, les avantages les plus attendus du digital sont : ${sentenceList(advTop)}.`);
+    forces.push(`Échantillon insuffisant pour dégager des tendances robustes.`);
   }
 
-  // ===== Build gaps narrative
-  const gapsTxt = [];
-  if(grpTop.length){
-    gapsTxt.push(`Les groupes identifiés comme les plus sous-desservis sont : ${sentenceList(grpTop.slice(0,4))}. Cela suggère des lacunes de couverture et/ou de référencement adaptés.`);
-  }
-  if(topService2.length || topService3.length){
-    const s2 = topService2.map(x=>`${x.k}`);
-    const s3 = topService3.map(x=>`${x.k}`);
-    gapsTxt.push(`Les priorités secondaires confirment des besoins persistants au-delà du Top 1 (Top 2 : ${sentenceList(s2)} ; Top 3 : ${sentenceList(s3)}), indiquant une pression multisectorielle sur l’offre de services.`);
-  }
-  if(limTop.length){
-    gapsTxt.push(`Les limites/risques associés au digital les plus cités sont : ${sentenceList(limTop)} — à intégrer dès la conception (accès, sécurité/confidentialité, maintenance).`);
-  }
+  // GAPS
+  const gaps = [];
+  if(underTop.length) gaps.push(`Les groupes les plus sous-desservis sont : ${sentenceList(underTop)}, indiquant des lacunes de couverture et/ou d’accès.`);
+  if(obstaclesTop.length) gaps.push(`Les obstacles majeurs au leadership des WLO portent sur : ${sentenceList(obstaclesTop)}.`);
+  if(digLimTop.length) gaps.push(`Les limites du digital les plus mentionnées sont : ${sentenceList(digLimTop)}.`);
 
-  // ===== Opportunities CERF narrative (life-saving + additionality + catalytic)
-  const oppTxt = [];
-  oppTxt.push(`Une opportunité CERF claire se dégage autour du paquet “life-saving” SSR/VBG/Protection, en s’appuyant sur les interruptions les plus fréquentes (Top 1) et sur la gravité rapportée.`);
-  if(provTop.length){
-    oppTxt.push(`Le ciblage géographique peut être justifié par les provinces les plus mentionnées (${sentenceList(provTop.slice(0,3))}), tout en prévoyant une flexibilité opérationnelle selon l’accès et l’évolution de la crise.`);
-  }
-  if(advTop.length){
-    oppTxt.push(`Le suivi orienté résultats peut être renforcé via un dispositif digital pragmatique (accès bailleur à des indicateurs désagrégés et tableaux de bord), tout en maintenant des alternatives hors-ligne en contexte de coupures.`);
-  }
-  oppTxt.push(`L’“additionalité” peut être argumentée en montrant ce que le financement débloque rapidement (rétablissement de services critiques, référencement intersectoriel, AAP/feedback sûr, et appui ciblé à la localisation via WLO).`);
+  // OPPORTUNITÉS CERF
+  const opp = [];
+  opp.push(`Une proposition CERF peut s’appuyer sur une priorisation claire life-saving (SSR/VBG/Protection), soutenue par les tendances sur les services interrompus et la gravité rapportée.`);
+  if(addTop.length) opp.push(`Les axes d’additionalité les plus cités sont : ${sentenceList(addTop)} (à valoriser dans le narratif).`);
+  if(restore.length) opp.push(`Le calendrier de rétablissement attendu se concentre sur : ${sentenceList(restore)} (à traduire en plan opérationnel réaliste).`);
+  if(govTop.length) opp.push(`La gouvernance peut être renforcée via : ${sentenceList(govTop)}, pour consolider la localisation et la participation effective des WLO.`);
+  if(digAdvTop.length) opp.push(`Le suivi probant peut être renforcé par un dispositif digital pragmatique : ${sentenceList(digAdvTop)}.`);
 
-  // ===== Risks narrative
-  const risksTxt = [];
-  if(riskTop.length){
-    risksTxt.push(`Les principaux risques opérationnels cités sont : ${sentenceList(riskTop.slice(0,4))}.`);
-  } else {
-    risksTxt.push(`Les risques opérationnels ne sont pas suffisamment documentés à ce stade.`);
-  }
-  if(limTop.length){
-    risksTxt.push(`Sur la redevabilité digitale : ${sentenceList(limTop)}. Mesures attendues : confidentialité, solutions hors-ligne, procédures d’accès restreint et maintenance minimaliste.`);
-  }
-  risksTxt.push(`Risque transversal : duplication/chevauchement si l’articulation avec les mécanismes existants (clusters, AoR, fonds genre et humanitaires) n’est pas explicitée dans la gouvernance du projet.`);
+  // RISQUES
+  const risks = [];
+  if(riskTop.length) risks.push(`Les risques opérationnels dominants sont : ${sentenceList(riskTop)}.`);
+  if(fundsTop.length) risks.push(`Risque de chevauchement si l’articulation avec ${sentenceList(fundsTop)} n’est pas explicitée.`);
+  if(digLimTop.length) risks.push(`Sur le suivi digital : ${sentenceList(digLimTop)} — nécessite des mesures de confidentialité, accessibilité et alternatives hors-ligne.`);
 
-  // ===== Recommendations narrative (very actionable)
-  const recTxt = [];
-  recTxt.push(`1) Prioriser un paquet “life-saving” clairement défini (Top 1 SSR/VBG + référencement), avec des standards de qualité et de délais de rétablissement réalistes.`);
-  recTxt.push(`2) Cibler en premier lieu les provinces les plus citées (${provTop.slice(0,3).map(x=>x.split(" (")[0]).join(", ") || "—"}) et définir des critères transparents de sélection (accès, capacité opérationnelle, données disponibles).`);
-  recTxt.push(`3) Mettre au centre les groupes sous-desservis (${grpTop.slice(0,3).map(x=>x.split(" (")[0]).join(", ") || "—"}) via un ciblage sexo-âgé-handicap et un mécanisme de référencement sûr.`);
-  recTxt.push(`4) Formaliser un dispositif AAP/feedback confidentiel dès le premier mois (canaux communautaires + options digitales + procédures de protection des données).`);
-  recTxt.push(`5) Digitaliser le suivi de manière pragmatique : indicateurs désagrégés, tableaux de bord accessibles au bailleur, et modes hors-ligne en cas de coupures (procédures de synchronisation à l’accès).`);
-  recTxt.push(`6) Prévoir un plan de mitigation explicitement lié aux risques opérationnels (sécurité, accès, supply, RH, confidentialité) et un mécanisme de coordination évitant les doublons.`);
+  // RECOMMANDATIONS
+  const rec = [];
+  rec.push(`1) Consolider un paquet “life-saving” priorisé (Top 1) + référencement intersectoriel, avec des standards de qualité et des délais de rétablissement réalistes.`);
+  rec.push(`2) Justifier le ciblage géographique à partir des zones les plus citées et des contraintes d’accès, avec critères transparents.`);
+  rec.push(`3) Centrer le ciblage sur les groupes sous-desservis (sexo-âge-handicap) et formaliser le référencement sûr/confidentiel.`);
+  rec.push(`4) Renforcer la localisation : mécanismes de gouvernance et financement permettant une participation décisionnelle des WLO.`);
+  rec.push(`5) Mettre en place un dispositif AAP/feedback crédible (canaux adaptés) et un suivi digital pragmatique (données désagrégées), avec options hors-ligne.`);
+  if(critTop.length) rec.push(`6) Prioriser le besoin critique identifié : ${sentenceList(critTop)} et aligner le plan de mitigation sur les risques opérationnels.`);
 
-  document.getElementById("forces").innerHTML = bullets(forcesTxt);
-  document.getElementById("gaps").innerHTML = bullets(gapsTxt);
-  document.getElementById("opportunites").innerHTML = bullets(oppTxt);
-  document.getElementById("risques").innerHTML = bullets(risksTxt);
-  document.getElementById("recommandations").innerHTML = bullets(recTxt);
+  document.getElementById("forces").innerHTML = bullets(forces);
+  document.getElementById("gaps").innerHTML = bullets(gaps);
+  document.getElementById("opportunites").innerHTML = bullets(opp);
+  document.getElementById("risques").innerHTML = bullets(risks);
+  document.getElementById("recommandations").innerHTML = bullets(rec);
 }
 
 function hookPdf(){
@@ -203,7 +181,6 @@ fetch(`data.json?v=${Date.now()}`)
 
     orgSel.addEventListener("change", apply);
 
-    // init
     orgSel.value = "__all__";
     apply();
 
