@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard CERF – Consultation</title>
+  <title>CERF – Dashboard (UN Women x UNFPA)</title>
 
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -11,63 +11,49 @@
 
 <body>
   <header class="topbar">
-    <div>
-      <div class="kicker">Consultation multi-acteurs</div>
-      <h1>Dashboard CERF – Résultats</h1>
+    <div class="brand">
+      <div class="kicker">Produit conjoint UN Women × UNFPA</div>
+      <h1>Consultation CERF – Dashboard</h1>
+      <div class="subkicker">Résultats agrégés & suivi</div>
     </div>
 
     <div class="actions">
       <div class="filter">
-        <label for="orgFilter">Filtre : Type d’organisation</label>
+        <label for="orgFilter">Type d’organisation</label>
         <select id="orgFilter">
           <option value="__all__">Toutes</option>
         </select>
       </div>
-      <button id="btnPdf" class="btn">Exporter PDF (CERF)</button>
+
+      <a class="btn btn-ghost" href="table.html">Voir toutes les réponses (table)</a>
+      <button id="btnPdf" class="btn">Exporter PDF</button>
     </div>
   </header>
 
-  <main id="report">
-
-    <!-- LIGNE 1 : petit compteur + table -->
-    <section class="topgrid">
-      <div class="card card-small">
-        <div class="card-title">Total des contributions</div>
-        <div class="big big-compact" id="total">—</div>
-        <div class="muted" id="generatedAt">—</div>
+  <main id="report" class="container">
+    <!-- Top KPIs -->
+    <section class="kpis">
+      <div class="kpi">
+        <div class="kpi-label">Contributions</div>
+        <div class="kpi-value" id="total">—</div>
+        <div class="kpi-meta" id="generatedAt">—</div>
       </div>
 
-      <div class="card">
-        <div class="card-title">Récapitulatif des contributions (extraits Kobo)</div>
-        <div class="muted">
-          Table indicative (données non sensibles). Filtre appliqué si “Type d’organisation” est sélectionné.
-        </div>
+      <div class="kpi">
+        <div class="kpi-label">Vue</div>
+        <div class="kpi-value" id="scopeLabel">Toutes</div>
+        <div class="kpi-meta">Filtre appliqué</div>
+      </div>
 
-        <div class="table-wrap">
-          <table class="data-table" id="recordsTable">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Type d’organisation</th>
-                <th>Province base</th>
-                <th>Service Top 1</th>
-                <th>Gravité</th>
-                <th>Provinces prioritaires</th>
-                <th>Groupes sous-desservis</th>
-              </tr>
-            </thead>
-            <tbody id="recordsBody">
-              <tr><td colspan="7" class="muted">Chargement…</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="muted small" id="recordsMeta"></div>
+      <div class="kpi">
+        <div class="kpi-label">Couverture</div>
+        <div class="kpi-value" id="provinceCount">—</div>
+        <div class="kpi-meta">Provinces citées (priorités)</div>
       </div>
     </section>
 
-    <!-- LIGNE 2 : graphiques principaux -->
-    <section class="cards">
+    <!-- Charts row -->
+    <section class="grid grid-2">
       <div class="card">
         <div class="card-title">Service SSR/VBG le plus interrompu (Top 1)</div>
         <canvas id="chartService"></canvas>
@@ -79,14 +65,12 @@
       </div>
     </section>
 
-    <!-- LIGNE 3 : carte + provinces -->
-    <section class="grid2">
+    <!-- Map + Provinces -->
+    <section class="grid grid-2">
       <div class="card">
         <div class="card-title">Carte – Provinces prioritaires (mentions)</div>
-        <div class="muted">
-          La carte utilise <code>rdc_provinces.geojson</code> à la racine du repo.
-        </div>
-        <div id="map"></div>
+        <div class="card-subtitle">Nécessite <code>rdc_provinces.geojson</code> (name/NAME_1/province).</div>
+        <div id="map" class="map"></div>
       </div>
 
       <div class="card">
@@ -95,8 +79,8 @@
       </div>
     </section>
 
-    <!-- LIGNE 4 : autres -->
-    <section class="grid3">
+    <!-- Bottom charts -->
+    <section class="grid grid-3">
       <div class="card">
         <div class="card-title">Groupes sous-desservis</div>
         <canvas id="chartGroupes"></canvas>
@@ -114,17 +98,17 @@
     </section>
 
     <footer class="footnote">
-      <div>Note : les données affichées sont agrégées. Les noms d’organisation ne sont pas publiés.</div>
+      Données affichées en agrégé (dashboard). Les réponses détaillées sont disponibles dans la page “table”.
     </footer>
   </main>
 
-  <!-- JS libs -->
+  <!-- libs -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 
-  <!-- Your script -->
-  <script src="main.js?v=20260213-2"></script>
+  <!-- app -->
+  <script src="main.js?v=20260213-7"></script>
 </body>
 </html>
