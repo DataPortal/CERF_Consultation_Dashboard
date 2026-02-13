@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-13T18:27:02.747687+00:00",
+  "generated_at": "2026-02-13T19:09:42.643647+00:00",
   "records": [
     {
       "date_interview": "2026-02-12",
@@ -180,6 +180,51 @@
       "f1_strengthen": "dU fait qu'il renforce la confidentialité, il permet de donner sa plainte  même à distance, permet de recevoir l'information en temps réel, facilite la coordination et protège le dénonciateur",
       "un_support_label": "Facilitation / intermédiation (brokerage), direct_funding, Renforcement des capacités, Protection des données / conformité, advocacy, data",
       "f2_details": ""
+    },
+    {
+      "date_interview": "2026-02-13",
+      "organisation": "Union pour l'Humanité Saine \"UHS\"",
+      "org_type_label": "nngo",
+      "cluster_label": "Protection, Coordination, VBG, sante, WASH, Sécurité alimentaire, Nutrition, Autre",
+      "province_label": "Nord-Kivu",
+      "admin2": "adm2_nord_kivu_beni",
+      "other_provinces_label": "Ituri, Kinshasa, Nord-Kivu, Sud-Kivu, Tanganyika, Tshopo",
+      "consent_label": "Oui",
+      "service_top1_label": "Assistance juridique",
+      "service_top2_label": "gestion_cas",
+      "service_top3_label": "abri_securise",
+      "a1_where": "Nord-kivu, territoire de Beni, zone de santé de mutwanga(kyavikere, kyavitumbi, nzenga, bulongo, lume, kasindi, masambo, Rugetsi, muramba, kabalwa, loulo, halungupa, kasindi-port, kasanga) la rupture de kits du planing familliale, des preservatifs males et femelles sont aussi signalé dans ces entités, qui ont aussi revenus comme recommandation lors de nos sesnibilisations 16 jours d'activisme sur le VBG",
+      "referral_gravity_label": "Grave",
+      "a2_where": "Dans les aires de santé de la zone de santé de mutwanga,,où UHS tient le lead du forum humanitaire de 136 organisations et structures communautaires reunis dans un forum humanitaire un site avancé de OCHA, absence des kits de dignité aux femmes et filles à l'age de procréation",
+      "restore_time_label": "15_30j",
+      "approaches_label": "Cash / assistance, AGR / moyens d’existence, sensibilisation, referencement, Gestion de cas, Autre",
+      "additionality_label": "localization, Données / suivi / redevabilité, access",
+      "b1_explain": "Plusieurs fonds investis dans la protection et gestion des cas de trouve pas d'impact sur le terrain vu que des organisations qui gagne des projets et qui se precipite d'etre en contacts direct avec les agences de nations unis et des bailleurs, n'ont pas des connaissances du terrain partant de leurs localisation, c'est pourquoi, partant de leurs incapacités les fonds recus à 100% ils font la soutraitance à environ 5% vu que beaucoup des bailleurs n'atteigne pas le terrain pour des raisons multiple, voilà pourquoi jusqu'à present malgré les fonds investis les cas des SGBV reviennent à la hasse, nous soutenons la politique de la localisation lors de la mise en oeuvre et toujours contacter OCHA lors de la selection des partenaires locaux dans la zone.",
+      "innovation_level_label": "Élevée",
+      "b2_explain": "Cela ne sera pas une diplication vu que aucun impact des projets SGBV n'est visible en zone de santé de mutwanga, depuis la periode de resilience à la crise lié aux groupes armés, nos recommandations adresser au cluster n'ont toujours pas eu des reponses",
+      "toc": "Nous avons l'espoir que ce projet qui sera méné dans la zone, et qui vient repondre aux problèmatiques identifiés aura un  impact positive sur la vie de la population et des survivantes car ca fait longtemps que le forum presente des ruptures en intrats, en pacquets, kits de dignité, etc..., nous espérons à un changement souhaité et cela poura avoir un impact positive sur la restauration de l'autorité de l'etat quand des filles seront reisserer dans des ecoles, sociales, economiques lors de leurs retrait dans des maison de tolerence et des fumoir. Ce projet une fois mise en oeuvre par un acteurs locaux repondra aux normes et remplira ses indicateurs ET APPORTERA UN BON CHANGEMENT DANS LE ZONE, UHS est disponible en rendre à CERF une action qui repond aux normes.",
+      "obstacles_label": "Accès / présence limitée, financement, capacites",
+      "c1_solutions": "Il faut des capacitations, des appuis institutionnelles, les mentorat, les regroupés dans des consortium le permettant de mobiliser les financements ensemble et gerer des projets, les appuyer partant de la localisation pas prendre l'organisation de bukavu pour l'ituri alorsque des locaux existent soit de beni pour la tanganyika, la localisation de l'aide humanitaire un processus  necessaire de reussite de la reponse humanitaire",
+      "governance_label": "copresidence, Quotas de participation / leadership, Financement direct / subventions, feedback_loops",
+      "capacity_label": "Gestion de projet, gestion_fin, VBG (standards/qualité), me, data_digital, Coordination, safeguarding, Autre, GIHA / mainstreaming",
+      "c4_coordination": "A travers des mentorat, accompagnement à travers des reseaux, consortium, financement direct partant de localisation de l'aide.",
+      "priority_areas_label": "Nord-Kivu",
+      "underserved_label": "Femmes/filles en situation de handicap, Femmes déplacées, Femmes cheffes de ménage, assiegee, rurales, Autre",
+      "saddd": "Lesvulnerables de tout genre, les albunos, les pygmés peuples autochtones, personnes du troisièmes ages, filles cheffes de menages,",
+      "meca_label": "Points focaux / relais communautaires, Boîtes à suggestions, Canaux digitaux, osc, comites",
+      "trust_plus": "La confiance des femmes dans un projet est renforcée par un accompagnement personnalisé, l'accès à des ressources (financières, formation), et un environnement sécurisé et inclusif. Une participation active dès la conception, un mentorat, et des bénéfices concrets sont essentiels pour favoriser leur engagement et leur leadership.  Voici les éléments clés qui renforcent la confiance des femmes : •\tAccompagnement et formation : Mise en place de formations adaptées (développement personnel, compétences techniques, gestion) et de mentorat pour surmonter l'auto-censure et renforcer le leadership. •\tAccès aux ressources et services : Facilitation de l'accès à des prêts (parfois sans garantie/taux zéro), au crédit, et aux technologies (énergie, santé). •\tParticipation et inclusion : Impliquer les femmes dans la conception et la gestion du projet, plutôt que de les considérer uniquement comme bénéficiaires passives. •\tEnvironnement sécurisé et non-jugeant : Création d'espaces de confiance, sûrs, où le soutien inconditionnel et l'écoute active sont privilégiés. •\tRéseautage et soutien communautaire : Création de réseaux de femmes pour favoriser l'entraide et le partage d'expériences. •\tAllègement de la charge de travail : Prendre en compte les contraintes domestiques et proposer des solutions pour libérer du temps.  En résumé, les projets qui réussissent sont ceux qui combinent une approche de genre avec un soutien pratique, permettant aux femmes de renforcer leur autonomie économique et leur estime de soi",
+      "trust_minus": "Manque d'accès aux financement, lourdeur familiaux, stereotypes sociaux qui mine leurs legitimités, manque d'appui insttitutionnel, etc...",
+      "feedback_channel_label": "WhatsApp / SMS",
+      "risks_label": "Insécurité",
+      "e1_mitigation": "Le plan de mitigation pour contourner les problème de faisabilité, risque et coordination est l'application de la politique de la localisation de l'aide humanitaire, les acteurs locaux interagissent directement avec CERF, des appels à manifestion d'interet serait deja lancé inbox juste après le remplissage de ce present sondage afin d'identifier les organisation selon leurs 3W",
+      "funds_label": "bilateraux",
+      "e3_results": "Une fois un appui de 1000000 USD à UHS, la gestion des cas pour douze mois avec tous les pacquets possible seront realisé  avec un impact positive de 98%",
+      "critical_need_label": "localization",
+      "digital_adv_label": "Suivi plus rapide, Traçabilité, Temps réel, accessibilite, coordination",
+      "digital_lim_label": "Autre",
+      "f1_strengthen": "A rapport avec la digitalisation, UHS est mieux positionné dans la zone avec un accès facile sur le reseau, nous disposons l'antenne starling standard qui permet l'accès des outils digital, ainsi pour nous les risques sont faible",
+      "un_support_label": "Facilitation / intermédiation (brokerage), direct_funding, Renforcement des capacités, Protection des données / conformité, advocacy, data, Autre",
+      "f2_details": "Autant de fois ces indicateurs, environ 5 fois peut apporter un changement dans la communauté. UHS etant l'organisation leader forum humanitaire, pourra etendre des actions meme dans les lieux où l'accès des vehicules, moto, velo sont innaccessible afin de sauver des vies humaines."
     }
   ]
 }
