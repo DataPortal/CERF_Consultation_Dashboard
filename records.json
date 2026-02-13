@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-13T10:53:50.046913+00:00",
+  "generated_at": "2026-02-13T11:26:00.118969+00:00",
   "records": [
     {
       "date": "2026-02-13",
@@ -120,6 +120,36 @@
       "limites_digital": "connectivite confidentialite",
       "limites_digital_label": "Coupures réseau / électricité, Confidentialité",
       "apport_digital": "cxldiuujdnnncd"
+    },
+    {
+      "date": "2026-02-13",
+      "org_name": "Kongo Mwinda",
+      "org_type_label": "Organisation conduite par des femmes",
+      "province_base_label": "Nord-Kivu",
+      "territoire_base_label": "nord_kivu_nyiragongo",
+      "service_top1_label": "Soutien psychosocial",
+      "service_top2_label": "Assistance juridique",
+      "service_top3_label": "Services SSR",
+      "rupture_gravite_label": "Critique",
+      "approches_efficaces": "- le cash \n- séances des mises à niveau sur la gestion des AGR\n-",
+      "valeur_ajoutee": "Ce financement permettrait de créer des espaces de discussions pour les victimes des violences basées sur le genre facilité par la technologie, documenter ces violences, rédiger les notes de plaidoyer pour que ces dernière soient aussi incorporées dans la réponse d’urgence et qu’il y ait un mécanisme de signalement et de rapportage",
+      "effet_systemique": "Pour obtenir un effet durable sur 12 mois c’est d’investir dans les jeunes  filles Tiktokeuses qui ont Dejà une communauté qui les suivent, les faire sortir de la dimension de l’influence pour le buzz à la dimension de l’influence pour éduquer la communauté au moyen de formation,",
+      "obstacles_wlo": "administratif fiduciaire capacite",
+      "obstacles_wlo_label": "Contraintes administratives, Contraintes fiduciaires, Capacités organisationnelles limitées",
+      "solutions_wlo": "Élaborer un mécanisme de protection sur terrain, renforcer les capacités des OSC féminin, favoriser les vivre ensemble cad recommander les organisations locales expérimentées à travailler en consortium avec le organisations féminines débutantes ou cadettes ceci pourra faciliter même sur la question de l’intégration du digital",
+      "provinces_prioritaires": "nord_kivu",
+      "provinces_prioritaires_label": "Nord-Kivu",
+      "groupes_sous_servis": "adolescentes_10_14 adolescentes_15_19 cheffes_menage handicap",
+      "groupes_sous_servis_label": "Adolescentes 10–14 ans, Adolescentes 15–19 ans, Femmes cheffes de ménage, Femmes en situation de handicap",
+      "mecanisme_feedback": "Des réunions de mise à niveau/suivi",
+      "risques_operationnels": "insecurite acces_limite approvisionnement donnees",
+      "risques_operationnels_label": "Insécurité, Accès humanitaire limité, Rupture chaîne d’approvisionnement, Risques liés aux données / confidentialité",
+      "mesures_mitigation": "Mobilise davantage de ressources \nFaire intervenir les organisations en charge de la securité",
+      "avantages_digital": "rapidite transparence donnees_desag meilleur_ciblage",
+      "avantages_digital_label": "Suivi plus rapide, Transparence accrue, Données désagrégées plus rapidement, Meilleur ciblage",
+      "limites_digital": "connectivite exclusion cout",
+      "limites_digital_label": "Coupures réseau / électricité, Exclusion numérique, Coûts de maintenance",
+      "apport_digital": "L’utilisation du digital pourrait améliorer la réponse humanitaire dans le sens il facilite la récolte des données et leurs interprétations, \n\nIl intervient également dans la redevabilité et la mobilisation par la prise d’image et leurs diffusion sur les réseaux sociaux prônant ainsi la transparence, \nIl favorise le travail à distance,…."
     }
   ]
 }
