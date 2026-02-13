@@ -1,7 +1,13 @@
 {
   "total_responses": 1,
-  "top_service": {},
-  "provinces_priority": {},
-  "risks": {},
-  "digital_advantages": {}
+  "top_service": {
+    "ssr": 1
+  },
+  "gravite": {
+    "elevee": 1
+  },
+  "provinces": {},
+  "groupes": {},
+  "risques": {},
+  "digital": {}
 }
