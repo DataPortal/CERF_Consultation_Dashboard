@@ -1,13 +1,45 @@
 {
-  "total_responses": 1,
+  "total_responses": 2,
   "top_service": {
-    "ssr": 1
+    "ssr": 1,
+    "juridique": 1
   },
   "gravite": {
-    "elevee": 1
+    "elevee": 1,
+    "critique": 1
   },
-  "provinces": {},
-  "groupes": {},
-  "risques": {},
-  "digital": {}
+  "provinces": {
+    "nord_kivu": 2,
+    "sud_kivu": 2,
+    "tanganyika": 1,
+    "kinshasa": 1,
+    "kwilu": 1
+  },
+  "groupes": {
+    "adolescentes_10_14": 1,
+    "adolescentes_15_19": 2,
+    "deplacees": 2,
+    "cheffes_menage": 2,
+    "handicap": 1,
+    "survivantes_vbg": 2
+  },
+  "risques": {
+    "insecurite": 1,
+    "acces_limite": 2,
+    "ressources_humaines": 1,
+    "approvisionnement": 2,
+    "donnees": 2
+  },
+  "digital_avantages": {
+    "rapidite": 1,
+    "transparence": 2,
+    "donnees_desag": 2,
+    "meilleur_ciblage": 2
+  },
+  "digital_limites": {
+    "connectivite": 1,
+    "cout": 2,
+    "confidentialite": 1,
+    "exclusion": 1
+  }
 }
