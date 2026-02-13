@@ -2,25 +2,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CERF Consultation Dashboard</title>
+<title>Dashboard CERF Consultation</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Consultation CERF – Résultats en Temps Réel</h1>
+<h1>Consultation CERF – Résultats</h1>
 
-<div class="card">
-  <h2>Total réponses</h2>
-  <div id="total"></div>
-</div>
+<div class="grid">
+  <div class="card">
+    <h2>Total réponses</h2>
+    <div id="total"></div>
+  </div>
 
-<div class="card">
-  <canvas id="serviceChart"></canvas>
-</div>
-
-<div class="card">
-  <canvas id="provinceChart"></canvas>
+  <div class="card"><canvas id="serviceChart"></canvas></div>
+  <div class="card"><canvas id="graviteChart"></canvas></div>
+  <div class="card"><canvas id="provinceChart"></canvas></div>
+  <div class="card"><canvas id="groupChart"></canvas></div>
+  <div class="card"><canvas id="riskChart"></canvas></div>
+  <div class="card"><canvas id="digitalChart"></canvas></div>
 </div>
 
 <script src="main.js"></script>
