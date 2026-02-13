@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-13T13:09:50.969972+00:00",
+  "generated_at": "2026-02-13T13:34:45.343083+00:00",
   "records": [
     {
       "date_interview": "2026-02-13",
@@ -45,6 +45,51 @@
       "f1_strengthen": "wertioi",
       "un_support_label": "Facilitation / intermédiation (brokerage), Renforcement des capacités, Protection des données / conformité",
       "f2_details": "dfdggfop"
+    },
+    {
+      "date_interview": "2026-02-13",
+      "organisation": "ONU Femmes",
+      "org_type_label": "Agence des Nations Unies",
+      "cluster_label": "Protection, Coordination, GIHA",
+      "province_label": "Kinshasa",
+      "admin2": "adm2_kinshasa_kinshasa",
+      "other_provinces_label": "Nord-Kivu, Sud-Kivu",
+      "consent_label": "Oui",
+      "service_top1_label": "abri_securise",
+      "service_top2_label": "Assistance juridique",
+      "service_top3_label": "gestion_cas",
+      "a1_where": "jdjdtedhsus",
+      "referral_gravity_label": "tres_grave",
+      "a2_where": "lsksdydhd",
+      "restore_time_label": "15_30j",
+      "approaches_label": "Cash / assistance, Espaces sûrs, Gestion de cas",
+      "additionality_label": "Extension de la couverture, Renforcement système / coordination, Données / suivi / redevabilité",
+      "b1_explain": "oetkelslshsjs",
+      "innovation_level_label": "Moyenne",
+      "b2_explain": "ldpddtjddn",
+      "toc": "dysjshdrddbd",
+      "obstacles_label": "Contraintes administratives, Problèmes de sécurité, Accès / présence limitée, financement",
+      "c1_solutions": "smlspsisysh",
+      "governance_label": "comites, Financement direct / subventions",
+      "capacity_label": "Gestion de projet, data_digital, Coordination, GIHA / mainstreaming",
+      "c4_coordination": "kkdydysjdydh",
+      "priority_areas_label": "Nord-Kivu, Sud-Kivu, Tanganyika",
+      "underserved_label": "Adolescentes 10–14 ans, Femmes/filles en situation de handicap, assiegee",
+      "saddd": "ldpdirdndy",
+      "meca_label": "Hotline, Boîtes à suggestions, Canaux digitaux",
+      "trust_plus": "dnpdpdud",
+      "trust_minus": "nxmxhdou",
+      "feedback_channel_label": "WhatsApp / SMS",
+      "risks_label": "Insécurité, Accès humanitaire limité, fraude",
+      "e1_mitigation": "ldpudysikd",
+      "funds_label": "CBPF/HRF, bilateraux, cerf_autres",
+      "e3_results": "pspididimcj",
+      "critical_need_label": "Rétablissement / continuité des services",
+      "digital_adv_label": "Suivi plus rapide, Traçabilité, Temps réel, coordination",
+      "digital_lim_label": "Coupures réseau / électricité, Faible littératie numérique, Coûts de maintenance",
+      "f1_strengthen": "",
+      "un_support_label": "Renforcement des capacités, Protection des données / conformité, advocacy, data",
+      "f2_details": "lspsostegd"
     }
   ]
 }
