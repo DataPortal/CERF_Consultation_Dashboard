@@ -1,4 +1,4 @@
-console.log("✅ main.js chargé");
+console.log("✅ main.js (full) chargé");
 
 let charts = {};
 let PAYLOAD = null;
@@ -12,7 +12,7 @@ function destroyChart(id){
 function barChart(canvasId, dataObj){
   destroyChart(canvasId);
   const labels = Object.keys(dataObj || {});
-  const values = Object.values(dataObj || {});
+  const values = Object.values(dataObj || []).map(v => Number(v || 0));
   const el = document.getElementById(canvasId);
   if(!el) return;
 
@@ -23,23 +23,19 @@ function barChart(canvasId, dataObj){
       responsive: true,
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
-      scales: {
-        x: { ticks: { autoSkip: false, maxRotation: 55, minRotation: 0 } },
-        y: { beginAtZero: true }
-      }
+      scales: { y: { beginAtZero: true } }
     }
   });
 }
 
-function doughnutChart(canvasId, dataObj){
+function doughnutChartWithPct(canvasId, dataObj){
   destroyChart(canvasId);
-
   const labels = Object.keys(dataObj || {});
   const values = Object.values(dataObj || {}).map(v => Number(v || 0));
   const el = document.getElementById(canvasId);
   if(!el) return;
 
-  const total = values.reduce((a,b) => a + b, 0);
+  const total = values.reduce((a,b)=>a+b,0);
 
   charts[canvasId] = new Chart(el, {
     type: 'doughnut',
@@ -64,7 +60,7 @@ function doughnutChart(canvasId, dataObj){
             const v = ctx.dataset.data[ctx.dataIndex] || 0;
             if(!total) return false;
             const pct = (v * 100 / total);
-            return pct >= 8; // évite d'encombrer si très petit
+            return pct >= 8;
           },
           formatter: (value) => {
             if(!total) return '';
@@ -104,21 +100,54 @@ function matchesQuery(obj, q){
   return s.includes(q.toLowerCase());
 }
 
+function setScopeLabel(label){
+  document.getElementById('kpiScope').textContent = label;
+}
+
+function getScope(payload, orgLabel){
+  if(orgLabel === '__all__') return payload.summary;
+  return payload.by_org_type?.[orgLabel] || payload.summary;
+}
+
 function applyScopeToCharts(scope){
-  // Services Top 1/2/3
+  // Intro
+  barChart('chartOrgTypes', scope?.org_types || {});
+  barChart('chartClusters', scope?.clusters || {});
+  barChart('chartProvinceBase', scope?.province_base || {});
+  barChart('chartOtherProvinces', scope?.other_provinces || {});
+
+  // Bloc A
   barChart('chartTop1', scope?.top_service_1 || {});
   barChart('chartTop2', scope?.top_service_2 || {});
   barChart('chartTop3', scope?.top_service_3 || {});
+  doughnutChartWithPct('chartGravite', scope?.referral_gravity || {});
+  barChart('chartRestoreTime', scope?.restore_time || {});
+  barChart('chartApproaches', scope?.approaches || {});
 
-  doughnutChart('chartGravite', scope?.gravite || {});
-  barChart('chartProvinces', scope?.provinces_prioritaires || {});
-  barChart('chartGroupes', scope?.groupes_sous_servis || {});
-  barChart('chartRisques', scope?.risques_operationnels || {});
+  // Bloc B
+  barChart('chartAdditionality', scope?.additionality || {});
+  doughnutChartWithPct('chartInnovation', scope?.innovation_level || {});
 
-  const dig = {};
-  Object.entries(scope?.digital_avantages || {}).forEach(([k,v]) => dig[`+ ${k}`] = v);
-  Object.entries(scope?.digital_limites || {}).forEach(([k,v]) => dig[`- ${k}`] = v);
-  barChart('chartDigital', dig);
+  // Bloc C
+  barChart('chartObstacles', scope?.obstacles_wlo || {});
+  barChart('chartGovernance', scope?.governance_mechanisms || {});
+  barChart('chartCapacity', scope?.capacity_needs || {});
+
+  // Bloc D
+  barChart('chartPriorityAreas', scope?.priority_areas || {});
+  barChart('chartUnderserved', scope?.underserved_groups || {});
+  doughnutChartWithPct('chartFeedback', scope?.feedback_channel || {});
+  barChart('chartMeca', scope?.accountability_mechanisms || {});
+
+  // Bloc E
+  barChart('chartRisks', scope?.operational_risks || {});
+  barChart('chartFunds', scope?.funds_leverage || {});
+  doughnutChartWithPct('chartCriticalNeed', scope?.critical_need || {});
+
+  // Bloc F
+  barChart('chartDigitalAdv', scope?.digital_advantages || {});
+  barChart('chartDigitalLim', scope?.digital_limits || {});
+  barChart('chartUNSupport', scope?.un_support || {});
 }
 
 function kv(label, value){
@@ -135,18 +164,15 @@ function renderList(){
     return;
   }
 
-  // Latest first if available
-  const rows = FILTERED.slice().sort((a,b) => (b.date || '').localeCompare(a.date || ''));
+  const rows = FILTERED.slice().sort((a,b) => (b.date_interview || '').localeCompare(a.date_interview || ''));
 
   rows.forEach((r, idx) => {
     const org = r.org_type_label || "—";
-    const prov = r.province_base_label || "—";
-    const terr = r.territoire_base_label || "—";
+    const prov = r.province_label || "—";
+    const cluster = r.cluster_label || "—";
 
     const top1 = r.service_top1_label || "—";
-    const top2 = r.service_top2_label || "—";
-    const top3 = r.service_top3_label || "—";
-    const grav = r.rupture_gravite_label || "—";
+    const grav = r.referral_gravity_label || "—";
 
     const item = document.createElement('div');
     item.className = 'item';
@@ -155,11 +181,12 @@ function renderList(){
       <div class="item-head">
         <div>
           <div class="item-title">Réponse #${idx+1} — ${org}</div>
-          <div class="item-meta">Province: <b>${prov}</b> • Territoire/Commune: ${terr}</div>
+          <div class="item-meta">Organisation: <b>${r.organisation || "—"}</b> • Province: <b>${prov}</b></div>
 
           <div class="pills">
             <span class="pill blue">UN Women</span>
             <span class="pill orange">UNFPA</span>
+            <span class="pill">Cluster(s): ${cluster}</span>
             <span class="pill">Top1: ${top1}</span>
             <span class="pill">Gravité: ${grav}</span>
           </div>
@@ -172,33 +199,55 @@ function renderList(){
 
       <div class="details">
         <div class="kv">
-          ${kv("Organisation (nom)", r.org_name)}
+          ${kv("Date interview", r.date_interview)}
+          ${kv("Organisation", r.organisation)}
           ${kv("Type d’organisation", org)}
-          ${kv("Province d’intervention", prov)}
-          ${kv("Territoire / Commune", terr)}
+          ${kv("Cluster(s)", cluster)}
+          ${kv("Province base", prov)}
+          ${kv("Territoire / admin2", r.admin2)}
+          ${kv("Autres provinces", r.other_provinces_label)}
+          ${kv("Consentement", r.consent_label)}
 
-          ${kv("Service Top 1", top1)}
-          ${kv("Service Top 2", top2)}
-          ${kv("Service Top 3", top3)}
-          ${kv("Gravité des ruptures", grav)}
+          ${kv("A – Service Top 1", r.service_top1_label)}
+          ${kv("A – Service Top 2", r.service_top2_label)}
+          ${kv("A – Service Top 3", r.service_top3_label)}
+          ${kv("A – Où (service)", r.a1_where)}
+          ${kv("A – Gravité référencement", r.referral_gravity_label)}
+          ${kv("A – Où (référencement)", r.a2_where)}
+          ${kv("A – Délai rétablissement", r.restore_time_label)}
+          ${kv("A – Approches efficaces", r.approaches_label)}
 
-          ${kv("Approches efficaces (narratif)", r.approches_efficaces)}
-          ${kv("Valeur ajoutée (narratif)", r.valeur_ajoutee)}
-          ${kv("Effet durable (narratif)", r.effet_systemique)}
+          ${kv("B – Additionalité (axes)", r.additionality_label)}
+          ${kv("B – Explication additionalité", r.b1_explain)}
+          ${kv("B – Niveau innovation", r.innovation_level_label)}
+          ${kv("B – Explication innovation", r.b2_explain)}
+          ${kv("B – Théorie du changement", r.toc)}
 
-          ${kv("Obstacles WLO", r.obstacles_wlo_label || r.obstacles_wlo)}
-          ${kv("Mesures pour lever les obstacles (narratif)", r.solutions_wlo)}
+          ${kv("C – Obstacles", r.obstacles_label)}
+          ${kv("C – Solutions", r.c1_solutions)}
+          ${kv("C – Gouvernance", r.governance_label)}
+          ${kv("C – Besoins capacités", r.capacity_label)}
+          ${kv("C – Coordination (narratif)", r.c4_coordination)}
 
-          ${kv("Provinces prioritaires", r.provinces_prioritaires_label || r.provinces_prioritaires)}
-          ${kv("Groupes sous-desservis", r.groupes_sous_servis_label || r.groupes_sous_servis)}
-          ${kv("Mécanisme de feedback (narratif)", r.mecanisme_feedback)}
+          ${kv("D – Zones prioritaires", r.priority_areas_label)}
+          ${kv("D – Groupes sous-desservis", r.underserved_label)}
+          ${kv("D – Indicateurs SADDD", r.saddd)}
+          ${kv("D – Mécanismes AAP", r.meca_label)}
+          ${kv("D – Confiance (renforce)", r.trust_plus)}
+          ${kv("D – Confiance (fragilise)", r.trust_minus)}
+          ${kv("D – Canal feedback", r.feedback_channel_label)}
 
-          ${kv("Risques opérationnels", r.risques_operationnels_label || r.risques_operationnels)}
-          ${kv("Mesures de mitigation (narratif)", r.mesures_mitigation)}
+          ${kv("E – Risques", r.risks_label)}
+          ${kv("E – Mitigation", r.e1_mitigation)}
+          ${kv("E – Fonds à articuler", r.funds_label)}
+          ${kv("E – Résultats 3/6/12 mois", r.e3_results)}
+          ${kv("E – Besoin le plus critique", r.critical_need_label)}
 
-          ${kv("Avantages digital", r.avantages_digital_label || r.avantages_digital)}
-          ${kv("Limites digital", r.limites_digital_label || r.limites_digital)}
-          ${kv("Apport du digital (narratif)", r.apport_digital)}
+          ${kv("F – Avantages digital", r.digital_adv_label)}
+          ${kv("F – Limites digital", r.digital_lim_label)}
+          ${kv("F – Comment renforcer via digital", r.f1_strengthen)}
+          ${kv("F – Appui attendu agences UN", r.un_support_label)}
+          ${kv("F – Détails appui", r.f2_details)}
         </div>
       </div>
     `;
@@ -218,7 +267,7 @@ function applyFilters(){
 
   FILTERED = ALL.filter(r => {
     const okOrg = (org === '__all__') || (r.org_type_label === org);
-    const okProv = (prov === '__all__') || (r.province_base_label === prov);
+    const okProv = (prov === '__all__') || (r.province_label === prov);
     const okQ = matchesQuery(r, q);
     return okOrg && okProv && okQ;
   });
@@ -228,15 +277,7 @@ function applyFilters(){
 }
 
 function exportCSV(){
-  const cols = [
-    "org_name","org_type_label","province_base_label","territoire_base_label",
-    "service_top1_label","service_top2_label","service_top3_label","rupture_gravite_label",
-    "approches_efficaces","valeur_ajoutee","effet_systemique",
-    "obstacles_wlo","solutions_wlo",
-    "provinces_prioritaires_label","groupes_sous_servis_label","mecanisme_feedback",
-    "risques_operationnels_label","mesures_mitigation",
-    "avantages_digital_label","limites_digital_label","apport_digital"
-  ];
+  const cols = Object.keys((ALL[0] || {})); // export all fields (clean records only)
 
   const esc = (v) => `"${(v ?? "").toString().replace(/"/g,'""')}"`;
   const lines = [cols.join(",")];
@@ -284,15 +325,6 @@ function exportPDF(){
   });
 }
 
-function setScopeLabel(label){
-  document.getElementById('kpiScope').textContent = label;
-}
-
-function getScope(payload, orgLabel){
-  if(orgLabel === '__all__') return payload.summary;
-  return payload.by_org_type?.[orgLabel] || payload.summary;
-}
-
 Promise.all([
   fetch(`data.json?v=${Date.now()}`).then(r => { if(!r.ok) throw new Error("data.json introuvable"); return r.json(); }),
   fetch(`records.json?v=${Date.now()}`).then(r => { if(!r.ok) throw new Error("records.json introuvable"); return r.json(); })
@@ -301,13 +333,14 @@ Promise.all([
   ALL = rec.records || [];
 
   // KPIs
-  document.getElementById('kpiTotal').textContent = (payload.summary?.total_responses ?? ALL.length ?? 0).toString();
+  const total = payload.summary?.total_responses ?? ALL.length ?? 0;
+  document.getElementById('kpiTotal').textContent = total.toString();
 
-  // Build filters from records (labels)
+  // Filters (from clean records)
   buildSelect('orgFilter', uniq(ALL.map(r => r.org_type_label)));
-  buildSelect('provinceFilter', uniq(ALL.map(r => r.province_base_label)));
+  buildSelect('provinceFilter', uniq(ALL.map(r => r.province_label)));
 
-  // Default scope
+  // Default scope + charts
   setScopeLabel("Toutes");
   applyScopeToCharts(payload.summary);
 
@@ -332,5 +365,5 @@ Promise.all([
 }).catch(err => {
   console.error(err);
   document.getElementById('list').innerHTML =
-    `<div class="item"><div class="item-title">Erreur de chargement des données. Vérifie data.json et records.json.</div></div>`;
+    `<div class="item"><div class="item-title">Erreur de chargement. Vérifie data.json et records.json.</div></div>`;
 });
