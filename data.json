@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-13T03:18:03.446251+00:00",
+  "generated_at": "2026-02-13T03:38:42.901715+00:00",
   "labels": {
     "org_type": {
       "wlo": "Organisation conduite par des femmes",
@@ -38,11 +38,11 @@
       "tshuapa": "Tshuapa"
     },
     "service": {
+      "ssr": "Services SSR",
       "clinique_72h": "Prise en charge clinique <72h",
       "mhpss": "Soutien psychosocial",
       "juridique": "Assistance juridique",
-      "abri": "Hébergement sécurisé",
-      "ssr": "Services de santé sexuelle et reproductive"
+      "abri": "Hébergement sécurisé"
     },
     "gravite": {
       "faible": "Faible",
@@ -75,23 +75,39 @@
       "rapidite": "Suivi plus rapide",
       "transparence": "Transparence accrue",
       "donnees_desag": "Données désagrégées plus rapidement",
-      "meilleur_ciblage": "Meilleur ciblage des bénéficiaires",
+      "meilleur_ciblage": "Meilleur ciblage",
       "autre": "Autre"
     },
     "digital_lim": {
       "connectivite": "Coupures réseau / électricité",
-      "confidentialite": "Risques de confidentialité",
-      "exclusion": "Exclusion numérique des plus vulnérables",
+      "confidentialite": "Confidentialité",
+      "exclusion": "Exclusion numérique",
       "cout": "Coûts de maintenance",
+      "autre": "Autre"
+    },
+    "obstacles_wlo": {
+      "administratif": "Contraintes administratives",
+      "fiduciaire": "Contraintes fiduciaires",
+      "securite": "Problèmes de sécurité",
+      "acces_info": "Accès limité à l’information",
+      "capacite": "Capacités organisationnelles limitées",
       "autre": "Autre"
     }
   },
   "summary": {
     "total_responses": 3,
-    "top_service": {
-      "Services de santé sexuelle et reproductive": 1,
+    "top_service_1": {
+      "Services SSR": 1,
       "Assistance juridique": 1,
       "Soutien psychosocial": 1
+    },
+    "top_service_2": {
+      "Prise en charge clinique <72h": 2,
+      "Hébergement sécurisé": 1
+    },
+    "top_service_3": {
+      "Hébergement sécurisé": 2,
+      "Services SSR": 1
     },
     "gravite": {
       "Élevée": 1,
@@ -123,22 +139,30 @@
     "digital_avantages": {
       "Transparence accrue": 3,
       "Données désagrégées plus rapidement": 3,
-      "Meilleur ciblage des bénéficiaires": 3,
+      "Meilleur ciblage": 3,
       "Suivi plus rapide": 1
     },
     "digital_limites": {
       "Coûts de maintenance": 3,
       "Coupures réseau / électricité": 2,
-      "Risques de confidentialité": 2,
-      "Exclusion numérique des plus vulnérables": 1
+      "Confidentialité": 2,
+      "Exclusion numérique": 1
     }
   },
   "by_org_type": {
     "Agence des Nations Unies": {
       "total_responses": 2,
-      "top_service": {
-        "Services de santé sexuelle et reproductive": 1,
+      "top_service_1": {
+        "Services SSR": 1,
         "Assistance juridique": 1
+      },
+      "top_service_2": {
+        "Prise en charge clinique <72h": 1,
+        "Hébergement sécurisé": 1
+      },
+      "top_service_3": {
+        "Hébergement sécurisé": 1,
+        "Services SSR": 1
       },
       "gravite": {
         "Élevée": 1,
@@ -169,20 +193,26 @@
       "digital_avantages": {
         "Transparence accrue": 2,
         "Données désagrégées plus rapidement": 2,
-        "Meilleur ciblage des bénéficiaires": 2,
+        "Meilleur ciblage": 2,
         "Suivi plus rapide": 1
       },
       "digital_limites": {
         "Coûts de maintenance": 2,
         "Coupures réseau / électricité": 1,
-        "Risques de confidentialité": 1,
-        "Exclusion numérique des plus vulnérables": 1
+        "Confidentialité": 1,
+        "Exclusion numérique": 1
       }
     },
     "Organisation conduite par des femmes": {
       "total_responses": 1,
-      "top_service": {
+      "top_service_1": {
         "Soutien psychosocial": 1
+      },
+      "top_service_2": {
+        "Prise en charge clinique <72h": 1
+      },
+      "top_service_3": {
+        "Hébergement sécurisé": 1
       },
       "gravite": {
         "Modérée": 1
@@ -207,11 +237,11 @@
       "digital_avantages": {
         "Transparence accrue": 1,
         "Données désagrégées plus rapidement": 1,
-        "Meilleur ciblage des bénéficiaires": 1
+        "Meilleur ciblage": 1
       },
       "digital_limites": {
         "Coupures réseau / électricité": 1,
-        "Risques de confidentialité": 1,
+        "Confidentialité": 1,
         "Coûts de maintenance": 1
       }
     }
