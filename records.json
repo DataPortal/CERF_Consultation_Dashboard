@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-13T09:09:00.473886+00:00",
+  "generated_at": "2026-02-13T09:21:49.694533+00:00",
   "records": [
     {
       "date": "2026-02-13",
@@ -90,6 +90,36 @@
       "limites_digital": "confidentialite cout",
       "limites_digital_label": "Confidentialité, Coûts de maintenance",
       "apport_digital": "lfofirurrnh"
+    },
+    {
+      "date": "2026-02-13",
+      "org_name": "SARL",
+      "org_type_label": "ONG nationale",
+      "province_base_label": "Kongo Central",
+      "territoire_base_label": "kongo_central_kasangulu",
+      "service_top1_label": "Prise en charge clinique <72h",
+      "service_top2_label": "Soutien psychosocial",
+      "service_top3_label": "Assistance juridique",
+      "rupture_gravite_label": "Élevée",
+      "approches_efficaces": "dfkjduffkflflflfv",
+      "valeur_ajoutee": "vvfdfdhyuuooi",
+      "effet_systemique": "gbnmccfr",
+      "obstacles_wlo": "fiduciaire securite",
+      "obstacles_wlo_label": "Contraintes fiduciaires, Problèmes de sécurité",
+      "solutions_wlo": "dkdoueffnnc",
+      "provinces_prioritaires": "kongo_central tanganyika",
+      "provinces_prioritaires_label": "Kongo Central, Tanganyika",
+      "groupes_sous_servis": "adolescentes_15_19 cheffes_menage",
+      "groupes_sous_servis_label": "Adolescentes 15–19 ans, Femmes cheffes de ménage",
+      "mecanisme_feedback": "kdhdduddydjd",
+      "risques_operationnels": "acces_limite ressources_humaines donnees",
+      "risques_operationnels_label": "Accès humanitaire limité, Manque de ressources humaines, Risques liés aux données / confidentialité",
+      "mesures_mitigation": "lkdjdududjcncfh",
+      "avantages_digital": "rapidite transparence meilleur_ciblage",
+      "avantages_digital_label": "Suivi plus rapide, Transparence accrue, Meilleur ciblage",
+      "limites_digital": "connectivite confidentialite",
+      "limites_digital_label": "Coupures réseau / électricité, Confidentialité",
+      "apport_digital": "cxldiuujdnnncd"
     }
   ]
 }

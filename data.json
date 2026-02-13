@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-13T09:09:00.473886+00:00",
+  "generated_at": "2026-02-13T09:21:49.694533+00:00",
   "labels": {
     "org_type": {
       "wlo": "Organisation conduite par des femmes",
@@ -95,63 +95,66 @@
     }
   },
   "summary": {
-    "total_responses": 3,
+    "total_responses": 4,
     "top_service_1": {
       "Assistance juridique": 1,
       "Soutien psychosocial": 1,
-      "Services SSR": 1
+      "Services SSR": 1,
+      "Prise en charge clinique <72h": 1
     },
     "top_service_2": {
+      "Soutien psychosocial": 2,
       "Hébergement sécurisé": 1,
-      "Prise en charge clinique <72h": 1,
-      "Soutien psychosocial": 1
+      "Prise en charge clinique <72h": 1
     },
     "top_service_3": {
+      "Assistance juridique": 2,
       "Services SSR": 1,
-      "Hébergement sécurisé": 1,
-      "Assistance juridique": 1
+      "Hébergement sécurisé": 1
     },
     "gravite": {
       "Critique": 1,
       "Modérée": 1,
-      "Faible": 1
+      "Faible": 1,
+      "Élevée": 1
     },
     "provinces_prioritaires": {
       "Sud-Kivu": 3,
+      "Tanganyika": 3,
       "Kinshasa": 2,
       "Nord-Kivu": 2,
-      "Tanganyika": 2,
       "Kwilu": 1,
       "Équateur": 1,
       "Kasaï": 1,
-      "Nord-Ubangi": 1
+      "Nord-Ubangi": 1,
+      "Kongo Central": 1
     },
     "groupes_sous_servis": {
+      "Adolescentes 15–19 ans": 3,
+      "Femmes cheffes de ménage": 3,
       "Survivantes de VBG": 3,
-      "Adolescentes 15–19 ans": 2,
-      "Femmes cheffes de ménage": 2,
       "Femmes déplacées": 1,
       "Adolescentes 10–14 ans": 1,
       "Femmes en situation de handicap": 1
     },
     "risques_operationnels": {
-      "Accès humanitaire limité": 2,
+      "Accès humanitaire limité": 3,
+      "Risques liés aux données / confidentialité": 3,
+      "Manque de ressources humaines": 3,
       "Rupture chaîne d’approvisionnement": 2,
-      "Risques liés aux données / confidentialité": 2,
-      "Insécurité": 2,
-      "Manque de ressources humaines": 2
+      "Insécurité": 2
     },
     "digital_avantages": {
-      "Transparence accrue": 3,
-      "Meilleur ciblage": 3,
+      "Transparence accrue": 4,
+      "Meilleur ciblage": 4,
       "Données désagrégées plus rapidement": 2,
-      "Suivi plus rapide": 1
+      "Suivi plus rapide": 2
     },
     "digital_limites": {
-      "Confidentialité": 3,
+      "Confidentialité": 4,
       "Coûts de maintenance": 3,
-      "Exclusion numérique": 1,
-      "Coupures réseau / électricité": 1
+      "Coupures réseau / électricité": 2,
+      "Exclusion numérique": 1
     }
   },
   "by_org_type": {
@@ -236,6 +239,43 @@
       "digital_limites": {
         "Confidentialité": 1,
         "Coûts de maintenance": 1
+      }
+    },
+    "ONG nationale": {
+      "total_responses": 1,
+      "top_service_1": {
+        "Prise en charge clinique <72h": 1
+      },
+      "top_service_2": {
+        "Soutien psychosocial": 1
+      },
+      "top_service_3": {
+        "Assistance juridique": 1
+      },
+      "gravite": {
+        "Élevée": 1
+      },
+      "provinces_prioritaires": {
+        "Kongo Central": 1,
+        "Tanganyika": 1
+      },
+      "groupes_sous_servis": {
+        "Adolescentes 15–19 ans": 1,
+        "Femmes cheffes de ménage": 1
+      },
+      "risques_operationnels": {
+        "Accès humanitaire limité": 1,
+        "Manque de ressources humaines": 1,
+        "Risques liés aux données / confidentialité": 1
+      },
+      "digital_avantages": {
+        "Suivi plus rapide": 1,
+        "Transparence accrue": 1,
+        "Meilleur ciblage": 1
+      },
+      "digital_limites": {
+        "Coupures réseau / électricité": 1,
+        "Confidentialité": 1
       }
     },
     "Organisation conduite par des femmes": {
