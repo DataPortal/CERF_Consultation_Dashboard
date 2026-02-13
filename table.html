@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CERF – Toutes les réponses (UN Women x UNFPA)</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="kicker">Produit conjoint UN Women × UNFPA</div>
+      <h1>Toutes les réponses – Consultation CERF</h1>
+      <div class="subkicker">Affichage lisible (y compris réponses narratives)</div>
+    </div>
+
+    <div class="actions">
+      <div class="filter">
+        <label for="orgFilter">Type d’organisation</label>
+        <select id="orgFilter">
+          <option value="__all__">Toutes</option>
+        </select>
+      </div>
+
+      <div class="filter">
+        <label for="provinceFilter">Province base</label>
+        <select id="provinceFilter">
+          <option value="__all__">Toutes</option>
+        </select>
+      </div>
+
+      <div class="filter">
+        <label for="q">Recherche</label>
+        <input id="q" class="input" placeholder="Rechercher (mots-clés, provinces, services…)" />
+      </div>
+
+      <a class="btn btn-ghost" href="index.html">Retour dashboard</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="kpis">
+      <div class="kpi">
+        <div class="kpi-label">Lignes</div>
+        <div class="kpi-value" id="rowsCount">—</div>
+        <div class="kpi-meta" id="rowsMeta">—</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Dernière mise à jour</div>
+        <div class="kpi-value" id="lastUpdate">—</div>
+        <div class="kpi-meta">records.json</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-title">Réponses (liste détaillée)</div>
+      <div class="card-subtitle">Clique sur une réponse pour voir les narratifs. Export CSV disponible.</div>
+
+      <div class="table-actions">
+        <button id="btnCsv" class="btn">Exporter CSV</button>
+      </div>
+
+      <div id="list" class="list"></div>
+    </section>
+  </main>
+
+  <script src="table.js?v=20260213-7"></script>
+</body>
+</html>
