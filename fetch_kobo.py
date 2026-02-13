@@ -2,17 +2,16 @@
 # -*- coding: utf-8 -*-
 
 """
-fetch_kobo.py
-- Fetch KoboToolbox submissions (JSON) from an asset
-- Produce:
-  1) data.json   -> aggregated dashboard indicators (Top1/Top2/Top3 + others) + by_org_type
-  2) records.json-> "clean" records for the main table (NO system fields), incl. narratives
+fetch_kobo.py (aligned with revised Kobo JSON)
+Generates:
+  - data.json    : aggregates for dashboard + by_org_type (optional)
+  - records.json : clean records for table (no system fields), incl narratives
 
-Env vars required:
-  KOBO_TOKEN      : Kobo API Token
-  KOBO_ASSET_ID   : Asset UID (xform) in Kobo
+Required env vars:
+  KOBO_TOKEN
+  KOBO_ASSET_ID
 Optional:
-  KOBO_API_URL    : default https://kf.kobotoolbox.org
+  KOBO_API_URL (default https://kf.kobotoolbox.org)
 """
 
 import os
@@ -24,29 +23,46 @@ import requests
 import pandas as pd
 
 
-# ---------------------------
-# Configuration
-# ---------------------------
+# =========================
+# CONFIG
+# =========================
 
 KOBO_TOKEN = os.getenv("KOBO_TOKEN")
 ASSET_ID = os.getenv("KOBO_ASSET_ID")
 BASE_URL = os.getenv("KOBO_API_URL", "https://kf.kobotoolbox.org").rstrip("/")
 
 if not KOBO_TOKEN or not ASSET_ID:
-    raise SystemExit("Missing env vars: KOBO_TOKEN, KOBO_ASSET_ID (and optionally KOBO_API_URL).")
+    raise SystemExit("Missing env vars: KOBO_TOKEN and KOBO_ASSET_ID (optional KOBO_API_URL).")
 
 API_URL = f"{BASE_URL}/api/v2/assets/{ASSET_ID}/data/?format=json"
 HEADERS = {"Authorization": f"Token {KOBO_TOKEN}"}
 
-# IMPORTANT: Adapt labels to your XLSForm codes.
-# Keep them short and professional (no jargon).
+
+# =========================
+# LABELS (codes -> human)
+# =========================
+# Ajuste au besoin si tu ajoutes des choix dans Kobo.
 LABELS: Dict[str, Dict[str, str]] = {
+    # intro
     "org_type": {
-        "wlo": "Organisation conduite par des femmes",
-        "ong_nat": "ONG nationale",
-        "ong_int": "ONG internationale",
-        "agence_onu": "Agence des Nations Unies",
-        "gouvernement": "Gouvernement / Autorité",
+        "ingo": "ONG internationale",
+        "ngo": "ONG nationale",
+        "wlo": "Organisation conduite par des femmes (WLO)",
+        "un": "Agence des Nations Unies",
+        "gov": "Gouvernement / Autorité",
+        "autre": "Autre",
+    },
+    "cluster": {
+        "protection": "Protection",
+        "coordination": "Coordination",
+        "gbv": "VBG",
+        "giha": "GIHA",
+        "health": "Santé",
+        "wash": "WASH",
+        "shelter": "Abris",
+        "food": "Sécurité alimentaire",
+        "nutrition": "Nutrition",
+        "education": "Éducation",
         "autre": "Autre",
     },
     "province": {
@@ -77,81 +93,165 @@ LABELS: Dict[str, Dict[str, str]] = {
         "tshopo": "Tshopo",
         "tshuapa": "Tshuapa",
     },
+    "consent": {"yes": "Oui", "no": "Non"},
+
+    # Bloc A
     "service": {
-        "ssr": "Services SSR",
-        "clinique_72h": "Prise en charge clinique <72h",
-        "mhpss": "Soutien psychosocial",
+        "medical_72h": "Prise en charge médicale <72h",
+        "mhpss": "Soutien psychosocial (MHPSS)",
         "juridique": "Assistance juridique",
         "abri": "Hébergement sécurisé",
+        "ssr": "Services SSR",
+        "autre": "Autre",
     },
-    "gravite": {
+    "gravity": {
         "faible": "Faible",
         "moderee": "Modérée",
-        "elevee": "Élevée",
+        "grave": "Grave",
         "critique": "Critique",
     },
-    "consent": {"yes": "Oui", "no": "Non"},
-    "groupes": {
-        "adolescentes_10_14": "Adolescentes 10–14 ans",
-        "adolescentes_15_19": "Adolescentes 15–19 ans",
+    "restore_time": {
+        "moins_7j": "Moins de 7 jours",
+        "entre_7_30j": "7 à 30 jours",
+        "plus_30j": "Plus de 30 jours",
+    },
+    "approaches": {
+        "cash": "Cash / assistance",
+        "agr": "AGR / moyens d’existence",
+        "safe_space": "Espaces sûrs",
+        "case_mgmt": "Gestion de cas",
+        "referral": "Renforcement du référencement",
+        "autre": "Autre",
+    },
+
+    # Bloc B
+    "additionality": {
+        "scale": "Extension de la couverture",
+        "system": "Renforcement système / coordination",
+        "data": "Données / suivi / redevabilité",
+        "quality": "Amélioration qualité des services",
+        "autre": "Autre",
+    },
+    "innovation_level": {
+        "faible": "Faible",
+        "moyenne": "Moyenne",
+        "elevee": "Élevée",
+    },
+
+    # Bloc C
+    "obstacles": {
+        "administratif": "Contraintes administratives",
+        "fiduciaire": "Contraintes fiduciaires",
+        "securite": "Problèmes de sécurité",
+        "acces": "Accès / présence limitée",
+        "acces_info": "Accès limité à l’information",
+        "capacite": "Capacités organisationnelles limitées",
+        "autre": "Autre",
+    },
+    "governance": {
+        "quota": "Quotas de participation / leadership",
+        "fin_direct": "Financement direct / subventions",
+        "co_lead": "Co-leadership / gouvernance conjointe",
+        "redevabilite": "Mécanismes de redevabilité",
+        "autre": "Autre",
+    },
+    "capacity": {
+        "gestion_projet": "Gestion de projet",
+        "gbv": "VBG (standards/qualité)",
+        "coordination": "Coordination",
+        "giha": "GIHA / mainstreaming",
+        "data": "Suivi & données",
+        "autre": "Autre",
+    },
+
+    # Bloc D
+    "underserved": {
+        "ado_10_14": "Adolescentes 10–14 ans",
+        "ado_15_19": "Adolescentes 15–19 ans",
+        "handicap": "Femmes/filles en situation de handicap",
+        "cheffes": "Femmes cheffes de ménage",
         "deplacees": "Femmes déplacées",
-        "cheffes_menage": "Femmes cheffes de ménage",
-        "handicap": "Femmes en situation de handicap",
-        "survivantes_vbg": "Survivantes de VBG",
+        "survivantes": "Survivantes de VBG",
         "autre": "Autre",
     },
-    "risque": {
-        "insecurite": "Insécurité",
-        "acces_limite": "Accès humanitaire limité",
-        "ressources_humaines": "Manque de ressources humaines",
-        "approvisionnement": "Rupture chaîne d’approvisionnement",
-        "donnees": "Risques liés aux données / confidentialité",
+    "meca": {
+        "points_focaux": "Points focaux / relais communautaires",
+        "boites": "Boîtes à suggestions",
+        "hotline": "Hotline",
+        "digitaux": "Canaux digitaux",
         "autre": "Autre",
     },
+    "feedback_channel": {
+        "whatsapp_sms": "WhatsApp / SMS",
+        "hotline": "Hotline",
+        "in_person": "En présentiel (points focaux)",
+        "boites": "Boîtes à suggestions",
+        "autre": "Autre",
+    },
+
+    # Bloc E
+    "risks": {
+        "securite": "Insécurité",
+        "acces": "Accès humanitaire limité",
+        "donnees": "Confidentialité / données",
+        "rh": "Ressources humaines limitées",
+        "supply": "Chaîne d’approvisionnement",
+        "autre": "Autre",
+    },
+    "funds": {
+        "cbpf_hrf": "CBPF/HRF",
+        "wphf": "WPHF",
+        "untf": "UNTF EVAW/G",
+        "bilateral": "Bailleurs bilatéraux",
+        "autre": "Autre",
+    },
+    "critical_need": {
+        "restore": "Rétablissement / continuité des services",
+        "access": "Accès & référencement",
+        "protection": "Protection immédiate",
+        "coordination": "Coordination",
+        "data": "Données / suivi",
+    },
+
+    # Bloc F
     "digital_adv": {
         "rapidite": "Suivi plus rapide",
-        "transparence": "Transparence accrue",
-        "donnees_desag": "Données désagrégées plus rapidement",
-        "meilleur_ciblage": "Meilleur ciblage",
+        "tracabilite": "Traçabilité",
+        "temps_reel": "Temps réel",
+        "desag": "Désagrégation améliorée",
         "autre": "Autre",
     },
     "digital_lim": {
         "connectivite": "Coupures réseau / électricité",
-        "confidentialite": "Confidentialité",
+        "confidentialite": "Risques de confidentialité",
+        "litteratie": "Faible littératie numérique",
+        "couts": "Coûts de maintenance",
         "exclusion": "Exclusion numérique",
-        "cout": "Coûts de maintenance",
         "autre": "Autre",
     },
-    # OPTIONAL (if you want to labelize obstacles_wlo codes; if they match risk codes you can reuse "risque".
-    "obstacles_wlo": {
-        "administratif": "Contraintes administratives",
-        "fiduciaire": "Contraintes fiduciaires",
-        "securite": "Problèmes de sécurité",
-        "acces_info": "Accès limité à l’information",
-        "capacite": "Capacités organisationnelles limitées",
+    "un_support": {
+        "brokerage": "Facilitation / intermédiation (brokerage)",
+        "capacity": "Renforcement des capacités",
+        "compliance": "Protection des données / conformité",
+        "coordination": "Appui coordination",
         "autre": "Autre",
     },
 }
 
 
-# ---------------------------
+# =========================
 # Helpers
-# ---------------------------
+# =========================
 
 def labelize(domain: str, code: Any) -> str:
     if code is None:
         return ""
     return LABELS.get(domain, {}).get(str(code), str(code))
 
-
 def safe_series(df: pd.DataFrame, col: str) -> pd.Series:
     return df[col] if col in df.columns else pd.Series(dtype="object")
 
-
 def count_multiselect(series: pd.Series) -> Dict[str, int]:
-    """
-    Kobo multiselect comes as a space-separated string: "a b c".
-    """
     c = Counter()
     for v in series.dropna().astype(str):
         v = v.strip()
@@ -160,11 +260,9 @@ def count_multiselect(series: pd.Series) -> Dict[str, int]:
         c.update(v.split())
     return dict(c)
 
-
 def to_label_counts(domain: str, counts: Dict[str, int]) -> Dict[str, int]:
     labeled = {labelize(domain, k): int(v) for k, v in (counts or {}).items()}
     return dict(sorted(labeled.items(), key=lambda kv: kv[1], reverse=True))
-
 
 def multiselect_labels(domain: str, s: Any) -> str:
     if s is None:
@@ -177,67 +275,119 @@ def multiselect_labels(domain: str, s: Any) -> str:
     labs = [x for x in labs if x]
     return ", ".join(labs)
 
-
-def fetch_all_results(url: str, headers: Dict[str, str], timeout: int = 60) -> List[Dict[str, Any]]:
-    """
-    Handles pagination for Kobo API v2 results.
-    """
+def fetch_all(url: str) -> List[Dict[str, Any]]:
     out: List[Dict[str, Any]] = []
     next_url = url
     while next_url:
-        r = requests.get(next_url, headers=headers, timeout=timeout)
+        r = requests.get(next_url, headers=HEADERS, timeout=60)
         r.raise_for_status()
         payload = r.json()
         out.extend(payload.get("results", []))
         next_url = payload.get("next")
     return out
 
-
-def build_aggregates(df: pd.DataFrame) -> Dict[str, Any]:
-    return {
-        "total_responses": int(len(df)),
-
-        # Services (Top 1 / 2 / 3)
-        "top_service_1": to_label_counts("service", safe_series(df, "bloc_a/service_top1").value_counts().to_dict()),
-        "top_service_2": to_label_counts("service", safe_series(df, "bloc_a/service_top2").value_counts().to_dict()),
-        "top_service_3": to_label_counts("service", safe_series(df, "bloc_a/service_top3").value_counts().to_dict()),
-
-        # Other indicators
-        "gravite": to_label_counts("gravite", safe_series(df, "bloc_a/rupture_gravite").value_counts().to_dict()),
-        "provinces_prioritaires": to_label_counts("province", count_multiselect(safe_series(df, "bloc_d/provinces_prioritaires"))),
-        "groupes_sous_servis": to_label_counts("groupes", count_multiselect(safe_series(df, "bloc_d/groupes_sous_servis"))),
-        "risques_operationnels": to_label_counts("risque", count_multiselect(safe_series(df, "bloc_e/risques_operationnels"))),
-        "digital_avantages": to_label_counts("digital_adv", count_multiselect(safe_series(df, "bloc_f/avantages_digital"))),
-        "digital_limites": to_label_counts("digital_lim", count_multiselect(safe_series(df, "bloc_f/limites_digital"))),
-    }
-
-
 def col(df: pd.DataFrame, name: str, default: str = "") -> pd.Series:
     return df[name] if name in df.columns else pd.Series([default] * len(df))
 
+def build_aggregates(df: pd.DataFrame) -> Dict[str, Any]:
+    # Intro
+    clusters = to_label_counts("cluster", count_multiselect(safe_series(df, "intro/cluster")))
+    org_types = to_label_counts("org_type", safe_series(df, "intro/org_type").value_counts().to_dict())
+    provinces_base = to_label_counts("province", safe_series(df, "intro/province").value_counts().to_dict())
+    other_prov = to_label_counts("province", count_multiselect(safe_series(df, "intro/other_provinces")))
 
-# ---------------------------
-# Main
-# ---------------------------
+    # Bloc A
+    top1 = to_label_counts("service", safe_series(df, "bloc_a/a1_service_top1").value_counts().to_dict())
+    top2 = to_label_counts("service", safe_series(df, "bloc_a/a1_service_top2").value_counts().to_dict())
+    top3 = to_label_counts("service", safe_series(df, "bloc_a/a1_service_top3").value_counts().to_dict())
+    gravity = to_label_counts("gravity", safe_series(df, "bloc_a/a2_referral_gravity").value_counts().to_dict())
+    restore_time = to_label_counts("restore_time", safe_series(df, "bloc_a/a3_restore_time").value_counts().to_dict())
+    approaches = to_label_counts("approaches", count_multiselect(safe_series(df, "bloc_a/a4_approaches")))
+
+    # Bloc B
+    additionality = to_label_counts("additionality", count_multiselect(safe_series(df, "bloc_b/b1_additionality")))
+    innovation_level = to_label_counts("innovation_level", safe_series(df, "bloc_b/b2_innovation").value_counts().to_dict())
+
+    # Bloc C
+    obstacles = to_label_counts("obstacles", count_multiselect(safe_series(df, "bloc_c/c1_obstacles")))
+    governance = to_label_counts("governance", count_multiselect(safe_series(df, "bloc_c/c2_governance")))
+    capacity = to_label_counts("capacity", count_multiselect(safe_series(df, "bloc_c/c3_capacity")))
+
+    # Bloc D
+    priority_areas = to_label_counts("province", count_multiselect(safe_series(df, "bloc_d/d1_priority_areas")))
+    underserved = to_label_counts("underserved", count_multiselect(safe_series(df, "bloc_d/d2_underserved")))
+    meca = to_label_counts("meca", count_multiselect(safe_series(df, "bloc_d/d4_meca")))
+    feedback_channel = to_label_counts("feedback_channel", safe_series(df, "bloc_d/d5_feedback").value_counts().to_dict())
+
+    # Bloc E
+    risks = to_label_counts("risks", count_multiselect(safe_series(df, "bloc_e/e1_risks")))
+    funds = to_label_counts("funds", count_multiselect(safe_series(df, "bloc_e/e2_funds")))
+    critical_need = to_label_counts("critical_need", safe_series(df, "bloc_e/besoin_plus_critique").value_counts().to_dict())
+
+    # Bloc F
+    digital_adv = to_label_counts("digital_adv", count_multiselect(safe_series(df, "bloc_f/f1_advantages")))
+    digital_lim = to_label_counts("digital_lim", count_multiselect(safe_series(df, "bloc_f/f1_limits")))
+    un_support = to_label_counts("un_support", count_multiselect(safe_series(df, "bloc_f/f2_un_support")))
+
+    return {
+        "total_responses": int(len(df)),
+
+        # Intro aggregates
+        "org_types": org_types,
+        "clusters": clusters,
+        "province_base": provinces_base,
+        "other_provinces": other_prov,
+
+        # Bloc A
+        "top_service_1": top1,
+        "top_service_2": top2,
+        "top_service_3": top3,
+        "referral_gravity": gravity,
+        "restore_time": restore_time,
+        "approaches": approaches,
+
+        # Bloc B
+        "additionality": additionality,
+        "innovation_level": innovation_level,
+
+        # Bloc C
+        "obstacles_wlo": obstacles,
+        "governance_mechanisms": governance,
+        "capacity_needs": capacity,
+
+        # Bloc D
+        "priority_areas": priority_areas,
+        "underserved_groups": underserved,
+        "accountability_mechanisms": meca,
+        "feedback_channel": feedback_channel,
+
+        # Bloc E
+        "operational_risks": risks,
+        "funds_leverage": funds,
+        "critical_need": critical_need,
+
+        # Bloc F
+        "digital_advantages": digital_adv,
+        "digital_limits": digital_lim,
+        "un_support": un_support,
+    }
+
 
 def main() -> None:
-    # Fetch
-    results = fetch_all_results(API_URL, HEADERS)
+    results = fetch_all(API_URL)
     df = pd.json_normalize(results)
-
     generated_at = pd.Timestamp.utcnow().isoformat()
 
-    # 1) data.json (dashboard)
     summary = build_aggregates(df)
 
+    # by_org_type scope
     by_org_type: Dict[str, Any] = {}
-    if "org_type" in df.columns:
-        for org_code, sub in df.groupby("org_type", dropna=False):
-            org_label = labelize("org_type", org_code)
-            by_org_type[org_label] = build_aggregates(sub)
+    if "intro/org_type" in df.columns:
+        for code, sub in df.groupby("intro/org_type", dropna=False):
+            by_org_type[labelize("org_type", code)] = build_aggregates(sub)
 
     data_payload = {
-        "generated_at": generated_at,   # (dashboard may ignore it)
+        "generated_at": generated_at,
         "labels": LABELS,
         "summary": summary,
         "by_org_type": by_org_type,
@@ -246,79 +396,69 @@ def main() -> None:
     with open("data.json", "w", encoding="utf-8") as f:
         json.dump(data_payload, f, ensure_ascii=False, indent=2)
 
-    # 2) records.json (for the main table)
-    # IMPORTANT: we intentionally DO NOT include system fields (_id, _uuid, submitted_by, status, etc.)
+    # records.json for the main table (clean, no system fields)
     rec = pd.DataFrame()
 
-    # We create a display date field (no system metadata shown on UI)
-    # If you prefer NO date at all, you can remove this entirely.
-    # Here we keep 'date' only as YYYY-MM-DD (safe).
-    if "_submission_time" in df.columns:
-        rec["date"] = pd.to_datetime(df["_submission_time"], errors="coerce").dt.date.astype(str)
-    else:
-        rec["date"] = ""
+    rec["date_interview"] = col(df, "intro/date_interview", "")
+    rec["organisation"] = col(df, "intro/organisation", "")
+    rec["org_type_label"] = col(df, "intro/org_type", "").map(lambda x: labelize("org_type", x))
+    rec["cluster_label"] = col(df, "intro/cluster", "").map(lambda s: multiselect_labels("cluster", s))
+    rec["province_label"] = col(df, "intro/province", "").map(lambda x: labelize("province", x))
+    rec["admin2"] = col(df, "intro/admin2", "").astype(str)  # label admin2 optional (si tu fournis un mapping)
+    rec["other_provinces_label"] = col(df, "intro/other_provinces", "").map(lambda s: multiselect_labels("province", s))
+    rec["consent_label"] = col(df, "intro/consent", "").map(lambda x: labelize("consent", x))
 
-    rec["org_name"] = col(df, "org_name", "")
-    rec["org_type_label"] = col(df, "org_type", "").map(lambda x: labelize("org_type", x))
+    # Bloc A
+    rec["service_top1_label"] = col(df, "bloc_a/a1_service_top1", "").map(lambda x: labelize("service", x))
+    rec["service_top2_label"] = col(df, "bloc_a/a1_service_top2", "").map(lambda x: labelize("service", x))
+    rec["service_top3_label"] = col(df, "bloc_a/a1_service_top3", "").map(lambda x: labelize("service", x))
+    rec["a1_where"] = col(df, "bloc_a/a1_where", "")
+    rec["referral_gravity_label"] = col(df, "bloc_a/a2_referral_gravity", "").map(lambda x: labelize("gravity", x))
+    rec["a2_where"] = col(df, "bloc_a/a2_referral_where", "")
+    rec["restore_time_label"] = col(df, "bloc_a/a3_restore_time", "").map(lambda x: labelize("restore_time", x))
+    rec["approaches_label"] = col(df, "bloc_a/a4_approaches", "").map(lambda s: multiselect_labels("approaches", s))
 
-    rec["province_base_label"] = col(df, "province_base", "").map(lambda x: labelize("province", x))
-    rec["territoire_base_label"] = col(df, "territoire_base", "").astype(str)
+    # Bloc B
+    rec["additionality_label"] = col(df, "bloc_b/b1_additionality", "").map(lambda s: multiselect_labels("additionality", s))
+    rec["b1_explain"] = col(df, "bloc_b/b1_explain", "")
+    rec["innovation_level_label"] = col(df, "bloc_b/b2_innovation", "").map(lambda x: labelize("innovation_level", x))
+    rec["b2_explain"] = col(df, "bloc_b/b2_explain", "")
+    rec["toc"] = col(df, "bloc_b/b3_toc", "")
 
-    rec["service_top1_label"] = col(df, "bloc_a/service_top1", "").map(lambda x: labelize("service", x))
-    rec["service_top2_label"] = col(df, "bloc_a/service_top2", "").map(lambda x: labelize("service", x))
-    rec["service_top3_label"] = col(df, "bloc_a/service_top3", "").map(lambda x: labelize("service", x))
+    # Bloc C
+    rec["obstacles_label"] = col(df, "bloc_c/c1_obstacles", "").map(lambda s: multiselect_labels("obstacles", s))
+    rec["c1_solutions"] = col(df, "bloc_c/c1_solutions", "")
+    rec["governance_label"] = col(df, "bloc_c/c2_governance", "").map(lambda s: multiselect_labels("governance", s))
+    rec["capacity_label"] = col(df, "bloc_c/c3_capacity", "").map(lambda s: multiselect_labels("capacity", s))
+    rec["c4_coordination"] = col(df, "bloc_c/c4_coordination", "")
 
-    rec["rupture_gravite_label"] = col(df, "bloc_a/rupture_gravite", "").map(lambda x: labelize("gravite", x))
+    # Bloc D
+    rec["priority_areas_label"] = col(df, "bloc_d/d1_priority_areas", "").map(lambda s: multiselect_labels("province", s))
+    rec["underserved_label"] = col(df, "bloc_d/d2_underserved", "").map(lambda s: multiselect_labels("underserved", s))
+    rec["saddd"] = col(df, "bloc_d/d3_saddd", "")
+    rec["meca_label"] = col(df, "bloc_d/d4_meca", "").map(lambda s: multiselect_labels("meca", s))
+    rec["trust_plus"] = col(df, "bloc_d/d4_trust_plus", "")
+    rec["trust_minus"] = col(df, "bloc_d/d4_trust_minus", "")
+    rec["feedback_channel_label"] = col(df, "bloc_d/d5_feedback", "").map(lambda x: labelize("feedback_channel", x))
 
-    # Narratives (multiline text)
-    rec["approches_efficaces"] = col(df, "bloc_a/approches_efficaces", "")
-    rec["valeur_ajoutee"] = col(df, "bloc_b/valeur_ajoutee", "")
-    rec["effet_systemique"] = col(df, "bloc_b/effet_systemique", "")
+    # Bloc E
+    rec["risks_label"] = col(df, "bloc_e/e1_risks", "").map(lambda s: multiselect_labels("risks", s))
+    rec["e1_mitigation"] = col(df, "bloc_e/e1_mitigation", "")
+    rec["funds_label"] = col(df, "bloc_e/e2_funds", "").map(lambda s: multiselect_labels("funds", s))
+    rec["e3_results"] = col(df, "bloc_e/e3_results", "")
+    rec["critical_need_label"] = col(df, "bloc_e/besoin_plus_critique", "").map(lambda x: labelize("critical_need", x))
 
-    # WLO obstacles (multiselect) + solutions (narrative)
-    obstacles_raw = col(df, "bloc_c/obstacles_wlo", "")
-    rec["obstacles_wlo"] = obstacles_raw
-    rec["obstacles_wlo_label"] = obstacles_raw.map(lambda s: multiselect_labels("obstacles_wlo", s))
-    rec["solutions_wlo"] = col(df, "bloc_c/solutions_wlo", "")
+    # Bloc F
+    rec["digital_adv_label"] = col(df, "bloc_f/f1_advantages", "").map(lambda s: multiselect_labels("digital_adv", s))
+    rec["digital_lim_label"] = col(df, "bloc_f/f1_limits", "").map(lambda s: multiselect_labels("digital_lim", s))
+    rec["f1_strengthen"] = col(df, "bloc_f/f1_strengthen", "")
+    rec["un_support_label"] = col(df, "bloc_f/f2_un_support", "").map(lambda s: multiselect_labels("un_support", s))
+    rec["f2_details"] = col(df, "bloc_f/f2_details", "")
 
-    # Targeting
-    prov_prio_raw = col(df, "bloc_d/provinces_prioritaires", "")
-    rec["provinces_prioritaires"] = prov_prio_raw
-    rec["provinces_prioritaires_label"] = prov_prio_raw.map(lambda s: multiselect_labels("province", s))
-
-    groupes_raw = col(df, "bloc_d/groupes_sous_servis", "")
-    rec["groupes_sous_servis"] = groupes_raw
-    rec["groupes_sous_servis_label"] = groupes_raw.map(lambda s: multiselect_labels("groupes", s))
-
-    rec["mecanisme_feedback"] = col(df, "bloc_d/mecanisme_feedback", "")
-
-    # Risks
-    risques_raw = col(df, "bloc_e/risques_operationnels", "")
-    rec["risques_operationnels"] = risques_raw
-    rec["risques_operationnels_label"] = risques_raw.map(lambda s: multiselect_labels("risque", s))
-    rec["mesures_mitigation"] = col(df, "bloc_e/mesures_mitigation", "")
-
-    # Digital
-    adv_raw = col(df, "bloc_f/avantages_digital", "")
-    rec["avantages_digital"] = adv_raw
-    rec["avantages_digital_label"] = adv_raw.map(lambda s: multiselect_labels("digital_adv", s))
-
-    lim_raw = col(df, "bloc_f/limites_digital", "")
-    rec["limites_digital"] = lim_raw
-    rec["limites_digital_label"] = lim_raw.map(lambda s: multiselect_labels("digital_lim", s))
-
-    rec["apport_digital"] = col(df, "bloc_f/apport_digital", "")
-
-    # Clean NaNs
     rec = rec.fillna("")
 
-    records_payload = {
-        "generated_at": generated_at,  # UI can ignore; no need to display
-        "records": rec.to_dict(orient="records")
-    }
-
     with open("records.json", "w", encoding="utf-8") as f:
-        json.dump(records_payload, f, ensure_ascii=False, indent=2)
+        json.dump({"generated_at": generated_at, "records": rec.to_dict(orient="records")}, f, ensure_ascii=False, indent=2)
 
     print("✅ Generated: data.json + records.json")
     print(f"   submissions: {len(df)}")
