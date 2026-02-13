@@ -4,16 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CERF – Analyse stratégique (UN Women × UNFPA)</title>
-  <link rel="stylesheet" href="style.css?v=20260213_ana1" />
+
+  <!-- Keep existing branding/design -->
+  <link rel="stylesheet" href="style.css?v=20260213_ana2" />
 </head>
 
 <body>
+  <!-- HEADER -->
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">
         <div class="kicker">Produit conjoint UN Women × UNFPA</div>
-        <h1>Analyse stratégique – Résultats consultation CERF</h1>
-        <div class="subkicker">Synthèse narrative automatique (forces, gaps, opportunités, risques, recommandations)</div>
+        <h1>Analyse stratégique – Consultation CERF</h1>
+        <div class="subkicker">
+          Synthèse narrative automatique basée sur les résultats agrégés (blocs A–F)
+        </div>
       </div>
 
       <div class="actions">
@@ -24,38 +29,48 @@
           </select>
         </div>
 
-        <a class="btn" href="index.html">Retour résultats</a>
+        <a class="btn" href="index.html">Retour au dashboard</a>
         <button id="btnPdf" class="btn btn-orange">Exporter PDF</button>
       </div>
     </div>
   </header>
 
+  <!-- MAIN -->
   <main id="report" class="container">
+
+    <!-- KPIs -->
     <section class="kpis">
       <div class="kpi">
         <div class="kpi-label">Contributions (scope)</div>
         <div class="kpi-value" id="kpiTotal">—</div>
       </div>
+
       <div class="kpi">
         <div class="kpi-label">Vue</div>
         <div class="kpi-value" id="kpiScope">Toutes</div>
       </div>
+
       <div class="kpi">
-        <div class="kpi-label">Provinces prioritaires citées</div>
+        <div class="kpi-label">Zones prioritaires citées</div>
         <div class="kpi-value" id="kpiProvCount">—</div>
       </div>
     </section>
 
+    <!-- SECTIONS -->
     <section class="grid grid-2">
       <div class="card">
-        <div class="card-head"><h2 class="card-title">Forces</h2></div>
+        <div class="card-head">
+          <h2 class="card-title">Forces</h2>
+        </div>
         <div class="card-body">
           <div id="forces" class="narrative"></div>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-head"><h2 class="card-title">Gaps</h2></div>
+        <div class="card-head">
+          <h2 class="card-title">Gaps</h2>
+        </div>
         <div class="card-body">
           <div id="gaps" class="narrative"></div>
         </div>
@@ -64,14 +79,18 @@
 
     <section class="grid grid-2">
       <div class="card">
-        <div class="card-head"><h2 class="card-title">Opportunités CERF</h2></div>
+        <div class="card-head">
+          <h2 class="card-title">Opportunités CERF</h2>
+        </div>
         <div class="card-body">
           <div id="opportunites" class="narrative"></div>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-head"><h2 class="card-title">Risques</h2></div>
+        <div class="card-head">
+          <h2 class="card-title">Risques</h2>
+        </div>
         <div class="card-body">
           <div id="risques" class="narrative"></div>
         </div>
@@ -79,18 +98,20 @@
     </section>
 
     <section class="card">
-      <div class="card-head"><h2 class="card-title">Recommandations</h2></div>
+      <div class="card-head">
+        <h2 class="card-title">Recommandations</h2>
+      </div>
       <div class="card-body">
         <div id="recommandations" class="narrative"></div>
       </div>
     </section>
   </main>
 
-  <!-- libs -->
+  <!-- Export PDF libs (keep same approach as dashboard) -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 
-  <!-- app -->
-  <script src="analyse.js?v=20260213_ana1"></script>
+  <!-- Analysis logic -->
+  <script src="analyse.js?v=20260213_ana2"></script>
 </body>
 </html>
