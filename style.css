@@ -127,3 +127,62 @@ canvas{width:100%!important; height:320px!important}
   .grid3{grid-template-columns: 1fr}
   canvas{height:300px!important}
 }
+/* Top grid: small counter + table */
+.topgrid{
+  display:grid;
+  grid-template-columns: 260px 1fr;
+  gap:16px;
+  align-items:stretch;
+}
+
+.card-small{
+  padding:12px;
+}
+
+.big-compact{
+  font-size:34px;
+  line-height:1.1;
+  margin:6px 4px 2px;
+}
+
+/* Table */
+.table-wrap{
+  margin-top:10px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:auto;
+  max-height:380px;
+  background:#fff;
+}
+
+.data-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+
+.data-table thead th{
+  position:sticky;
+  top:0;
+  background:#f7fbff;
+  border-bottom:1px solid var(--border);
+  padding:10px 10px;
+  text-align:left;
+  color:var(--text);
+  font-weight:650;
+}
+
+.data-table tbody td{
+  border-bottom:1px solid var(--border);
+  padding:9px 10px;
+  vertical-align:top;
+  color:var(--text);
+}
+
+.data-table tbody tr:hover{
+  background:#fbfdff;
+}
+
+@media (max-width:1100px){
+  .topgrid{ grid-template-columns: 1fr; }
+}
