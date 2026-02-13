@@ -204,3 +204,12 @@ canvas{ width:100%!important; height:330px!important; }
   .item-head{ grid-template-columns: 1fr; }
   select, .input{ min-width: 220px; }
 }
+.narrative ul{
+  margin: 0;
+  padding-left: 18px;
+}
+.narrative li{
+  margin: 8px 0;
+  line-height: 1.45;
+  color: rgba(15,23,42,.92);
+}
