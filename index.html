@@ -5,18 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard CERF – Consultation</title>
 
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+
   <!-- Leaflet (map) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
-
-  <!-- Export PDF -->
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-
-  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="topbar">
@@ -45,7 +39,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">Service SSR/VBG le plus interrompu</div>
+        <div class="card-title">Service SSR/VBG le plus interrompu (Top 1)</div>
         <canvas id="chartService"></canvas>
       </div>
 
@@ -58,9 +52,10 @@
     <section class="grid2">
       <div class="card">
         <div class="card-title">Carte – Provinces prioritaires (mentions)</div>
-        <div class="muted">La carte utilise un fichier GeoJSON des provinces RDC à placer dans <code>rdc_provinces.geojson</code>.</div>
+        <div class="muted">
+          La carte utilise <code>rdc_provinces.geojson</code> à la racine du repo (propriété <code>name</code> ou <code>NAME_1</code> ou <code>province</code>).
+        </div>
         <div id="map"></div>
-        <div class="muted small">Si la carte est vide : ajoute le GeoJSON provinces RDC (voir README).</div>
       </div>
 
       <div class="card">
@@ -91,6 +86,15 @@
     </footer>
   </main>
 
-  <script src="main.js"></script>
+  <!-- JS libraries (ORDER MATTERS) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+  <!-- Your script (cache-busting) -->
+  <script src="main.js?v=20260213-1"></script>
 </body>
 </html>
