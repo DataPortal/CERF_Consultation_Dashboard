@@ -3,69 +3,88 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CERF – Toutes les réponses (UN Women x UNFPA)</title>
-
-  <link rel="stylesheet" href="style.css" />
+  <title>CERF – Table complète (UN Women × UNFPA)</title>
+  <link rel="stylesheet" href="style.css?v=20260213_tbl1" />
 </head>
 
 <body>
   <header class="topbar">
-    <div class="brand">
-      <div class="kicker">Produit conjoint UN Women × UNFPA</div>
-      <h1>Toutes les réponses – Consultation CERF</h1>
-      <div class="subkicker">Affichage lisible (y compris réponses narratives)</div>
-    </div>
-
-    <div class="actions">
-      <div class="filter">
-        <label for="orgFilter">Type d’organisation</label>
-        <select id="orgFilter">
-          <option value="__all__">Toutes</option>
-        </select>
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="kicker">Produit conjoint UN Women × UNFPA</div>
+        <h1>Table complète – Contributions</h1>
+        <div class="subkicker">Toutes les réponses (y compris narratives) – sans informations système</div>
       </div>
 
-      <div class="filter">
-        <label for="provinceFilter">Province base</label>
-        <select id="provinceFilter">
-          <option value="__all__">Toutes</option>
-        </select>
-      </div>
+      <div class="actions">
+        <div class="filter">
+          <label for="orgFilter">Type d’organisation</label>
+          <select id="orgFilter">
+            <option value="__all__">Toutes</option>
+          </select>
+        </div>
 
-      <div class="filter">
-        <label for="q">Recherche</label>
-        <input id="q" class="input" placeholder="Rechercher (mots-clés, provinces, services…)" />
-      </div>
+        <div class="filter">
+          <label for="provFilter">Province (base)</label>
+          <select id="provFilter">
+            <option value="__all__">Toutes</option>
+          </select>
+        </div>
 
-      <a class="btn btn-ghost" href="index.html">Retour dashboard</a>
+        <div class="filter">
+          <label for="sortBy">Trier par</label>
+          <select id="sortBy">
+            <option value="date_desc">Date (récent → ancien)</option>
+            <option value="date_asc">Date (ancien → récent)</option>
+            <option value="org_asc">Organisation (A → Z)</option>
+            <option value="prov_asc">Province (A → Z)</option>
+          </select>
+        </div>
+
+        <div class="filter">
+          <label for="q">Recherche</label>
+          <input id="q" class="input" placeholder="Rechercher (mots, provinces, narratifs…)" />
+        </div>
+
+        <a class="btn" href="index.html">Dashboard</a>
+        <a class="btn" href="analyse.html">Analyse</a>
+        <button id="btnCsv" class="btn btn-orange">Exporter CSV</button>
+        <button id="btnPdf" class="btn">Exporter PDF</button>
+      </div>
     </div>
   </header>
 
-  <main class="container">
+  <main id="report" class="container">
+
     <section class="kpis">
       <div class="kpi">
-        <div class="kpi-label">Lignes</div>
-        <div class="kpi-value" id="rowsCount">—</div>
-        <div class="kpi-meta" id="rowsMeta">—</div>
+        <div class="kpi-label">Contributions</div>
+        <div class="kpi-value" id="kpiTotal">—</div>
       </div>
       <div class="kpi">
-        <div class="kpi-label">Dernière mise à jour</div>
-        <div class="kpi-value" id="lastUpdate">—</div>
-        <div class="kpi-meta">records.json</div>
+        <div class="kpi-label">Résultats visibles</div>
+        <div class="kpi-value" id="kpiVisible">—</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Vue</div>
+        <div class="kpi-value" id="kpiScope">Toutes</div>
       </div>
     </section>
 
     <section class="card">
-      <div class="card-title">Réponses (liste détaillée)</div>
-      <div class="card-subtitle">Clique sur une réponse pour voir les narratifs. Export CSV disponible.</div>
-
-      <div class="table-actions">
-        <button id="btnCsv" class="btn">Exporter CSV</button>
+      <div class="card-head">
+        <h2 class="card-title">Liste détaillée</h2>
       </div>
-
-      <div id="list" class="list"></div>
+      <div class="card-body">
+        <div id="tableWrap"></div>
+      </div>
     </section>
+
   </main>
 
-  <script src="table.js?v=20260213-7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+  <script src="table.js?v=20260213_tbl1"></script>
 </body>
 </html>
