@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard CERF – Consultation</title>
 
-  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Leaflet (map) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
 </head>
+
 <body>
   <header class="topbar">
     <div>
@@ -31,13 +28,46 @@
   </header>
 
   <main id="report">
-    <section class="cards">
-      <div class="card">
+
+    <!-- LIGNE 1 : petit compteur + table -->
+    <section class="topgrid">
+      <div class="card card-small">
         <div class="card-title">Total des contributions</div>
-        <div class="big" id="total">—</div>
+        <div class="big big-compact" id="total">—</div>
         <div class="muted" id="generatedAt">—</div>
       </div>
 
+      <div class="card">
+        <div class="card-title">Récapitulatif des contributions (extraits Kobo)</div>
+        <div class="muted">
+          Table indicative (données non sensibles). Filtre appliqué si “Type d’organisation” est sélectionné.
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table" id="recordsTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type d’organisation</th>
+                <th>Province base</th>
+                <th>Service Top 1</th>
+                <th>Gravité</th>
+                <th>Provinces prioritaires</th>
+                <th>Groupes sous-desservis</th>
+              </tr>
+            </thead>
+            <tbody id="recordsBody">
+              <tr><td colspan="7" class="muted">Chargement…</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="muted small" id="recordsMeta"></div>
+      </div>
+    </section>
+
+    <!-- LIGNE 2 : graphiques principaux -->
+    <section class="cards">
       <div class="card">
         <div class="card-title">Service SSR/VBG le plus interrompu (Top 1)</div>
         <canvas id="chartService"></canvas>
@@ -49,11 +79,12 @@
       </div>
     </section>
 
+    <!-- LIGNE 3 : carte + provinces -->
     <section class="grid2">
       <div class="card">
         <div class="card-title">Carte – Provinces prioritaires (mentions)</div>
         <div class="muted">
-          La carte utilise <code>rdc_provinces.geojson</code> à la racine du repo (propriété <code>name</code> ou <code>NAME_1</code> ou <code>province</code>).
+          La carte utilise <code>rdc_provinces.geojson</code> à la racine du repo.
         </div>
         <div id="map"></div>
       </div>
@@ -64,6 +95,7 @@
       </div>
     </section>
 
+    <!-- LIGNE 4 : autres -->
     <section class="grid3">
       <div class="card">
         <div class="card-title">Groupes sous-desservis</div>
@@ -86,15 +118,13 @@
     </footer>
   </main>
 
-  <!-- JS libraries (ORDER MATTERS) -->
+  <!-- JS libs -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 
-  <!-- Your script (cache-busting) -->
-  <script src="main.js?v=20260213-1"></script>
+  <!-- Your script -->
+  <script src="main.js?v=20260213-2"></script>
 </body>
 </html>
