@@ -15,25 +15,28 @@ data = response.json()["results"]
 
 df = pd.json_normalize(data)
 
-# ---- INDICATEURS ----
+# -------- DEBUG (optional first run) ----------
+print("Colonnes disponibles :", df.columns.tolist())
 
 summary = {}
-
 summary["total_responses"] = len(df)
 
-summary["top_service"] = (
-    df["Service SSR/VBG le plus interrompu (Top 1)"]
-    .value_counts()
-    .to_dict()
-)
+# ---- SERVICE TOP 1 ----
+if "service_top1" in df.columns:
+    summary["top_service"] = df["service_top1"].value_counts().to_dict()
+else:
+    summary["top_service"] = {}
 
-province_cols = [c for c in df.columns if "Quelles provinces devraient être prioritaires ?/" in c]
+# ---- PROVINCES PRIORITAIRES ----
+province_cols = [c for c in df.columns if c.startswith("provinces_prioritaires/")]
 summary["provinces_priority"] = df[province_cols].sum().to_dict()
 
-risk_cols = [c for c in df.columns if "Principaux risques opérationnels./" in c]
+# ---- RISQUES ----
+risk_cols = [c for c in df.columns if c.startswith("risques_operationnels/")]
 summary["risks"] = df[risk_cols].sum().to_dict()
 
-digital_cols = [c for c in df.columns if "Avantages potentiels des outils digitaux" in c]
+# ---- DIGITAL ----
+digital_cols = [c for c in df.columns if c.startswith("avantages_digital/")]
 summary["digital_advantages"] = df[digital_cols].sum().to_dict()
 
 with open("data.json", "w", encoding="utf-8") as f:
