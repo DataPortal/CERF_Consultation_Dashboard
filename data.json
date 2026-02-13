@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-13T01:57:46.186580+00:00",
+  "generated_at": "2026-02-13T02:08:12.016454+00:00",
   "labels": {
     "org_type": {
       "wlo": "Organisation conduite par des femmes",
@@ -8,6 +8,19 @@
       "agence_onu": "Agence des Nations Unies",
       "gouvernement": "Gouvernement / Autorité",
       "autre": "Autre"
+    },
+    "service": {
+      "clinique_72h": "Prise en charge clinique <72h",
+      "mhpss": "Soutien psychosocial",
+      "juridique": "Assistance juridique",
+      "abri": "Hébergement sécurisé",
+      "ssr": "Services de santé sexuelle et reproductive"
+    },
+    "gravite": {
+      "faible": "Faible",
+      "moderee": "Modérée",
+      "elevee": "Élevée",
+      "critique": "Critique"
     },
     "province": {
       "bas_uele": "Bas-Uele",
@@ -37,18 +50,14 @@
       "tshopo": "Tshopo",
       "tshuapa": "Tshuapa"
     },
-    "service": {
-      "clinique_72h": "Prise en charge clinique <72h",
-      "mhpss": "Soutien psychosocial",
-      "juridique": "Assistance juridique",
-      "abri": "Hébergement sécurisé",
-      "ssr": "Services de santé sexuelle et reproductive"
-    },
-    "gravite": {
-      "faible": "Faible",
-      "moderee": "Modérée",
-      "elevee": "Élevée",
-      "critique": "Critique"
+    "groupes": {
+      "adolescentes_10_14": "Adolescentes 10–14 ans",
+      "adolescentes_15_19": "Adolescentes 15–19 ans",
+      "deplacees": "Femmes déplacées",
+      "cheffes_menage": "Femmes cheffes de ménage",
+      "handicap": "Femmes en situation de handicap",
+      "survivantes_vbg": "Survivantes de VBG",
+      "autre": "Autre"
     },
     "risque": {
       "insecurite": "Insécurité",
@@ -70,15 +79,6 @@
       "confidentialite": "Risques de confidentialité",
       "exclusion": "Exclusion numérique des plus vulnérables",
       "cout": "Coûts de maintenance",
-      "autre": "Autre"
-    },
-    "groupes": {
-      "adolescentes_10_14": "Adolescentes 10–14 ans",
-      "adolescentes_15_19": "Adolescentes 15–19 ans",
-      "deplacees": "Femmes déplacées",
-      "cheffes_menage": "Femmes cheffes de ménage",
-      "handicap": "Femmes en situation de handicap",
-      "survivantes_vbg": "Survivantes de VBG",
       "autre": "Autre"
     }
   },
