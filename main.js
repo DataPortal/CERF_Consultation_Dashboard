@@ -1,6 +1,9 @@
+console.log("✅ main.js chargé");
+
 let charts = {};
 let map, geoLayer;
 
+// ---------- Charts ----------
 function destroyChart(id){
   if(charts[id]){
     charts[id].destroy();
@@ -54,7 +57,7 @@ function doughnutChart(canvasId, title, dataObj){
   });
 }
 
-// ---------------- MAP ----------------
+// ---------- Map ----------
 function initMap(){
   map = L.map('map', { scrollWheelZoom: false }).setView([-2.8, 23.6], 5);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -78,7 +81,7 @@ function styleFeature(count){
   };
 }
 
-function renderMap(provinceCountsLabels){
+function renderMap(provinceCounts){
   if(!map) initMap();
 
   fetch(`rdc_provinces.geojson?v=${Date.now()}`)
@@ -91,13 +94,23 @@ function renderMap(provinceCountsLabels){
 
       geoLayer = L.geoJSON(geo, {
         style: (feature) => {
-          const name = (feature.properties?.name || feature.properties?.NAME_1 || feature.properties?.province || '').toString();
-          const c = provinceCountsLabels?.[name] || 0;
+          const name =
+            (feature.properties?.name ||
+             feature.properties?.NAME_1 ||
+             feature.properties?.province ||
+             '').toString();
+
+          const c = provinceCounts?.[name] || 0;
           return styleFeature(c);
         },
         onEachFeature: (feature, layer) => {
-          const name = (feature.properties?.name || feature.properties?.NAME_1 || feature.properties?.province || '').toString();
-          const c = provinceCountsLabels?.[name] || 0;
+          const name =
+            (feature.properties?.name ||
+             feature.properties?.NAME_1 ||
+             feature.properties?.province ||
+             '').toString();
+
+          const c = provinceCounts?.[name] || 0;
           layer.bindPopup(`<b>${name}</b><br/>Mentions : ${c}`);
         }
       }).addTo(map);
@@ -107,7 +120,7 @@ function renderMap(provinceCountsLabels){
     .catch(err => console.warn("Carte: ", err.message));
 }
 
-// ---------------- PDF EXPORT ----------------
+// ---------- PDF export ----------
 function hookPdf(){
   const btn = document.getElementById('btnPdf');
   if(!btn) return;
@@ -144,7 +157,7 @@ function hookPdf(){
   });
 }
 
-// ---------------- FILTER ----------------
+// ---------- Filter ----------
 function buildOrgFilter(byOrg){
   const sel = document.getElementById('orgFilter');
   if(!sel) return;
@@ -155,22 +168,22 @@ function buildOrgFilter(byOrg){
   optAll.textContent = 'Toutes';
   sel.appendChild(optAll);
 
-  Object.keys(byOrg || {}).forEach(label => {
+  const keys = Object.keys(byOrg || {});
+  keys.forEach(label => {
     const opt = document.createElement('option');
     opt.value = label;
     opt.textContent = label;
     sel.appendChild(opt);
   });
 
-  sel.disabled = Object.keys(byOrg || {}).length === 0;
+  sel.disabled = keys.length === 0;
 }
 
-// ---------------- APPLY DATA (NEW SCHEMA) ----------------
+// ---------- Apply scope ----------
 function applyScope(scope){
-  // scope is either payload.summary or payload.by_org_type[label]
   document.getElementById('total').textContent = scope?.total_responses ?? '0';
 
-  barChart('chartService', 'Service SSR/VBG (Top 1)', scope?.top_service || {});
+  barChart('chartService', 'Service (Top 1)', scope?.top_service || {});
   doughnutChart('chartGravite', 'Gravité', scope?.gravite || {});
   barChart('chartProvinces', 'Provinces prioritaires', scope?.provinces_prioritaires || {});
   barChart('chartGroupes', 'Groupes sous-desservis', scope?.groupes_sous_servis || {});
@@ -190,21 +203,22 @@ function showError(msg){
   document.getElementById('generatedAt').textContent = msg;
 }
 
-// ---------------- LOAD ----------------
+// ---------- Load ----------
 fetch(`data.json?v=${Date.now()}`)
   .then(r => {
     if(!r.ok) throw new Error(`data.json introuvable (HTTP ${r.status})`);
     return r.json();
   })
   .then(payload => {
-    document.getElementById('generatedAt').textContent = `Mis à jour : ${payload.generated_at || '(non renseigné)'}`;
+    document.getElementById('generatedAt').textContent =
+      `Mis à jour : ${payload.generated_at || '(non renseigné)'}`;
 
     buildOrgFilter(payload.by_org_type);
 
     // default view
     applyScope(payload.summary);
 
-    // filter change
+    // filter
     const sel = document.getElementById('orgFilter');
     if(sel){
       sel.addEventListener('change', () => {
