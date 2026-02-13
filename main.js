@@ -1,95 +1,6 @@
 let charts = {};
 let map, geoLayer;
 
-// ---- CODE → LABEL (à ajuster si tes codes évoluent) ----
-const LABELS = {
-  service: {
-    clinique_72h: "Prise en charge clinique <72h",
-    mhpss: "Soutien psychosocial",
-    juridique: "Assistance juridique",
-    abri: "Hébergement sécurisé",
-    ssr: "Services de santé sexuelle et reproductive",
-  },
-  gravite: {
-    faible: "Faible",
-    moderee: "Modérée",
-    elevee: "Élevée",
-    critique: "Critique",
-  },
-  province: {
-    bas_uele: "Bas-Uele",
-    equateur: "Équateur",
-    haut_katanga: "Haut-Katanga",
-    haut_lomami: "Haut-Lomami",
-    haut_uele: "Haut-Uele",
-    ituri: "Ituri",
-    kasai: "Kasaï",
-    kasai_central: "Kasaï-Central",
-    kasai_oriental: "Kasaï-Oriental",
-    kinshasa: "Kinshasa",
-    kongo_central: "Kongo Central",
-    kwango: "Kwango",
-    kwilu: "Kwilu",
-    lomami: "Lomami",
-    lualaba: "Lualaba",
-    mai_ndombe: "Mai-Ndombe",
-    maniema: "Maniema",
-    mongala: "Mongala",
-    nord_kivu: "Nord-Kivu",
-    nord_ubangi: "Nord-Ubangi",
-    sankuru: "Sankuru",
-    sud_kivu: "Sud-Kivu",
-    sud_ubangi: "Sud-Ubangi",
-    tanganyika: "Tanganyika",
-    tshopo: "Tshopo",
-    tshuapa: "Tshuapa",
-  },
-  groupes: {
-    adolescentes_10_14: "Adolescentes 10–14 ans",
-    adolescentes_15_19: "Adolescentes 15–19 ans",
-    deplacees: "Femmes déplacées",
-    cheffes_menage: "Femmes cheffes de ménage",
-    handicap: "Femmes en situation de handicap",
-    survivantes_vbg: "Survivantes de VBG",
-    autre: "Autre",
-  },
-  risques: {
-    insecurite: "Insécurité",
-    acces_limite: "Accès humanitaire limité",
-    ressources_humaines: "Manque de ressources humaines",
-    approvisionnement: "Rupture chaîne d’approvisionnement",
-    donnees: "Risques liés aux données / confidentialité",
-    autre: "Autre",
-  },
-  digital_advantages: {
-    rapidite: "Suivi plus rapide",
-    transparence: "Transparence accrue",
-    donnees_desag: "Données désagrégées plus rapidement",
-    meilleur_ciblage: "Meilleur ciblage des bénéficiaires",
-    autre: "Autre",
-  },
-  digital_limites: {
-    connectivite: "Coupures réseau / électricité",
-    confidentialite: "Risques de confidentialité",
-    exclusion: "Exclusion numérique des plus vulnérables",
-    cout: "Coûts de maintenance",
-    autre: "Autre",
-  },
-};
-
-function labelize(domain, code){
-  if(code === null || code === undefined) return "";
-  return (LABELS[domain] && LABELS[domain][code]) ? LABELS[domain][code] : code;
-}
-
-function relabelObject(domain, obj){
-  const out = {};
-  Object.entries(obj || {}).forEach(([k,v]) => {
-    out[labelize(domain, k)] = v;
-  });
-  return out;
-}
-
 function destroyChart(id){
   if(charts[id]){
     charts[id].destroy();
@@ -233,37 +144,44 @@ function hookPdf(){
   });
 }
 
-// ---------------- APPLY DATA ----------------
-function applySimpleSchema(payload){
-  // Total + timestamp
-  document.getElementById('total').textContent = payload.total_responses ?? '—';
-  document.getElementById('generatedAt').textContent = payload.generated_at
-    ? `Mis à jour : ${payload.generated_at}`
-    : 'Mis à jour : (non renseigné)';
+// ---------------- FILTER ----------------
+function buildOrgFilter(byOrg){
+  const sel = document.getElementById('orgFilter');
+  if(!sel) return;
 
-  // Translate codes → labels for display
-  const topService = relabelObject('service', payload.top_service || {});
-  const gravite = relabelObject('gravite', payload.gravite || {});
-  const provinces = relabelObject('province', payload.provinces || {});
-  const groupes = relabelObject('groupes', payload.groupes || {});
-  const risques = relabelObject('risques', payload.risques || {});
-  const digAdv = relabelObject('digital_advantages', payload.digital_avantages || {});
-  const digLim = relabelObject('digital_limites', payload.digital_limites || {});
+  sel.innerHTML = '';
+  const optAll = document.createElement('option');
+  optAll.value = '__all__';
+  optAll.textContent = 'Toutes';
+  sel.appendChild(optAll);
 
-  barChart('chartService', 'Service SSR/VBG (Top 1)', topService);
-  doughnutChart('chartGravite', 'Gravité', gravite);
-  barChart('chartProvinces', 'Provinces prioritaires', provinces);
-  barChart('chartGroupes', 'Groupes sous-desservis', groupes);
-  barChart('chartRisques', 'Risques opérationnels', risques);
+  Object.keys(byOrg || {}).forEach(label => {
+    const opt = document.createElement('option');
+    opt.value = label;
+    opt.textContent = label;
+    sel.appendChild(opt);
+  });
 
-  // Merge digital adv/lim in one chart
-  const digital = {};
-  Object.entries(digAdv).forEach(([k,v]) => digital[`+ ${k}`] = v);
-  Object.entries(digLim).forEach(([k,v]) => digital[`- ${k}`] = v);
-  barChart('chartDigital', 'Digital', digital);
+  sel.disabled = Object.keys(byOrg || {}).length === 0;
+}
 
-  // Map expects province labels matching GeoJSON names
-  renderMap(provinces);
+// ---------------- APPLY DATA (NEW SCHEMA) ----------------
+function applyScope(scope){
+  // scope is either payload.summary or payload.by_org_type[label]
+  document.getElementById('total').textContent = scope?.total_responses ?? '0';
+
+  barChart('chartService', 'Service SSR/VBG (Top 1)', scope?.top_service || {});
+  doughnutChart('chartGravite', 'Gravité', scope?.gravite || {});
+  barChart('chartProvinces', 'Provinces prioritaires', scope?.provinces_prioritaires || {});
+  barChart('chartGroupes', 'Groupes sous-desservis', scope?.groupes_sous_servis || {});
+  barChart('chartRisques', 'Risques opérationnels', scope?.risques_operationnels || {});
+
+  const dig = {};
+  Object.entries(scope?.digital_avantages || {}).forEach(([k,v]) => dig[`+ ${k}`] = v);
+  Object.entries(scope?.digital_limites || {}).forEach(([k,v]) => dig[`- ${k}`] = v);
+  barChart('chartDigital', 'Digital', dig);
+
+  renderMap(scope?.provinces_prioritaires || {});
 }
 
 function showError(msg){
@@ -272,23 +190,30 @@ function showError(msg){
   document.getElementById('generatedAt').textContent = msg;
 }
 
-// Load
+// ---------------- LOAD ----------------
 fetch(`data.json?v=${Date.now()}`)
   .then(r => {
     if(!r.ok) throw new Error(`data.json introuvable (HTTP ${r.status})`);
     return r.json();
   })
   .then(payload => {
-    // Your current schema is "simple"
-    applySimpleSchema(payload);
-    hookPdf();
+    document.getElementById('generatedAt').textContent = `Mis à jour : ${payload.generated_at || '(non renseigné)'}`;
 
-    // (Optional) hide orgFilter until you implement by_org_type in data.json
-    const orgSel = document.getElementById('orgFilter');
-    if(orgSel){
-      orgSel.innerHTML = `<option value="__all__">Toutes</option>`;
-      orgSel.disabled = true;
-      orgSel.title = "Le filtre par type d’organisation nécessite un data.json enrichi (by_org_type).";
+    buildOrgFilter(payload.by_org_type);
+
+    // default view
+    applyScope(payload.summary);
+
+    // filter change
+    const sel = document.getElementById('orgFilter');
+    if(sel){
+      sel.addEventListener('change', () => {
+        const v = sel.value;
+        if(v === '__all__') applyScope(payload.summary);
+        else applyScope(payload.by_org_type?.[v] || payload.summary);
+      });
     }
+
+    hookPdf();
   })
   .catch(err => showError(`Erreur chargement data.json : ${err.message}`));
