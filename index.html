@@ -1,30 +1,96 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Dashboard CERF Consultation</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard CERF – Consultation</title>
+
+  <!-- Leaflet (map) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+
+  <!-- Export PDF -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <header class="topbar">
+    <div>
+      <div class="kicker">Consultation multi-acteurs</div>
+      <h1>Dashboard CERF – Résultats</h1>
+    </div>
 
-<h1>Consultation CERF – Résultats</h1>
+    <div class="actions">
+      <div class="filter">
+        <label for="orgFilter">Filtre : Type d’organisation</label>
+        <select id="orgFilter">
+          <option value="__all__">Toutes</option>
+        </select>
+      </div>
+      <button id="btnPdf" class="btn">Exporter PDF (CERF)</button>
+    </div>
+  </header>
 
-<div class="grid">
-  <div class="card">
-    <h2>Total réponses</h2>
-    <div id="total"></div>
-  </div>
+  <main id="report">
+    <section class="cards">
+      <div class="card">
+        <div class="card-title">Total des contributions</div>
+        <div class="big" id="total">—</div>
+        <div class="muted" id="generatedAt">—</div>
+      </div>
 
-  <div class="card"><canvas id="serviceChart"></canvas></div>
-  <div class="card"><canvas id="graviteChart"></canvas></div>
-  <div class="card"><canvas id="provinceChart"></canvas></div>
-  <div class="card"><canvas id="groupChart"></canvas></div>
-  <div class="card"><canvas id="riskChart"></canvas></div>
-  <div class="card"><canvas id="digitalChart"></canvas></div>
-</div>
+      <div class="card">
+        <div class="card-title">Service SSR/VBG le plus interrompu</div>
+        <canvas id="chartService"></canvas>
+      </div>
 
-<script src="main.js"></script>
+      <div class="card">
+        <div class="card-title">Gravité des ruptures de référencement</div>
+        <canvas id="chartGravite"></canvas>
+      </div>
+    </section>
 
+    <section class="grid2">
+      <div class="card">
+        <div class="card-title">Carte – Provinces prioritaires (mentions)</div>
+        <div class="muted">La carte utilise un fichier GeoJSON des provinces RDC à placer dans <code>rdc_provinces.geojson</code>.</div>
+        <div id="map"></div>
+        <div class="muted small">Si la carte est vide : ajoute le GeoJSON provinces RDC (voir README).</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Provinces prioritaires (classement)</div>
+        <canvas id="chartProvinces"></canvas>
+      </div>
+    </section>
+
+    <section class="grid3">
+      <div class="card">
+        <div class="card-title">Groupes sous-desservis</div>
+        <canvas id="chartGroupes"></canvas>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Risques opérationnels</div>
+        <canvas id="chartRisques"></canvas>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Digital : avantages vs limites</div>
+        <canvas id="chartDigital"></canvas>
+      </div>
+    </section>
+
+    <footer class="footnote">
+      <div>Note : les données affichées sont agrégées. Les noms d’organisation ne sont pas publiés.</div>
+    </footer>
+  </main>
+
+  <script src="main.js"></script>
 </body>
 </html>
