@@ -1,0 +1,44 @@
+{
+  "records": [
+    {
+      "org_type": "agence_onu",
+      "province_base": "kinshasa",
+      "territoire_base": "kinshasa_kinshasa",
+      "service_top1": "ssr",
+      "service_top2": "clinique_72h",
+      "service_top3": "abri",
+      "rupture_gravite": "elevee",
+      "provinces_prioritaires": "nord_kivu sud_kivu tanganyika",
+      "groupes_sous_servis": "adolescentes_10_14 adolescentes_15_19 deplacees cheffes_menage handicap survivantes_vbg",
+      "risques_operationnels": "insecurite acces_limite ressources_humaines approvisionnement donnees",
+      "avantages_digital": "rapidite transparence donnees_desag meilleur_ciblage",
+      "limites_digital": "connectivite cout",
+      "submission_time": "2026-02-13T00:45:12",
+      "status": "submitted_via_web",
+      "org_type_label": "Agence des Nations Unies",
+      "province_base_label": "Kinshasa",
+      "service_top1_label": "Services de santé sexuelle et reproductive",
+      "rupture_gravite_label": "Élevée"
+    },
+    {
+      "org_type": "agence_onu",
+      "province_base": "sud_kivu",
+      "territoire_base": "sud_kivu_kabare",
+      "service_top1": "juridique",
+      "service_top2": "abri",
+      "service_top3": "ssr",
+      "rupture_gravite": "critique",
+      "provinces_prioritaires": "kinshasa kwilu nord_kivu sud_kivu",
+      "groupes_sous_servis": "adolescentes_15_19 deplacees cheffes_menage survivantes_vbg",
+      "risques_operationnels": "acces_limite approvisionnement donnees",
+      "avantages_digital": "transparence donnees_desag meilleur_ciblage",
+      "limites_digital": "confidentialite exclusion cout",
+      "submission_time": "2026-02-13T01:31:41",
+      "status": "submitted_via_web",
+      "org_type_label": "Agence des Nations Unies",
+      "province_base_label": "Sud-Kivu",
+      "service_top1_label": "Assistance juridique",
+      "rupture_gravite_label": "Critique"
+    }
+  ]
+}

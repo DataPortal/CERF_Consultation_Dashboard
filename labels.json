@@ -1,0 +1,82 @@
+{
+  "org_type": {
+    "wlo": "Organisation conduite par des femmes",
+    "ong_nat": "ONG nationale",
+    "ong_int": "ONG internationale",
+    "agence_onu": "Agence des Nations Unies",
+    "gouvernement": "Gouvernement / Autorité",
+    "autre": "Autre"
+  },
+  "province": {
+    "bas_uele": "Bas-Uele",
+    "equateur": "Équateur",
+    "haut_katanga": "Haut-Katanga",
+    "haut_lomami": "Haut-Lomami",
+    "haut_uele": "Haut-Uele",
+    "ituri": "Ituri",
+    "kasai": "Kasaï",
+    "kasai_central": "Kasaï-Central",
+    "kasai_oriental": "Kasaï-Oriental",
+    "kinshasa": "Kinshasa",
+    "kongo_central": "Kongo Central",
+    "kwango": "Kwango",
+    "kwilu": "Kwilu",
+    "lomami": "Lomami",
+    "lualaba": "Lualaba",
+    "mai_ndombe": "Mai-Ndombe",
+    "maniema": "Maniema",
+    "mongala": "Mongala",
+    "nord_kivu": "Nord-Kivu",
+    "nord_ubangi": "Nord-Ubangi",
+    "sankuru": "Sankuru",
+    "sud_kivu": "Sud-Kivu",
+    "sud_ubangi": "Sud-Ubangi",
+    "tanganyika": "Tanganyika",
+    "tshopo": "Tshopo",
+    "tshuapa": "Tshuapa"
+  },
+  "service": {
+    "clinique_72h": "Prise en charge clinique <72h",
+    "mhpss": "Soutien psychosocial",
+    "juridique": "Assistance juridique",
+    "abri": "Hébergement sécurisé",
+    "ssr": "Services de santé sexuelle et reproductive"
+  },
+  "gravite": {
+    "faible": "Faible",
+    "moderee": "Modérée",
+    "elevee": "Élevée",
+    "critique": "Critique"
+  },
+  "risque": {
+    "insecurite": "Insécurité",
+    "acces_limite": "Accès humanitaire limité",
+    "ressources_humaines": "Manque de ressources humaines",
+    "approvisionnement": "Rupture chaîne d’approvisionnement",
+    "donnees": "Risques liés aux données / confidentialité",
+    "autre": "Autre"
+  },
+  "digital_adv": {
+    "rapidite": "Suivi plus rapide",
+    "transparence": "Transparence accrue",
+    "donnees_desag": "Données désagrégées plus rapidement",
+    "meilleur_ciblage": "Meilleur ciblage des bénéficiaires",
+    "autre": "Autre"
+  },
+  "digital_lim": {
+    "connectivite": "Coupures réseau / électricité",
+    "confidentialite": "Risques de confidentialité",
+    "exclusion": "Exclusion numérique des plus vulnérables",
+    "cout": "Coûts de maintenance",
+    "autre": "Autre"
+  },
+  "groupes": {
+    "adolescentes_10_14": "Adolescentes 10–14 ans",
+    "adolescentes_15_19": "Adolescentes 15–19 ans",
+    "deplacees": "Femmes déplacées",
+    "cheffes_menage": "Femmes cheffes de ménage",
+    "handicap": "Femmes en situation de handicap",
+    "survivantes_vbg": "Survivantes de VBG",
+    "autre": "Autre"
+  }
+}
