@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-14T11:57:34.297927+00:00",
+  "generated_at": "2026-02-14T12:55:48.071505+00:00",
   "records": [
     {
       "date_interview": "2026-02-12",
@@ -270,6 +270,51 @@
       "f1_strengthen": "Ça peut renforcer si la connexion était bonne",
       "un_support_label": "Facilitation / intermédiation (brokerage), direct_funding, Renforcement des capacités, advocacy, data",
       "f2_details": "Nous avons besoin de renforcement des capacités et des fonds, car nous manquons comment poursuivre beaucoup des cas parce que nous n'avons pas de financement."
+    },
+    {
+      "date_interview": "2026-02-14",
+      "organisation": "FDAPID (Foyer de Développement pour l'Autopromotion des Personnes Indigentes et en Détresses)",
+      "org_type_label": "nngo",
+      "cluster_label": "Protection, VBG, sante, WASH, Sécurité alimentaire, Éducation, Autre",
+      "province_label": "Nord-Kivu",
+      "admin2": "adm2_nord_kivu_walikale",
+      "other_provinces_label": "Haut-Katanga, Haut-Uele, Maniema, Sud-Kivu, Tanganyika, Tshopo",
+      "consent_label": "Oui",
+      "service_top1_label": "Assistance juridique",
+      "service_top2_label": "Prise en charge médicale <72h",
+      "service_top3_label": "Soutien psychosocial (MHPSS)",
+      "a1_where": "Nord-Kivu (Zones de santé de Pinga, Kibua, Walikale, Itebero, Nyiragongo et Kirotshe)",
+      "referral_gravity_label": "tres_grave",
+      "a2_where": "Zones de santee de Pinga, Kibua, Walikale et Musenge",
+      "restore_time_label": "Plus de 30 jours",
+      "approaches_label": "Cash / assistance, AGR / moyens d’existence, sensibilisation",
+      "additionality_label": "restore, localization, access",
+      "b1_explain": "La complexitee du contexte securitaire dans la Province du Nord-Kivu a agravee la situation des victimes des VBG et plus particulièrement celle des groupes vulnérables notamment les autochtones Pygmées, les personnes avec handicap, les Mères célibataires et celles responsables des ménages. Actuellement, l'accès aux services socioé-conomiques de base est un casse-tête, ce financement sera un ouf de soulagement surtout dans les zones enclavées où les acteurs internationaux n'arrivent pas.",
+      "innovation_level_label": "Élevée",
+      "b2_explain": "C'est une intervention innovantes dans les zones de santé de Walikale parce qu'il y a rareté d'acteurs humanitaires alors que les besoins sont énormes.",
+      "toc": "réponse efficace aux besoins des victimes de VBG a travers un mécanisme durable de protection, d'autonomisation et de renforcement de la résilience des victimes a travers un paquet complet et/ou une prise en charge holistique.",
+      "obstacles_label": "Contraintes administratives, Problèmes de sécurité, financement, coordination, capacites",
+      "c1_solutions": "Il est impérieux d'amplifier le plaidoyer pour l'obtention de la personnalité juridiques par les ONGN-L, la participation des organisations féminines dans l'architecture humanitaire, l'accès a l'appui institutionnel et la promotion de la localisation de l'aide pour permettre l'accès au financement",
+      "governance_label": "copresidence, comites, Financement direct / subventions, consultations",
+      "capacity_label": "Gestion de projet, gestion_fin, VBG (standards/qualité), me, data_digital, Coordination, safeguarding, GIHA / mainstreaming",
+      "c4_coordination": "Réduire la concurrence de loyale en encourageant les femmes a se soutenir mutuellement et en partageant les opportunités qui peuvent promouvoir le leadeurship des femmes/filles.",
+      "priority_areas_label": "Bas-Uele, Haut-Uele, Ituri, Kasaï, Kasaï-Central, Mai-Ndombe, Maniema, Nord-Kivu, Sud-Kivu, Tanganyika, Tshopo",
+      "underserved_label": "Adolescentes 10–14 ans, Adolescentes 15–19 ans, Femmes/filles en situation de handicap, Femmes déplacées, Femmes cheffes de ménage, assiegee, rurales, Autre",
+      "saddd": "",
+      "meca_label": "Hotline, Points focaux / relais communautaires, Boîtes à suggestions, Canaux digitaux, comites",
+      "trust_plus": "la redevabilité, la participation aux décisions, gestion transparente et communication fluide.",
+      "trust_minus": "gestion opaque et rumeurs",
+      "feedback_channel_label": "point_focal_f",
+      "risks_label": "Insécurité, Accès humanitaire limité",
+      "e1_mitigation": "Pour réduire les risques, une approche de responsabilisation des acteurs locaux est une solution. Un protocole de sécurité doit être élaboré et vulgarisé auprès des parties prenantes en tenant compte de sensibilités. Dans chaque réunion il faut prévoir un point sur l'analyse du contexte pour actualiser les mesures de sécurité et les TdR de chaque activité, y compris les missions doivent prévoir une partie spécifiques a l'analyse des risques assortie de stratégies de protection.",
+      "funds_label": "CBPF/HRF, WPHF, bilateraux, cerf_autres",
+      "e3_results": "100% des victimes des VBG des zones de santé du Nord-Kivu accèdes aux services socioéconomiques qui renforce leur résilience ; les groupes vulnérables victimes des atrocités recouvre leur santé et sont capables de travailler pour l'avenir de leurs familles; Les groupes vulnérables développent des moyens de subsistances et les besoins vitaux de leurs familles trouvent de réponses grâce à l'autonomie financière ;",
+      "critical_need_label": "Rétablissement / continuité des services",
+      "digital_adv_label": "Suivi plus rapide, Traçabilité, Temps réel, coordination",
+      "digital_lim_label": "Coupures réseau / électricité, Faible littératie numérique, Exclusion numérique",
+      "f1_strengthen": "ça permet une communication rapide dans les zones couvertes par la connexion Internet",
+      "un_support_label": "Facilitation / intermédiation (brokerage), advocacy",
+      "f2_details": "NA"
     }
   ]
 }
