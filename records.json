@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-15T20:13:21.105687+00:00",
+  "generated_at": "2026-02-15T20:45:05.651982+00:00",
   "records": [
     {
       "date_interview": "2026-02-12",
@@ -315,6 +315,51 @@
       "f1_strengthen": "ça permet une communication rapide dans les zones couvertes par la connexion Internet",
       "un_support_label": "Facilitation / intermédiation (brokerage), advocacy",
       "f2_details": "NA"
+    },
+    {
+      "date_interview": "2026-02-15",
+      "organisation": "Solidarité des Associations Féminines pour les Droits de la femme et de l'enfant (SAFDF)",
+      "org_type_label": "nngo",
+      "cluster_label": "Protection, VBG",
+      "province_label": "Nord-Kivu",
+      "admin2": "adm2_nord_kivu_lubero",
+      "other_provinces_label": "Nord-Kivu",
+      "consent_label": "Oui",
+      "service_top1_label": "Prise en charge médicale <72h",
+      "service_top2_label": "Soutien psychosocial (MHPSS)",
+      "service_top3_label": "gestion_cas",
+      "a1_where": "Musienene, Biena, Manguredjipa, Kyondo, Kalunguta,",
+      "referral_gravity_label": "Grave",
+      "a2_where": "Musienene, Biena, Manguredjipa",
+      "restore_time_label": "8_14j",
+      "approaches_label": "Cash / assistance, AGR / moyens d’existence, Espaces sûrs, sensibilisation, referencement, Gestion de cas",
+      "additionality_label": "Extension de la couverture, restore, Renforcement système / coordination, localization, Données / suivi / redevabilité, access",
+      "b1_explain": "Il n'y a pas de financement actuellement dans les zones indiquées dans ci-haut. Un financement à ce moment permettre non seulement de couvrir un gap critique qui date de près de deux ans alors que la zone connait une intense crise ADF mais aussi de renforcer les capacités des WLO y compris en matière de redevabilité qui travaillent avec les moyens de bord dans les zones difficiles  d'accès",
+      "innovation_level_label": "Élevée",
+      "b2_explain": "Cette intervention ne serait pas une duplication dans la mesure où il n'y a pas de partenaire. Nous faisons juste le suivi de la disponibilité de kits PEP da manière à en prendre des zones qui en disposent vers les structures qui font des alertes",
+      "toc": "Si les WLO locales/nationales disposent des capacités d'apporter une réponse multisectorielle VBG dans les situations en crise alors les survivant(e)s de VBG auront un accès à des services permanents et de qualité de   prise en charge",
+      "obstacles_label": "financement, capacites",
+      "c1_solutions": "Faire un diagnostic institutionnelle afin d'identifier les WLO disposant des capacités nécessaires pour la gestion des activités et de financements considérables à l'état actuel à court terme et accompagner les autres WLO dans le développement des capacités en vue d'un accès aux financements à moyen et long termes",
+      "governance_label": "copresidence, comites, Financement direct / subventions, consultations",
+      "capacity_label": "Gestion de projet, gestion_fin, data_digital, safeguarding",
+      "c4_coordination": "Identifier les WLO avec leurs domaines spécifiques d'intervention, effectuer le diagnostic institutionnel pour avoir une idée sur leurs capacités de gestion et envisager les renforcements des capacités selon leurs niveaux",
+      "priority_areas_label": "Ituri, Nord-Kivu",
+      "underserved_label": "Adolescentes 10–14 ans, Femmes/filles en situation de handicap, Femmes cheffes de ménage, assiegee, rurales",
+      "saddd": "Les indicateurs SADDD disponible concerne la désagrégation par âge et sexe, statut et ajoutent la situation d'handicap. Toutefois la désagrégation des tranches d'âge du cluster diffère de celle de la coordination VBG assurer par la Division Genre ce qui rend parfois la collecte des données lourde. Une harmonisation s'avère indispensable",
+      "meca_label": "Hotline, Points focaux / relais communautaires, osc",
+      "trust_plus": "La proximité des services à travers des acteurs qui maîtrisent les langues locales , simples et qui ont une bonne réputation mais aussi les mécanismes de redevabilité incluant l'explication des modalités d'accès à l'assistance aux communautés avant identification des bénéficiaires renforcent la confiance des femmes dans un projet",
+      "trust_minus": "Procéder à l'identification des bénéficiaires de l'assistance sans avoir expliqué les modalités ou critères aux communautés, le travail avec les acteurs qui n'ont pas une bonne réputation dans la communauté fragilisent la confiance",
+      "feedback_channel_label": "point_focal_f",
+      "risks_label": "Insécurité, Chaîne d’approvisionnement, acceptation, Confidentialité / données, fraude",
+      "e1_mitigation": "Une participation aux réunions de coordination humanitaire qui mettent à jour sur la situation sécuritaire, un renforcement des capacités des structures et acteurs communautaires, la vulgarisation des politiques de lutte contre la fraude, la corruption et autres malversations et la mise en place des mécanismes de protection des données  et les mécanismes de redevabilité permettraient de minimiser les risques opérationnels",
+      "funds_label": "bilateraux, cerf_autres",
+      "e3_results": "Les capacités de gestion de 10 organisations évaluées à travers diagnostic institutionnel, les 5 zones de santé présentant des gaps ont bénéficié des financement pour renforcer les capacités locales de prévention et réponse aux VBG",
+      "critical_need_label": "scale",
+      "digital_adv_label": "Suivi plus rapide, Traçabilité, Temps réel, coordination",
+      "digital_lim_label": "Coupures réseau / électricité, Exclusion numérique",
+      "f1_strengthen": "Le digital peut renforcer la réponse humanitaire dans la mesure où les acteurs communautaires sont dotés des capacités de l'utiliser et peuvent renseigner facilement",
+      "un_support_label": "Facilitation / intermédiation (brokerage), direct_funding, Renforcement des capacités, advocacy",
+      "f2_details": "Au délà de la mise en oeuvre des projets, si les agences UN pouvaient renforcer les capacités d'autofinancement des WLO et leur faciliter l'accès à d'autres partenaires financiers à travers un appui aux activités génératrices de revenus pour les organisations, cela aiderait à renforcer davantage leurs leadership"
     }
   ]
 }
