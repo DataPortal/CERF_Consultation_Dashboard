@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-16T13:13:52.816865+00:00",
+  "generated_at": "2026-02-16T14:12:24.868670+00:00",
   "records": [
     {
       "date_interview": "2026-02-12",
@@ -405,6 +405,51 @@
       "f1_strengthen": "En permettant une rapidité,  une précision, et une fiabilité en terme des résultats.",
       "un_support_label": "direct_funding, Renforcement des capacités, advocacy, data",
       "f2_details": "Nous avons besoin d'être ouvert aux canaux de financement directe pour mener à bien nous activité et résoudre les différents problèmes de  nos communautés; Nous avons besoins d'être renforcer en capacité sur la gestion des projets, les outils digitaux mais aussi les conduites sur le développement; les organisations de UN peuvent nous appuyer en terme des données nos documentées dans les littératures usuelles."
+    },
+    {
+      "date_interview": "2026-02-16",
+      "organisation": "Action pour la promotion de la fille mère APROFIME en sigle",
+      "org_type_label": "nngo",
+      "cluster_label": "Protection, VBG, WASH, Éducation",
+      "province_label": "Nord-Kivu",
+      "admin2": "adm2_nord_kivu_nyiragongo",
+      "other_provinces_label": "Sud-Kivu",
+      "consent_label": "Oui",
+      "service_top1_label": "gestion_cas",
+      "service_top2_label": "Soutien psychosocial (MHPSS)",
+      "service_top3_label": "Assistance juridique",
+      "a1_where": "Nyiragongo",
+      "referral_gravity_label": "Grave",
+      "a2_where": "Dans le territoire de nyiragongo",
+      "restore_time_label": "15_30j",
+      "approaches_label": "Cash / assistance, AGR / moyens d’existence, Espaces sûrs, sensibilisation, referencement, Gestion de cas",
+      "additionality_label": "Extension de la couverture, restore, Renforcement système / coordination, localization, Données / suivi / redevabilité, access",
+      "b1_explain": "Ce financement permettra une mise à l’échelle rapide pour couvrir un gap critique dans les zones prioritaires. Il renforcera la localisation grâce au financement direct des organisations locales  Il facilitera également l’accès aux communautés vulnérables vivant dans des zones difficiles d’accès.",
+      "innovation_level_label": "Moyenne",
+      "b2_explain": "Car ça va donner accès a plusieurs organisations de postuler",
+      "toc": "Sur 12 mois, le financement CERF permettra la restauration rapide des services essentiels et la protection des personnes les plus vulnérables. Parallèlement, il renforcera les capacités des acteurs locaux et les mécanismes communautaires. À long terme, cela favorisera l’autonomisation, la résilience communautaire et une réduction durable des risques.",
+      "obstacles_label": "Contraintes administratives, Contraintes fiduciaires, financement, coordination, capacites",
+      "c1_solutions": "Diminuer les exigences",
+      "governance_label": "copresidence, Financement direct / subventions, consultations",
+      "capacity_label": "Gestion de projet, gestion_fin, me, data_digital, Coordination, safeguarding",
+      "c4_coordination": "Améliorer la coordination passe par la mise en place d’un cadre de concertation régulier et d’une plateforme commune de communication entre organisations féminines. Il est essentiel de renforcer les capacités en leadership, gouvernance et mobilisation de ressources pour les femmes leaders. Enfin, promouvoir des actions conjointes de plaidoyer et faciliter l’accès au financement direct renforcera leur influence et leur autonomie.",
+      "priority_areas_label": "Lomami, Nord-Kivu, Sud-Kivu, Tshopo",
+      "underserved_label": "Adolescentes 10–14 ans, Adolescentes 15–19 ans, Femmes/filles en situation de handicap, Femmes cheffes de ménage, assiegee, rurales",
+      "saddd": "Indicateurs SADDD disponibles immédiatement : données désagrégées par sexe, âge et zone d’intervention ; nombre de bénéficiaires servis ; taux de participation des femmes aux activités et aux instances décisionnelles.  Indicateurs à ajouter : données sur le handicap et autres vulnérabilités, niveau d’influence réelle des femmes dans la prise de décision, mécanismes de redevabilité communautaire et suivi digital des feedbacks.",
+      "meca_label": "Hotline, Points focaux / relais communautaires, Boîtes à suggestions, Canaux digitaux, osc, comites",
+      "trust_plus": "Quand elle sont impliqués",
+      "trust_minus": "La non nimplication,quand on nous fait seulement la restitution, mais in ne nous implique pas",
+      "feedback_channel_label": "WhatsApp / SMS",
+      "risks_label": "Insécurité, Accès humanitaire limité, Confidentialité / données, fraude",
+      "e1_mitigation": "Les risques sécuritaires seront atténués par une analyse régulière du contexte et l’adaptation flexible des activités (modalités mobiles ou à distance si nécessaire). Les risques financiers seront réduits grâce à des procédures de contrôle interne renforcées et un suivi budgétaire mensuel. Les risques de faible participation seront mitigés par la mobilisation communautaire, l’implication des leaders locaux et des mécanismes de feedback accessibles.",
+      "funds_label": "CBPF/HRF, WPHF, bilateraux",
+      "e3_results": "À 3 mois : 80 % des services vitaux rétablis dans les zones ciblées, au moins 150 bénéficiaires (dont 70 % femmes) servis, et 2 réunions de coordination entre organisations féminines tenues.  À 6 mois : 300 bénéficiaires directs (dont 75 % femmes) atteints, 4 protocoles locaux renforcés ou créés, et 50 femmes formées en leadership et gouvernance.  À 12 mois : 600 bénéficiaires servis avec une participation équitable des femmes, 80 % des communautés ciblées utilisant les mécanismes de redevabilité, et 6 organisations féminines collaborant régulièrement pour un plaidoyer commun.",
+      "critical_need_label": "localization",
+      "digital_adv_label": "Suivi plus rapide, Traçabilité, Temps réel, accessibilite, coordination",
+      "digital_lim_label": "Coupures réseau / électricité, Faible littératie numérique, Coûts de maintenance, protection, Exclusion numérique",
+      "f1_strengthen": "Le digital permet de collecter et analyser rapidement les données pour ajuster les interventions. Il renforce la redevabilité via des plateformes de feedback des communautés et assure la transparence et la coordination entre partenaires et bénéficiaires.",
+      "un_support_label": "Facilitation / intermédiation (brokerage), direct_funding, Renforcement des capacités, Protection des données / conformité, advocacy, data",
+      "f2_details": "Les agences de l’ONU peuvent mieux soutenir notre leadership en facilitant l’accès aux espaces décisionnels, en offrant financement direct, en renforçant nos capacités, et en appuyant les données SADDD et la redevabilité. Optionnel : accroître notre visibilité et plaidoyer."
     }
   ]
 }
