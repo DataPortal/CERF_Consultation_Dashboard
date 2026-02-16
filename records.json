@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-16T18:55:29.404858+00:00",
+  "generated_at": "2026-02-16T19:30:52.953837+00:00",
   "records": [
     {
       "date_interview": "2026-02-12",
@@ -495,6 +495,51 @@
       "f1_strengthen": "Il y a plus de transparence, evite les duplication, facile le suivi, réduire les couts, avoir des evidence.",
       "un_support_label": "direct_funding, Protection des données / conformité, advocacy, Autre",
       "f2_details": "soutenir les réseaux, apprentissage, et parrainage au niveau locaux, nationaux, et regions des WLO"
+    },
+    {
+      "date_interview": "2026-02-16",
+      "organisation": "VISION DES FEMMES POUR LE DEVELOPPEMENT ENDOGENE (VIFEDE)",
+      "org_type_label": "Organisation conduite par des femmes (WLO)",
+      "cluster_label": "Protection, VBG, WASH, Sécurité alimentaire, Éducation",
+      "province_label": "Nord-Kivu",
+      "admin2": "adm2_nord_kivu_masisi",
+      "other_provinces_label": "Ituri, Kasaï-Central, Kinshasa, Mai-Ndombe, Mongala, Sud-Kivu",
+      "consent_label": "Oui",
+      "service_top1_label": "gestion_cas",
+      "service_top2_label": "Soutien psychosocial (MHPSS)",
+      "service_top3_label": "abri_securise",
+      "a1_where": "Dans les zones suivants:Territoire de Lubero, Zone de santé d'Alimbongo(aires de santé de Kitshombiro et Lubango; Territoire de Rutshuru,zone de santé de Rutshuru (axes Rugari,kalengera et Kiwandja),Territoire de Masisi,Zone de santé de Kirotshe(AIre de santé de Afiasake,Kihindo,shasha,mitumbala,Bweremana,Kaduki,Bishangi,Territoire de Fizi,(aires de santé de Mushimbakye,kalundu ,sebele et malinde)",
+      "referral_gravity_label": "Grave",
+      "a2_where": "Dans Lubero et dans le territoire de Fizi au sud Kivu",
+      "restore_time_label": "Plus de 30 jours",
+      "approaches_label": "Cash / assistance, AGR / moyens d’existence, Espaces sûrs, sensibilisation, referencement, Gestion de cas",
+      "additionality_label": "Extension de la couverture, restore, localization, Données / suivi / redevabilité, access",
+      "b1_explain": "Dans la zone de santé d'alimbongo  et zone de santé de Fizi au sud kivu il y a beaucoup de cas des VBG mais la communauté manque  des informations sur la prevention et prise en chargeecessaires",
+      "innovation_level_label": "Élevée",
+      "b2_explain": "C'est pas une duplication car dans la zone de santé d'alimbongo nous étions la seule structure qui faisait des sensibilisations sur les violences basées sur le genre et les exploitations et abus sexuels.",
+      "toc": "Les femmes et les filles doivent vivre dans un environnement stable et sans violence.Elles doivent etre sensibiliser ainsi que toute la communauté. Les assistantes psycho sociales doivent être formées. Les espaces Surs doivent être mises en place",
+      "obstacles_label": "Contraintes administratives, financement, capacites",
+      "c1_solutions": "Occtroyer les moyens financiers pour relever les défits et un appui institutionnel serait important pour le renforcement des capacités des agents  et obtention de certains documents qui manquent.",
+      "governance_label": "Quotas de participation / leadership, Financement direct / subventions, consultations, feedback_loops",
+      "capacity_label": "Gestion de projet, gestion_fin, VBG (standards/qualité), me, data_digital, Coordination, safeguarding, GIHA / mainstreaming",
+      "c4_coordination": "Il faut une grande sensibilisation et renforcement des capacités, appui institutionnel",
+      "priority_areas_label": "Ituri, Kinshasa, Kwango, Mai-Ndombe, Mongala, Nord-Kivu, Sud-Kivu",
+      "underserved_label": "Adolescentes 10–14 ans, Adolescentes 15–19 ans, Femmes/filles en situation de handicap, Femmes déplacées, Femmes cheffes de ménage, assiegee, rurales",
+      "saddd": "Le taux de mortalité materno-infantile doit etre prise en compte dans la communauté,le taux de scolarisation et avoir un oeil sur a scolarité des jeunes filles,si possible évaluer le taux de prévelence du VIH.SIDA",
+      "meca_label": "Hotline, Points focaux / relais communautaires, Boîtes à suggestions, Canaux digitaux, osc, comites",
+      "trust_plus": "En les implicant dans les différentes phases du projet du début à la fin,mais aussi avoir une communication transparente avec elles, les respecter et les mettre dans les organes de prise de décision. Répondre à leurs préoccupations et les écouter.",
+      "trust_minus": "Quand il n'y a pas de transparence entre différentes personnes ,le non respect des engagements et le manque de communication avec les personnes qui vous ont fait confiance",
+      "feedback_channel_label": "point_focal_f",
+      "risks_label": "Insécurité, Accès humanitaire limité, Ressources humaines limitées, acceptation, Confidentialité / données, fraude",
+      "e1_mitigation": "Etablir un plan de sécurité pour le projet,identifier les zones à risques,établir des rélations avec les autorités locales et nationales ,mettre en place un plan de communication mettre en place des politiques anti corruption et anti fraude,politiques EAS et gestion du personnel.",
+      "funds_label": "CBPF/HRF, WPHF, bilateraux, cerf_autres",
+      "e3_results": "Sensibiliser plus de 15000 personnes sur les VBG et accompagner plus de 5000 femmes et filles dans les activités génératrices de revenus.",
+      "critical_need_label": "localization",
+      "digital_adv_label": "Suivi plus rapide, Traçabilité, Temps réel, accessibilite, coordination",
+      "digital_lim_label": "Coupures réseau / électricité, Faible littératie numérique, Coûts de maintenance, protection",
+      "f1_strengthen": "En collectant les données en temps réel ,ils fournissent une visibilité des activités du projet et communiquer  correctement avec les bénéficiaires.",
+      "un_support_label": "Facilitation / intermédiation (brokerage), direct_funding, Renforcement des capacités, Protection des données / conformité, advocacy, data",
+      "f2_details": "Nous mettre en contact avec d'autres bailleurs de fonds pour soutenir les efforts des femmes"
     }
   ]
 }
