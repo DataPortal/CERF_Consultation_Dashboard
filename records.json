@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-16T17:59:06.800812+00:00",
+  "generated_at": "2026-02-16T18:55:29.404858+00:00",
   "records": [
     {
       "date_interview": "2026-02-12",
@@ -450,6 +450,51 @@
       "f1_strengthen": "Le digital permet de collecter et analyser rapidement les données pour ajuster les interventions. Il renforce la redevabilité via des plateformes de feedback des communautés et assure la transparence et la coordination entre partenaires et bénéficiaires.",
       "un_support_label": "Facilitation / intermédiation (brokerage), direct_funding, Renforcement des capacités, Protection des données / conformité, advocacy, data",
       "f2_details": "Les agences de l’ONU peuvent mieux soutenir notre leadership en facilitant l’accès aux espaces décisionnels, en offrant financement direct, en renforçant nos capacités, et en appuyant les données SADDD et la redevabilité. Optionnel : accroître notre visibilité et plaidoyer."
+    },
+    {
+      "date_interview": "2026-02-16",
+      "organisation": "Programme Femme et Environnement - PFE-",
+      "org_type_label": "Organisation conduite par des femmes (WLO)",
+      "cluster_label": "Protection, VBG, Sécurité alimentaire, Autre",
+      "province_label": "Nord-Kivu",
+      "admin2": "adm2_nord_kivu_nyiragongo",
+      "other_provinces_label": "Sud-Kivu",
+      "consent_label": "Oui",
+      "service_top1_label": "Soutien psychosocial (MHPSS)",
+      "service_top2_label": "Assistance juridique",
+      "service_top3_label": "abri_securise",
+      "a1_where": "Dans toutes les zones rurales, ou il y a faible accès.",
+      "referral_gravity_label": "tres_grave",
+      "a2_where": "Dans les zones sans accès direct par route",
+      "restore_time_label": "15_30j",
+      "approaches_label": "Cash / assistance, sensibilisation, Autre",
+      "additionality_label": "Extension de la couverture, restore, localization, access, Autre",
+      "b1_explain": "Rehabilitation et equipment rapide des infrastructures locales, comme les postes de saintes, les bureaux locaux des affaires sociales, les espaces intimes des femmes dans les lieux publiques, sanitations dans les lieux publiques, etc.",
+      "innovation_level_label": "Moyenne",
+      "b2_explain": "Il y a un focus sur une réponse mutlisectorielle traditionnelle, celle ci propose un appui direct aux communautés affectées, executer entirement par les communautés, avec le suivi des organisations feminine,",
+      "toc": "Localisation de la réponse au VGB pour un impact durables de actions et initiatives communautaires contre les VBG. les communautés sont polisse et actives, les acteurs sont disponibles a allouer des ressources directement au communautés. Les organisations feminines et les parties prenantes ont des capacités a accompagner les commuantes dans cette démarche d'amelioration de la SSR/VBG.",
+      "obstacles_label": "Contraintes administratives, Contraintes fiduciaires, Problèmes de sécurité, financement, capacites",
+      "c1_solutions": "Accorder des moyens et ressources pour faire face a ces défis, car beaucoup sont centrés autour  des ressources.",
+      "governance_label": "copresidence, Quotas de participation / leadership, comites, Financement direct / subventions, consultations, feedback_loops",
+      "capacity_label": "Gestion de projet, gestion_fin, VBG (standards/qualité), me, data_digital",
+      "c4_coordination": "avoir régulièrement de coaching, peer working, intership dans les organisations UN, visit regional, etc.",
+      "priority_areas_label": "Bas-Uele, Ituri, Kasaï, Maniema, Nord-Kivu, Sud-Kivu, Tanganyika",
+      "underserved_label": "Adolescentes 10–14 ans, Adolescentes 15–19 ans, Femmes/filles en situation de handicap, Femmes déplacées, Femmes cheffes de ménage, assiegee, rurales, Autre",
+      "saddd": "A adapter suivant le contact de chaque zone",
+      "meca_label": "Hotline, Points focaux / relais communautaires, Boîtes à suggestions, comites",
+      "trust_plus": "Si elles sont au niveau de management, décisionnel",
+      "trust_minus": "non consideration des avis des femmes, sous-estimations, manque de respect",
+      "feedback_channel_label": "hotline_conf",
+      "risks_label": "Accès humanitaire limité, acceptation, Confidentialité / données",
+      "e1_mitigation": "Sensibilisation sur ces mécanismes, suivi régulier, et réponse rapide aux feedback",
+      "funds_label": "bilateraux, cerf_autres",
+      "e3_results": "Pour tout le program, voir ToC",
+      "critical_need_label": "localization",
+      "digital_adv_label": "Suivi plus rapide, Traçabilité, Temps réel, accessibilite, coordination, Autre",
+      "digital_lim_label": "Coupures réseau / électricité, Faible littératie numérique, Coûts de maintenance, Exclusion numérique",
+      "f1_strengthen": "Il y a plus de transparence, evite les duplication, facile le suivi, réduire les couts, avoir des evidence.",
+      "un_support_label": "direct_funding, Protection des données / conformité, advocacy, Autre",
+      "f2_details": "soutenir les réseaux, apprentissage, et parrainage au niveau locaux, nationaux, et regions des WLO"
     }
   ]
 }
