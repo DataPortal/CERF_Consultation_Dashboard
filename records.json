@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-16T09:32:42.545676+00:00",
+  "generated_at": "2026-02-16T09:49:02.112372+00:00",
   "records": [
     {
       "date_interview": "2026-02-12",
@@ -360,6 +360,51 @@
       "f1_strengthen": "Le digital peut renforcer la réponse humanitaire dans la mesure où les acteurs communautaires sont dotés des capacités de l'utiliser et peuvent renseigner facilement",
       "un_support_label": "Facilitation / intermédiation (brokerage), direct_funding, Renforcement des capacités, advocacy",
       "f2_details": "Au délà de la mise en oeuvre des projets, si les agences UN pouvaient renforcer les capacités d'autofinancement des WLO et leur faciliter l'accès à d'autres partenaires financiers à travers un appui aux activités génératrices de revenus pour les organisations, cela aiderait à renforcer davantage leurs leadership"
+    },
+    {
+      "date_interview": "2026-02-16",
+      "organisation": "cabinet thérapeutique Renaissance et Accompagnement à la Vie Intègre (RAVI)",
+      "org_type_label": "Organisation conduite par des femmes (WLO)",
+      "cluster_label": "VBG, sante, Éducation",
+      "province_label": "Nord-Kivu",
+      "admin2": "adm2_nord_kivu_nyiragongo",
+      "other_provinces_label": "Sud-Kivu, Tanganyika",
+      "consent_label": "Oui",
+      "service_top1_label": "Soutien psychosocial (MHPSS)",
+      "service_top2_label": "gestion_cas",
+      "service_top3_label": "abri_securise",
+      "a1_where": "Nous œuvrons dans la partie Est de la République démocratique du Congo principalement dans la province du Nord-Kivu, mais également dans les provinces voisines. Nous travaillons dans les zones ci-après : GOMA, NYIRAGONGO, BENI,BUKAVU, FIZI, MASISI, KIROTSHE, TANGANYIKA",
+      "referral_gravity_label": "tres_grave",
+      "a2_where": "Dans les camps de déplacés, dans les villages Mboko et Baraka dans le territoire de FIZI, dans le quartier Lac vert à Goma,  dans le territoire de SAKE, dans les villages NGANGI I, II et III dans le territoire du Nyiragongo, dans le territoire de Rutshuru mais également ne plein centre ville de Goma depuis l'avènement de l'armée révolutionnaire M23 en janvier  2025",
+      "restore_time_label": "Plus de 30 jours",
+      "approaches_label": "AGR / moyens d’existence, Espaces sûrs, sensibilisation, Gestion de cas",
+      "additionality_label": "Extension de la couverture, restore, access",
+      "b1_explain": "Parlant d'accès aux zones difficiles, les financement existants traitent des cas du milieu urbain pourtant la population rurale connait un sérieux problème lié à la santé physique et surtout mentale, à l'éducation, aux manques de vivres et constitue donc une tranche plus vulnérable empiré par une difficulté d'accès aux ressources. Les services de life saving comme l'accompagnement psychosocial dans ces zones précitées sont d'un grand besoin et doit être rétabli dans l'urgence car ces zones sont constitués d'une population victime des guerres et ses conséquences alors que les financement existants n'interviennent pas dans le domaine de santé mentale. Les financements existants ne tiennent pas compte de la charge mentale de la population de ces zones où la tendance suicidaire devient critique avec  0.88% des morts chaque semaines et que donc ce financement permettra le suivi et accompagnement psychologique de la population cible afin d'établir une mise à l'échelle de cette situation.",
+      "innovation_level_label": "Élevée",
+      "b2_explain": "La composante proposée qui est celle de rétablissement de la santé mentale et psychologique n'est pas une duplication car elle vise une stabilité de l'état mental de la population, ce qui est un atout majeur dans le développement social de chaque communauté; elle vise également  le bien-être social, économique et sanitaire de chaque individu pris dans son entièreté respectant son intégrité. Notre composante n'assure pas que la transformation de la population à l'heure actuelle mais assure également une transformation en long terme d'une population pour un développement durable.",
+      "toc": "Dans 12 mois CERF, la population va développé une résilience dans le milieu urbain, mais surtout la population rurale va également bénéficier des accompagnement psychologique et une intégration sociale. Le champ d'action sera élargie atténuant les zones non accessibles, ainsi une grande couche de la population va connaitre un changement de comportement positif et va contribuer au développement de sa communauté.",
+      "obstacles_label": "Problèmes de sécurité, Accès / présence limitée, financement",
+      "c1_solutions": "Sur le plan sécuritaire les médiations doivent être menées pour permettre à la population de vivre, circuler et œuvrer en toute sécurité. Le contrainte d'accès géographique est surtout le fruit du manque des moyens financiers nécessaires pour atteindre les zones rurales. L'accès au financement doit aussi se tourner du coté de domaine de santé mentale car la population  en souffre.",
+      "governance_label": "copresidence, Financement direct / subventions",
+      "capacity_label": "Gestion de projet, VBG (standards/qualité), data_digital",
+      "c4_coordination": "Permettre à la coordination des organisations féminines de travailler dans le but de montrer leur potentialités, leur permettre d'œuvrer sans discrimination et préjugés, leur donner un espace pour s'exprimer au profit des communautés; leur fournir des cadres de formations pour le renforcement de capacité; et les intégrés dans les différents niveaux de prise décisionnelle.",
+      "priority_areas_label": "Nord-Kivu, Sud-Kivu, Tanganyika",
+      "underserved_label": "Adolescentes 10–14 ans, Adolescentes 15–19 ans, Femmes/filles en situation de handicap, Femmes déplacées, assiegee, rurales",
+      "saddd": "Age, sexe, handicap, données désagrégées. ceux qu'on ajouté il y a niveau d'éducation,  milieu d'habitation (urbain ou rural), Profession,",
+      "meca_label": "Points focaux / relais communautaires, Boîtes à suggestions, comites",
+      "trust_plus": "Le respect de leur dignité, la considération de leur capacité, la reconnaissance de leurs efforts, la capacité de bien communiquer avec elles.",
+      "trust_minus": "La discrimination, les préjugés et la mauvaise gestion financière.",
+      "feedback_channel_label": "equipes_mobiles",
+      "risks_label": "Insécurité, Chaîne d’approvisionnement, acceptation, Confidentialité / données",
+      "e1_mitigation": "Nous devons respectés le procédure administratif, avoir une bonne communication avec la population et l'équipe, pour ce qui est d'acceptation communautaire il faut agir en respectant leur exigences culturelles et toujours les accompagnés à une prise de décision volontaire. Les données doivent être protégé de manière confidentielle en respectant les principes d'éthique et les lois de l'humanité.",
+      "funds_label": "CBPF/HRF, WPHF, UNTF EVAW/G",
+      "e3_results": "A 3 mois : nous pouvons déjà mener les activités dans la ville de Goma et le territoire de Nyiragongo où 1000 femmes et adolescentes vont être accompagnées et suivies psychologiquement et stabilisées mentalement.  A 6 Mois 1000 assistantes psychosociales doivent être formées, 2000 femmes et adolescentes  accompagnées et suivies psychologiquement et stabilisées mentalement. A 12 mois : 36 maisons d'écoutes construites et travaillent sur le premier secoure d'accompagnement psychologique.",
+      "critical_need_label": "Rétablissement / continuité des services",
+      "digital_adv_label": "Suivi plus rapide, Traçabilité, Temps réel, accessibilite, coordination",
+      "digital_lim_label": "Coupures réseau / électricité, Faible littératie numérique, Coûts de maintenance",
+      "f1_strengthen": "En permettant une rapidité,  une précision, et une fiabilité en terme des résultats.",
+      "un_support_label": "direct_funding, Renforcement des capacités, advocacy, data",
+      "f2_details": "Nous avons besoin d'être ouvert aux canaux de financement directe pour mener à bien nous activité et résoudre les différents problèmes de  nos communautés; Nous avons besoins d'être renforcer en capacité sur la gestion des projets, les outils digitaux mais aussi les conduites sur le développement; les organisations de UN peuvent nous appuyer en terme des données nos documentées dans les littératures usuelles."
     }
   ]
 }
