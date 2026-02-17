@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-17T11:30:16.875631+00:00",
+  "generated_at": "2026-02-17T12:02:27.673966+00:00",
   "records": [
     {
       "date_interview": "2026-02-12",
@@ -540,6 +540,51 @@
       "f1_strengthen": "En collectant les données en temps réel ,ils fournissent une visibilité des activités du projet et communiquer  correctement avec les bénéficiaires.",
       "un_support_label": "Facilitation / intermédiation (brokerage), direct_funding, Renforcement des capacités, Protection des données / conformité, advocacy, data",
       "f2_details": "Nous mettre en contact avec d'autres bailleurs de fonds pour soutenir les efforts des femmes"
+    },
+    {
+      "date_interview": "2026-02-17",
+      "organisation": "WAZA AND ACT",
+      "org_type_label": "nngo",
+      "cluster_label": "Protection, Coordination, VBG, sante, abri, Sécurité alimentaire, Nutrition, Éducation, ccc",
+      "province_label": "Nord-Kivu",
+      "admin2": "adm2_nord_kivu_nyiragongo",
+      "other_provinces_label": "Ituri, Kasaï, Nord-Kivu, Sud-Kivu, Tanganyika",
+      "consent_label": "Oui",
+      "service_top1_label": "Assistance juridique",
+      "service_top2_label": "Prise en charge médicale <72h",
+      "service_top3_label": "Soutien psychosocial (MHPSS)",
+      "a1_where": "NORD KIVU/ Territoires de RUTSHURU, MASISI et NYIRAGONGO",
+      "referral_gravity_label": "Grave",
+      "a2_where": "Dans le territoire de MASISI et NYIRAGONGO",
+      "restore_time_label": "8_14j",
+      "approaches_label": "Cash / assistance, AGR / moyens d’existence, sensibilisation, referencement, Gestion de cas",
+      "additionality_label": "Extension de la couverture, restore, Renforcement système / coordination, localization, Données / suivi / redevabilité, access",
+      "b1_explain": "Les violences liées au conflit ont fortement perturbé les services SSR/VBG à MASISI et NYIRAGONGO, entraînant des ruptures critiques de référencement entre santé, protection, WASH et abri.  L’interruption de la prise en charge médicale dans les 72h (PEP, soins cliniques) expose les survivantes à des risques accrus de VIH, grossesses non désirées et traumatismes non traités. Ce financement permettrait un rétablissement rapide des services life-saving sous 8 – 14 jours, le renforcement de la gestion de cas et des mécanismes de référencement, ainsi qu’une mise à l’échelle ciblée via des transferts monétaires sensibles au genre et l’appui direct aux organisations locales de femmes.",
+      "innovation_level_label": "Moyenne",
+      "b2_explain": "",
+      "toc": "Si un financement rapide CERF permet, dans les 8 - 14 jours, de rétablir les services SSR/VBG life-saving à Masisi et Nyiragongo (prise en charge médicale 72h, gestion de cas, MHPSS, assistance juridique) et de renforcer les mécanismes de référencement intersectoriel (santé – protection – WASH et abri), tout en appuyant les organisations locales de femmes et les transferts monétaires sensibles au genre, alors les survivantes auront un accès sécurisé, confidentiel et continu aux soins essentiels. Cela réduira immédiatement les risques médicaux et psychosociaux, améliorera la redevabilité et la coordination et restaurera la confiance communautaire. A moyen terme, le renforcement systémique (protocoles harmonisés, capacités locales, gouvernance et digital learning) consolidera un dispositif de protection plus résilient, capable de maintenir la continuité des services et de soutenir la réinsertion socio-économique, au-delà du cycle de financement CERF.",
+      "obstacles_label": "Contraintes administratives, Problèmes de sécurité, financement, coordination",
+      "c1_solutions": "Pour renforcer concrètement le leadership des WLO dans la réponse VBG, des mesures immédiates et pragmatiques peuvent être mises en place notamment : L’allègement et adaptation des exigences administratives Simplifier les procédures contractuelles, accepter des mécanismes de gestion proportionnés au niveau de risque, fournir un appui technique rapide (coaching budgétaire, conformité, reporting) et prévoir des avances de trésorerie pour éviter les ruptures opérationnelles. L’accès direct et flexible au financement Allouer des enveloppes dédiées aux WLO avec des coûts indirects adéquats, des cycles de décaissement rapides et des modalités flexibles permettant une réponse agile, notamment en contexte d’urgence. Intégration formelle dans les espaces de coordination Garantir des sièges réservés aux WLO dans les clusters et sous-groupes VBG, couvrir les coûts de participation (transport, connectivité), et promouvoir un environnement décisionnel inclusif où leur expertise communautaire influence réellement les priorités. Le renforcement institutionnel ciblé et accéléré Mettre en place un accompagnement structuré (mentorat, digital learning, outils standards de gestion de cas, protocoles harmonisés) tout en reconnaissant que les WLO disposent déjà d’un capital social et d’une légitimité communautaire essentiels à l’efficacité des interventions. Investir dans les WLO n’est pas seulement une mesure d’inclusion mais c’est aussi une stratégie opérationnelle efficace. Leur ancrage local, leur accès aux survivantes et leur compréhension fine des dynamiques communautaires améliorent la qualité, la pertinence et la durabilité de la réponse humanitaire.",
+      "governance_label": "copresidence, Quotas de participation / leadership, Financement direct / subventions, consultations",
+      "capacity_label": "Gestion de projet, GIHA / mainstreaming",
+      "c4_coordination": "Renforcer la coordination et le leadership des femmes en réservant des sièges aux WLO dans les clusters, faciliter l’accès au financement direct, offrir un renforcement institutionnel ciblé et promouvoir un environnement décisionnel inclusif et axé sur les priorités communautaires.",
+      "priority_areas_label": "Ituri, Nord-Kivu, Sud-Kivu, Tanganyika",
+      "underserved_label": "Adolescentes 15–19 ans, Femmes/filles en situation de handicap, Femmes déplacées, assiegee, rurales",
+      "saddd": "Nombre de cas VBG documentés et référencés ; Types et gravité des violences signalées ; Délai moyen entre signalement et prise en charge ; Pourcentage de survivantes bénéficiant d’un suivi complet ; Répartition par âge, genre et localisation",
+      "meca_label": "Hotline, Points focaux / relais communautaires, Boîtes à suggestions, Canaux digitaux, osc, comites",
+      "trust_plus": "La confiance des femmes est renforcée par un accès sécurisé et rapide aux services, la participation active à la prise de décision, la transparence des mécanismes, le respect de la confidentialité et le soutien d’organisations locales légitimes et inclusives.",
+      "trust_minus": "La confiance des femmes est souvent fragilisée par les retards ou interruptions de services essentiels, le manque de confidentialité, l’exclusion des décisions, l’accès limité aux financements ou aux mécanismes de protection, et l’absence de suivi ou de redevabilité des acteurs humanitaires.",
+      "feedback_channel_label": "hotline_conf",
+      "risks_label": "Insécurité, Accès humanitaire limité",
+      "e1_mitigation": "Pour atténuer les risques sécuritaires et garantir l’accès humanitaire, nous mettrons en place,  une surveillance contextuelle quotidienne, itinéraires sécurisés, coordination avec autorités locales et acteurs humanitaires, horaires flexibles des interventions, formation du personnel à la sécurité, communication transparente avec les communautés et plans d’évacuation d’urgence préétablis.",
+      "funds_label": "CBPF/HRF, WPHF, cerf_autres",
+      "e3_results": "A 3 mois 80 % des survivantes VBG identifiées ont accès à une prise en charge médicale <72h ; 70 % des cas référencés bénéficient d’un suivi psychosocial initial ; 3 WLO intégrées aux espaces de coordination locaux. A 6 mois 90 % des mécanismes de référencement intersectoriels fonctionnels (santé – protection – WASH et abri) ; 100 séances de sensibilisation communautaire et prévention VBG réalisées ; 55 % des bénéficiaires de transferts monétaires sensibles au genre utilisent les fonds pour AGR. A 12 mois 95 % des survivantes ont un suivi complet post-intervention (MHPSS, juridique, médical) ; Capacité institutionnelle renforcée pour 12 WLO locales (protocoles, gestion de cas, reporting digital) ; Réduction de 30 % des ruptures critiques de services life-saving à Masisi et NYIRAGONGO.",
+      "critical_need_label": "localization",
+      "digital_adv_label": "Suivi plus rapide, Temps réel, coordination",
+      "digital_lim_label": "Faible littératie numérique, protection, Exclusion numérique",
+      "f1_strengthen": "Le digital renforce la réponse humanitaire en améliorant le suivi des bénéficiaires, la gestion des cas, la collecte de données en temps réel, la transparence des interventions et la redevabilité envers les communautés affectées.",
+      "un_support_label": "Facilitation / intermédiation (brokerage), direct_funding, advocacy, data",
+      "f2_details": "Le digital permet l’utilisation d’outils mobiles pour le suivi des survivantes, la cartographie des services, les retours communautaires anonymes, la formation en ligne du personnel, et la diffusion rapide d’informations critiques aux populations vulnérables."
     }
   ]
 }

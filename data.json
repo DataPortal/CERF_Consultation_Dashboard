@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-17T11:30:16.875631+00:00",
+  "generated_at": "2026-02-17T12:02:27.673966+00:00",
   "labels": {
     "org_type": {
       "ingo": "ONG internationale",
@@ -186,124 +186,126 @@
     }
   },
   "summary": {
-    "total_responses": 12,
+    "total_responses": 13,
     "org_types": {
-      "nngo": 8,
+      "nngo": 9,
       "Organisation conduite par des femmes (WLO)": 4
     },
     "clusters": {
-      "VBG": 12,
-      "Protection": 11,
-      "sante": 6,
-      "Éducation": 6,
+      "VBG": 13,
+      "Protection": 12,
+      "sante": 7,
+      "Éducation": 7,
       "WASH": 5,
+      "Sécurité alimentaire": 5,
       "Autre": 4,
-      "Sécurité alimentaire": 4,
-      "abri": 1,
-      "Coordination": 1,
-      "Nutrition": 1
+      "abri": 2,
+      "Coordination": 2,
+      "Nutrition": 2,
+      "ccc": 1
     },
     "province_base": {
-      "Nord-Kivu": 12
+      "Nord-Kivu": 13
     },
     "other_provinces": {
-      "Sud-Kivu": 7,
-      "Ituri": 4,
-      "Nord-Kivu": 4,
+      "Sud-Kivu": 8,
+      "Ituri": 5,
+      "Nord-Kivu": 5,
+      "Tanganyika": 4,
       "Tshopo": 3,
-      "Tanganyika": 3,
       "Haut-Uele": 2,
       "Kinshasa": 2,
       "Haut-Katanga": 1,
       "Maniema": 1,
       "Kasaï-Central": 1,
       "Mai-Ndombe": 1,
-      "Mongala": 1
+      "Mongala": 1,
+      "Kasaï": 1
     },
     "top_service_1": {
       "Soutien psychosocial (MHPSS)": 4,
       "Prise en charge médicale <72h": 3,
-      "gestion_cas": 3,
-      "Assistance juridique": 2
+      "Assistance juridique": 3,
+      "gestion_cas": 3
     },
     "top_service_2": {
       "Soutien psychosocial (MHPSS)": 5,
       "gestion_cas": 3,
       "Assistance juridique": 2,
-      "abri_securise": 1,
-      "Prise en charge médicale <72h": 1
+      "Prise en charge médicale <72h": 2,
+      "abri_securise": 1
     },
     "top_service_3": {
       "abri_securise": 5,
       "gestion_cas": 3,
       "Assistance juridique": 2,
-      "Prise en charge médicale <72h": 1,
-      "Soutien psychosocial (MHPSS)": 1
+      "Soutien psychosocial (MHPSS)": 2,
+      "Prise en charge médicale <72h": 1
     },
     "referral_gravity": {
       "tres_grave": 7,
-      "Grave": 5
+      "Grave": 6
     },
     "restore_time": {
       "15_30j": 6,
-      "8_14j": 3,
+      "8_14j": 4,
       "Plus de 30 jours": 3
     },
     "approaches": {
-      "sensibilisation": 12,
-      "AGR / moyens d’existence": 11,
-      "Gestion de cas": 10,
-      "Cash / assistance": 9,
+      "sensibilisation": 13,
+      "AGR / moyens d’existence": 12,
+      "Gestion de cas": 11,
+      "Cash / assistance": 10,
+      "referencement": 9,
       "Espaces sûrs": 8,
-      "referencement": 8,
       "Autre": 2
     },
     "additionality": {
-      "access": 11,
-      "localization": 9,
-      "restore": 9,
-      "Extension de la couverture": 8,
-      "Renforcement système / coordination": 6,
-      "Données / suivi / redevabilité": 6,
+      "access": 12,
+      "localization": 10,
+      "restore": 10,
+      "Extension de la couverture": 9,
+      "Renforcement système / coordination": 7,
+      "Données / suivi / redevabilité": 7,
       "Autre": 1
     },
     "innovation_level": {
       "Élevée": 10,
-      "Moyenne": 2
+      "Moyenne": 3
     },
     "obstacles_wlo": {
-      "financement": 12,
+      "financement": 13,
       "capacites": 9,
-      "Contraintes administratives": 7,
-      "Problèmes de sécurité": 6,
+      "Contraintes administratives": 8,
+      "Problèmes de sécurité": 7,
+      "coordination": 5,
       "Contraintes fiduciaires": 4,
-      "coordination": 4,
       "Accès / présence limitée": 3
     },
     "governance_mechanisms": {
-      "Financement direct / subventions": 12,
-      "copresidence": 10,
-      "consultations": 9,
+      "Financement direct / subventions": 13,
+      "copresidence": 11,
+      "consultations": 10,
+      "Quotas de participation / leadership": 7,
       "comites": 7,
-      "Quotas de participation / leadership": 6,
       "feedback_loops": 5
     },
     "capacity_needs": {
-      "Gestion de projet": 11,
+      "Gestion de projet": 12,
       "gestion_fin": 11,
       "data_digital": 11,
       "VBG (standards/qualité)": 10,
       "me": 10,
       "safeguarding": 9,
       "Coordination": 8,
-      "GIHA / mainstreaming": 7,
+      "GIHA / mainstreaming": 8,
       "Autre": 2
     },
     "priority_areas": {
-      "Nord-Kivu": 12,
-      "Sud-Kivu": 6,
-      "Ituri": 5,
-      "Tanganyika": 3,
+      "Nord-Kivu": 13,
+      "Sud-Kivu": 7,
+      "Ituri": 6,
+      "Tanganyika": 4,
       "Haut-Uele": 2,
       "Bas-Uele": 2,
       "Kasaï": 2,
@@ -317,33 +319,33 @@
       "Mongala": 1
     },
     "underserved_groups": {
-      "Femmes/filles en situation de handicap": 12,
-      "assiegee": 12,
+      "Femmes/filles en situation de handicap": 13,
+      "assiegee": 13,
+      "Adolescentes 15–19 ans": 11,
+      "Femmes déplacées": 11,
+      "rurales": 11,
       "Adolescentes 10–14 ans": 10,
-      "Adolescentes 15–19 ans": 10,
-      "Femmes déplacées": 10,
       "Femmes cheffes de ménage": 10,
-      "rurales": 10,
       "Autre": 3
     },
     "accountability_mechanisms": {
-      "Points focaux / relais communautaires": 12,
-      "Boîtes à suggestions": 10,
-      "comites": 9,
-      "osc": 8,
-      "Hotline": 6,
-      "Canaux digitaux": 6
+      "Points focaux / relais communautaires": 13,
+      "Boîtes à suggestions": 11,
+      "comites": 10,
+      "osc": 9,
+      "Hotline": 7,
+      "Canaux digitaux": 7
     },
     "feedback_channel": {
       "point_focal_f": 5,
       "WhatsApp / SMS": 3,
       "boite_anonyme": 2,
-      "equipes_mobiles": 1,
-      "hotline_conf": 1
+      "hotline_conf": 2,
+      "equipes_mobiles": 1
     },
     "operational_risks": {
-      "Insécurité": 10,
-      "Accès humanitaire limité": 8,
+      "Insécurité": 11,
+      "Accès humanitaire limité": 9,
       "acceptation": 7,
       "Confidentialité / données": 7,
       "fraude": 5,
@@ -353,193 +355,196 @@
     },
     "funds_leverage": {
       "bilateraux": 9,
-      "CBPF/HRF": 7,
-      "cerf_autres": 7,
-      "WPHF": 6,
+      "CBPF/HRF": 8,
+      "cerf_autres": 8,
+      "WPHF": 7,
       "UNTF EVAW/G": 2,
       "Autre": 1
     },
     "critical_need": {
-      "localization": 8,
+      "localization": 9,
       "Rétablissement / continuité des services": 2,
       "autre": 1,
       "scale": 1
     },
     "digital_advantages": {
-      "Suivi plus rapide": 12,
-      "Temps réel": 12,
-      "coordination": 11,
+      "Suivi plus rapide": 13,
+      "Temps réel": 13,
+      "coordination": 12,
       "Traçabilité": 10,
       "accessibilite": 8,
       "Autre": 1
     },
     "digital_limits": {
       "Coupures réseau / électricité": 11,
+      "Exclusion numérique": 10,
       "Coûts de maintenance": 9,
-      "Exclusion numérique": 9,
-      "Faible littératie numérique": 8,
-      "protection": 7,
+      "Faible littératie numérique": 9,
+      "protection": 8,
       "Autre": 1
     },
     "un_support": {
-      "advocacy": 12,
-      "direct_funding": 11,
-      "Facilitation / intermédiation (brokerage)": 10,
+      "advocacy": 13,
+      "direct_funding": 12,
+      "Facilitation / intermédiation (brokerage)": 11,
       "Renforcement des capacités": 10,
+      "data": 9,
       "Protection des données / conformité": 8,
-      "data": 8,
       "Autre": 2
     }
   },
   "by_org_type": {
     "nngo": {
-      "total_responses": 8,
+      "total_responses": 9,
       "org_types": {
-        "nngo": 8
+        "nngo": 9
       },
       "clusters": {
-        "Protection": 8,
-        "VBG": 8,
-        "sante": 4,
+        "Protection": 9,
+        "VBG": 9,
+        "sante": 5,
+        "Éducation": 5,
         "WASH": 4,
-        "Éducation": 4,
         "Autre": 3,
-        "Sécurité alimentaire": 2,
-        "abri": 1,
-        "Coordination": 1,
-        "Nutrition": 1
+        "Sécurité alimentaire": 3,
+        "abri": 2,
+        "Coordination": 2,
+        "Nutrition": 2,
+        "ccc": 1
       },
       "province_base": {
-        "Nord-Kivu": 8
+        "Nord-Kivu": 9
       },
       "other_provinces": {
-        "Sud-Kivu": 4,
-        "Nord-Kivu": 4,
-        "Ituri": 3,
+        "Sud-Kivu": 5,
+        "Nord-Kivu": 5,
+        "Ituri": 4,
         "Tshopo": 3,
+        "Tanganyika": 3,
         "Haut-Uele": 2,
-        "Tanganyika": 2,
         "Kinshasa": 1,
         "Haut-Katanga": 1,
-        "Maniema": 1
+        "Maniema": 1,
+        "Kasaï": 1
       },
       "top_service_1": {
         "Prise en charge médicale <72h": 3,
-        "Assistance juridique": 2,
+        "Assistance juridique": 3,
         "gestion_cas": 2,
         "Soutien psychosocial (MHPSS)": 1
       },
       "top_service_2": {
         "Soutien psychosocial (MHPSS)": 4,
         "gestion_cas": 2,
-        "abri_securise": 1,
-        "Prise en charge médicale <72h": 1
+        "Prise en charge médicale <72h": 2,
+        "abri_securise": 1
       },
       "top_service_3": {
         "abri_securise": 2,
         "gestion_cas": 2,
         "Assistance juridique": 2,
-        "Prise en charge médicale <72h": 1,
-        "Soutien psychosocial (MHPSS)": 1
+        "Soutien psychosocial (MHPSS)": 2,
+        "Prise en charge médicale <72h": 1
       },
       "referral_gravity": {
-        "Grave": 4,
+        "Grave": 5,
         "tres_grave": 4
       },
       "restore_time": {
+        "8_14j": 4,
         "15_30j": 4,
-        "8_14j": 3,
         "Plus de 30 jours": 1
       },
       "approaches": {
-        "AGR / moyens d’existence": 8,
-        "sensibilisation": 8,
-        "Gestion de cas": 7,
-        "referencement": 6,
-        "Cash / assistance": 6,
+        "AGR / moyens d’existence": 9,
+        "sensibilisation": 9,
+        "Gestion de cas": 8,
+        "referencement": 7,
+        "Cash / assistance": 7,
         "Espaces sûrs": 5,
         "Autre": 1
       },
       "additionality": {
-        "access": 7,
-        "localization": 6,
-        "restore": 6,
-        "Renforcement système / coordination": 5,
-        "Extension de la couverture": 4,
-        "Données / suivi / redevabilité": 4
+        "access": 8,
+        "localization": 7,
+        "restore": 7,
+        "Renforcement système / coordination": 6,
+        "Extension de la couverture": 5,
+        "Données / suivi / redevabilité": 5
       },
       "innovation_level": {
         "Élevée": 7,
-        "Moyenne": 1
+        "Moyenne": 2
       },
       "obstacles_wlo": {
-        "financement": 8,
+        "financement": 9,
         "capacites": 6,
-        "coordination": 4,
-        "Contraintes administratives": 4,
-        "Problèmes de sécurité": 4,
+        "coordination": 5,
+        "Contraintes administratives": 5,
+        "Problèmes de sécurité": 5,
         "Contraintes fiduciaires": 3,
         "Accès / présence limitée": 2
       },
       "governance_mechanisms": {
-        "Financement direct / subventions": 8,
-        "copresidence": 7,
-        "consultations": 6,
+        "Financement direct / subventions": 9,
+        "copresidence": 8,
+        "consultations": 7,
         "comites": 5,
-        "Quotas de participation / leadership": 3,
+        "Quotas de participation / leadership": 4,
         "feedback_loops": 3
       },
       "capacity_needs": {
+        "Gestion de projet": 8,
         "gestion_fin": 8,
-        "Gestion de projet": 7,
         "me": 7,
         "data_digital": 7,
         "safeguarding": 7,
         "VBG (standards/qualité)": 6,
         "Coordination": 6,
-        "GIHA / mainstreaming": 5,
+        "GIHA / mainstreaming": 6,
         "Autre": 2
       },
       "priority_areas": {
-        "Nord-Kivu": 8,
-        "Ituri": 3,
-        "Sud-Kivu": 3,
+        "Nord-Kivu": 9,
+        "Ituri": 4,
+        "Sud-Kivu": 4,
         "Haut-Uele": 2,
+        "Tanganyika": 2,
         "Tshopo": 2,
         "Bas-Uele": 1,
         "Kasaï": 1,
         "Kasaï-Central": 1,
         "Mai-Ndombe": 1,
         "Maniema": 1,
-        "Tanganyika": 1,
         "Lomami": 1
       },
       "underserved_groups": {
-        "Femmes/filles en situation de handicap": 8,
-        "assiegee": 8,
+        "Femmes/filles en situation de handicap": 9,
+        "assiegee": 9,
+        "Adolescentes 15–19 ans": 7,
+        "Femmes déplacées": 7,
         "Femmes cheffes de ménage": 7,
+        "rurales": 7,
         "Adolescentes 10–14 ans": 6,
-        "Adolescentes 15–19 ans": 6,
-        "Femmes déplacées": 6,
-        "rurales": 6,
         "Autre": 2
       },
       "accountability_mechanisms": {
-        "Points focaux / relais communautaires": 8,
-        "osc": 6,
-        "Boîtes à suggestions": 6,
-        "Canaux digitaux": 5,
-        "comites": 5,
-        "Hotline": 4
+        "Points focaux / relais communautaires": 9,
+        "osc": 7,
+        "Boîtes à suggestions": 7,
+        "Canaux digitaux": 6,
+        "comites": 6,
+        "Hotline": 5
       },
       "feedback_channel": {
         "WhatsApp / SMS": 3,
         "point_focal_f": 3,
-        "boite_anonyme": 2
+        "boite_anonyme": 2,
+        "hotline_conf": 1
       },
       "operational_risks": {
-        "Insécurité": 7,
-        "Accès humanitaire limité": 5,
+        "Insécurité": 8,
+        "Accès humanitaire limité": 6,
         "Confidentialité / données": 4,
         "fraude": 4,
         "Chaîne d’approvisionnement": 3,
@@ -548,41 +553,41 @@
         "Autre": 1
       },
       "funds_leverage": {
+        "CBPF/HRF": 6,
         "bilateraux": 6,
-        "CBPF/HRF": 5,
-        "WPHF": 4,
-        "cerf_autres": 4,
+        "WPHF": 5,
+        "cerf_autres": 5,
         "UNTF EVAW/G": 1,
         "Autre": 1
       },
       "critical_need": {
-        "localization": 5,
+        "localization": 6,
         "autre": 1,
         "Rétablissement / continuité des services": 1,
         "scale": 1
       },
       "digital_advantages": {
-        "Suivi plus rapide": 8,
-        "Temps réel": 8,
+        "Suivi plus rapide": 9,
+        "Temps réel": 9,
+        "coordination": 8,
         "Traçabilité": 7,
-        "coordination": 7,
         "accessibilite": 5
       },
       "digital_limits": {
+        "Exclusion numérique": 8,
         "Coupures réseau / électricité": 7,
-        "Exclusion numérique": 7,
+        "protection": 6,
         "Coûts de maintenance": 5,
-        "protection": 5,
-        "Faible littératie numérique": 4,
+        "Faible littératie numérique": 5,
         "Autre": 1
       },
       "un_support": {
-        "Facilitation / intermédiation (brokerage)": 8,
-        "advocacy": 8,
-        "direct_funding": 7,
+        "Facilitation / intermédiation (brokerage)": 9,
+        "advocacy": 9,
+        "direct_funding": 8,
         "Renforcement des capacités": 7,
+        "data": 6,
         "Protection des données / conformité": 5,
-        "data": 5,
         "Autre": 1
       }
     },
