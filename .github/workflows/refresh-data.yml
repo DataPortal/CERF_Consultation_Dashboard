@@ -3,48 +3,73 @@ name: Refresh Kobo data
 on:
   workflow_dispatch:
   schedule:
+    # Tous les jours à 06:00 UTC (07:00 Kinshasa en saison normale)
     - cron: "0 6 * * *"
 
 permissions:
   contents: write
+
+concurrency:
+  group: refresh-kobo-data
+  cancel-in-progress: false
 
 jobs:
   refresh:
     runs-on: ubuntu-latest
 
     steps:
+      # 1) Checkout (avec credentials pour push)
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: true
 
+      # 2) Python
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: "pip"
 
+      # 3) Deps (robuste : requirements si présent, sinon fallback)
       - name: Install deps
+        shell: bash
         run: |
+          set -e
           python -m pip install --upgrade pip
-          pip install -r scripts/requirements.txt
+          if [ -f scripts/requirements.txt ]; then
+            pip install -r scripts/requirements.txt
+          else
+            pip install requests pandas
+          fi
 
-      - name: Fetch & build data.json
+      # 4) Fetch Kobo + build JSON outputs
+      - name: Fetch Kobo and build data.json + records.json
         env:
-          KOBO_BASE_URL: ${{ vars.KOBO_BASE_URL }}
-          KOBO_ASSET_UID: ${{ vars.KOBO_ASSET_UID }}
+          # Aligné sur ton script : KOBO_API_URL + KOBO_ASSET_ID + KOBO_TOKEN
+          KOBO_API_URL: ${{ vars.KOBO_BASE_URL }}
+          KOBO_ASSET_ID: ${{ vars.KOBO_ASSET_UID }}
           KOBO_TOKEN: ${{ secrets.KOBO_TOKEN }}
+        shell: bash
         run: |
-          python scripts/update_data.py
+          set -e
+          python scripts/fetch_kobo.py
+          ls -lah data.json records.json
 
+      # 5) Commit & push uniquement si changement
       - name: Commit & push (if needed)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
         run: |
+          set -e
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add data.json records.json labels.json || true
+          # Les fichiers réellement produits par ton script
+          git add data.json records.json || true
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
@@ -52,7 +77,5 @@ jobs:
           fi
 
           git commit -m "chore: refresh Kobo data"
-
-          # Push avec le token (évite l'erreur Username)
           git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push
