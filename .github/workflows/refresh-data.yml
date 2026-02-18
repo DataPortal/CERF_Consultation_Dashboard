@@ -3,7 +3,7 @@ name: Refresh Kobo data
 on:
   workflow_dispatch:
   schedule:
-    # Tous les jours à 06:00 UTC (07:00 Kinshasa en saison normale)
+    # Daily at 06:00 UTC
     - cron: "0 6 * * *"
 
 permissions:
@@ -18,21 +18,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1) Checkout (avec credentials pour push)
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: true
 
-      # 2) Python
+      - name: Debug repo structure
+        shell: bash
+        run: |
+          set -e
+          echo "PWD: $(pwd)"
+          echo "Root files:"
+          ls -lah
+          echo "Scripts folder:"
+          ls -lah scripts || true
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: "pip"
 
-      # 3) Deps (robuste : requirements si présent, sinon fallback)
       - name: Install deps
         shell: bash
         run: |
@@ -44,31 +51,42 @@ jobs:
             pip install requests pandas
           fi
 
-      # 4) Fetch Kobo + build JSON outputs
-      - name: Fetch Kobo and build data.json + records.json
+      - name: Fetch Kobo and build JSON (data.json + records.json)
         env:
-          # Aligné sur ton script : KOBO_API_URL + KOBO_ASSET_ID + KOBO_TOKEN
+          # Aligné avec TON script fetch_kobo.py
           KOBO_API_URL: ${{ vars.KOBO_BASE_URL }}
           KOBO_ASSET_ID: ${{ vars.KOBO_ASSET_UID }}
           KOBO_TOKEN: ${{ secrets.KOBO_TOKEN }}
         shell: bash
         run: |
           set -e
-          python scripts/fetch_kobo.py
+
+          # Choisir automatiquement le bon script existant dans le repo
+          if [ -f scripts/fetch_kobo.py ]; then
+            echo "Using scripts/fetch_kobo.py"
+            python scripts/fetch_kobo.py
+          elif [ -f scripts/update_data.py ]; then
+            echo "scripts/fetch_kobo.py not found; using scripts/update_data.py"
+            python scripts/update_data.py
+          else
+            echo "ERROR: Neither scripts/fetch_kobo.py nor scripts/update_data.py exists."
+            echo "Fix: add your generator script under scripts/ or update the workflow."
+            exit 2
+          fi
+
+          echo "Generated files:"
           ls -lah data.json records.json
 
-      # 5) Commit & push uniquement si changement
       - name: Commit & push (if needed)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
           set -e
-
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Les fichiers réellement produits par ton script
+          # Ton script produit data.json + records.json (labels sont inclus dans data.json)
           git add data.json records.json || true
 
           if git diff --cached --quiet; then
