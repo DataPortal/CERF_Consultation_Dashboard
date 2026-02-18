@@ -213,3 +213,13 @@ canvas{ width:100%!important; height:330px!important; }
   line-height: 1.45;
   color: rgba(15,23,42,.92);
 }
+/* --- FIX charts visibility (Chart.js) --- */
+.card-body { 
+  min-height: 320px; 
+}
+
+.card-body canvas { 
+  width: 100% !important; 
+  height: 280px !important; 
+  display: block; 
+}
