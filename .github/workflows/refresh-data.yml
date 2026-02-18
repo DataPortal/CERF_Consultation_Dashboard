@@ -27,9 +27,10 @@ jobs:
         shell: bash
         run: |
           set -e
-          echo "Root:"
+          echo "PWD: $(pwd)"
+          echo "Root files:"
           ls -lah
-          echo "scripts/:"
+          echo "Scripts folder:"
           ls -lah scripts || true
 
       - name: Setup Python
@@ -51,19 +52,19 @@ jobs:
 
       - name: Fetch Kobo and build JSON
         env:
-          # --- Variables attendues par update_data.py (d'après ton erreur) ---
-          KOBO_BASE_URL: ${{ vars.KOBO_BASE_URL }}
-          KOBO_ASSET_UID: ${{ vars.KOBO_ASSET_UID }}
-
-          # --- Variables attendues par fetch_kobo.py (standard) ---
-          KOBO_API_URL: ${{ vars.KOBO_BASE_URL }}
-          KOBO_ASSET_ID: ${{ vars.KOBO_ASSET_UID }}
-
-          # Token (commun)
+          # --- Utilisés par update_data.py ---
+          KOBO_BASE_URL: ${{ secrets.KOBO_BASE_URL }}
+          KOBO_ASSET_UID: ${{ secrets.KOBO_ASSET_UID }}
           KOBO_TOKEN: ${{ secrets.KOBO_TOKEN }}
+
+          # --- Compatibilité si tu ajoutes/uses fetch_kobo.py (standard) ---
+          KOBO_API_URL: ${{ secrets.KOBO_BASE_URL }}
+          KOBO_ASSET_ID: ${{ secrets.KOBO_ASSET_UID }}
         shell: bash
         run: |
           set -e
+          echo "KOBO_BASE_URL='${KOBO_BASE_URL}'"
+          echo "KOBO_ASSET_UID='${KOBO_ASSET_UID}'"
 
           if [ -f scripts/fetch_kobo.py ]; then
             echo "Using scripts/fetch_kobo.py"
@@ -76,8 +77,8 @@ jobs:
             exit 2
           fi
 
-          echo "Generated:"
-          ls -lah data.json records.json || true
+          echo "Generated files:"
+          ls -lah data.json records.json labels.json 2>/dev/null || true
 
       - name: Commit & push (if needed)
         env:
@@ -88,7 +89,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Ajuste selon les fichiers réellement produits par update_data.py
+          # Ajoute uniquement ce qui existe (pas d'échec si labels.json n'est pas produit)
           git add data.json records.json labels.json 2>/dev/null || true
 
           if git diff --cached --quiet; then
