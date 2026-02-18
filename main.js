@@ -5,14 +5,32 @@ let PAYLOAD = null;
 let ALL = [];
 let FILTERED = [];
 
+/* -----------------------------
+   Helpers Chart.js safety
+------------------------------ */
+function hasChartJs(){ return typeof window.Chart !== "undefined"; }
+function hasDataLabels(){ return typeof window.ChartDataLabels !== "undefined"; }
+
 function destroyChart(id){
   if(charts[id]) { charts[id].destroy(); delete charts[id]; }
 }
 
+function normalizeValues(dataObj){
+  const o = dataObj || {};
+  const labels = Object.keys(o);
+  const values = Object.values(o).map(v => Number(v || 0));
+  return { labels, values };
+}
+
 function barChart(canvasId, dataObj){
+  if(!hasChartJs()){
+    console.warn("Chart.js non chargé → chart ignoré:", canvasId);
+    return;
+  }
+
   destroyChart(canvasId);
-  const labels = Object.keys(dataObj || {});
-  const values = Object.values(dataObj || []).map(v => Number(v || 0));
+
+  const { labels, values } = normalizeValues(dataObj);
   const el = document.getElementById(canvasId);
   if(!el) return;
 
@@ -29,13 +47,25 @@ function barChart(canvasId, dataObj){
 }
 
 function doughnutChartWithPct(canvasId, dataObj){
+  if(!hasChartJs()){
+    console.warn("Chart.js non chargé → doughnut ignoré:", canvasId);
+    return;
+  }
+
   destroyChart(canvasId);
-  const labels = Object.keys(dataObj || {});
-  const values = Object.values(dataObj || {}).map(v => Number(v || 0));
+
+  const { labels, values } = normalizeValues(dataObj);
   const el = document.getElementById(canvasId);
   if(!el) return;
 
   const total = values.reduce((a,b)=>a+b,0);
+  const dl = hasDataLabels();
+
+  if(!dl){
+    console.warn("ChartDataLabels non chargé → % désactivés:", canvasId);
+  }
+
+  const pluginsArr = dl ? [ChartDataLabels] : [];
 
   charts[canvasId] = new Chart(el, {
     type: 'doughnut',
@@ -55,27 +85,32 @@ function doughnutChartWithPct(canvasId, dataObj){
             }
           }
         },
-        datalabels: {
-          display: (ctx) => {
-            const v = ctx.dataset.data[ctx.dataIndex] || 0;
-            if(!total) return false;
-            const pct = (v * 100 / total);
-            return pct >= 8;
-          },
-          formatter: (value) => {
-            if(!total) return '';
-            const pct = (value * 100 / total);
-            return `${pct.toFixed(0)}%`;
-          },
-          color: '#ffffff',
-          font: { weight: '800', size: 12 }
-        }
+        ...(dl ? {
+          datalabels: {
+            display: (ctx) => {
+              const v = ctx.dataset.data[ctx.dataIndex] || 0;
+              if(!total) return false;
+              const pct = (v * 100 / total);
+              return pct >= 8;
+            },
+            formatter: (value) => {
+              if(!total) return '';
+              const pct = (value * 100 / total);
+              return `${pct.toFixed(0)}%`;
+            },
+            color: '#ffffff',
+            font: { weight: '800', size: 12 }
+          }
+        } : {})
       }
     },
-    plugins: [ChartDataLabels]
+    plugins: pluginsArr
   });
 }
 
+/* -----------------------------
+   Filters helpers
+------------------------------ */
 function uniq(arr){
   return Array.from(new Set(arr.filter(Boolean))).sort((a,b)=>a.localeCompare(b));
 }
@@ -101,7 +136,8 @@ function matchesQuery(obj, q){
 }
 
 function setScopeLabel(label){
-  document.getElementById('kpiScope').textContent = label;
+  const el = document.getElementById('kpiScope');
+  if(el) el.textContent = label;
 }
 
 function getScope(payload, orgLabel){
@@ -110,6 +146,11 @@ function getScope(payload, orgLabel){
 }
 
 function applyScopeToCharts(scope){
+  if(!hasChartJs()){
+    console.warn("Chart.js non chargé → aucun graphique ne peut s'afficher.");
+    return;
+  }
+
   // Intro
   barChart('chartOrgTypes', scope?.org_types || {});
   barChart('chartClusters', scope?.clusters || {});
@@ -150,6 +191,9 @@ function applyScopeToCharts(scope){
   barChart('chartUNSupport', scope?.un_support || {});
 }
 
+/* -----------------------------
+   List rendering (cards)
+------------------------------ */
 function kv(label, value){
   const v = (value === null || value === undefined || value === "") ? "—" : value;
   return `<div class="k">${label}</div><div class="v">${v}</div>`;
@@ -157,6 +201,8 @@ function kv(label, value){
 
 function renderList(){
   const list = document.getElementById('list');
+  if(!list) return;
+
   list.innerHTML = '';
 
   if(FILTERED.length === 0){
@@ -272,13 +318,17 @@ function applyFilters(){
     return okOrg && okProv && okQ;
   });
 
-  document.getElementById('kpiRows').textContent = FILTERED.length.toString();
+  const kpiRows = document.getElementById('kpiRows');
+  if(kpiRows) kpiRows.textContent = FILTERED.length.toString();
+
   renderList();
 }
 
+/* -----------------------------
+   Export
+------------------------------ */
 function exportCSV(){
-  const cols = Object.keys((ALL[0] || {})); // export all fields (clean records only)
-
+  const cols = Object.keys((ALL[0] || {}));
   const esc = (v) => `"${(v ?? "").toString().replace(/"/g,'""')}"`;
   const lines = [cols.join(",")];
   FILTERED.forEach(r => lines.push(cols.map(c => esc(r[c])).join(",")));
@@ -325,6 +375,9 @@ function exportPDF(){
   });
 }
 
+/* -----------------------------
+   Load payload + records
+------------------------------ */
 Promise.all([
   fetch(`data.json?v=${Date.now()}`).then(r => { if(!r.ok) throw new Error("data.json introuvable"); return r.json(); }),
   fetch(`records.json?v=${Date.now()}`).then(r => { if(!r.ok) throw new Error("records.json introuvable"); return r.json(); })
@@ -332,9 +385,14 @@ Promise.all([
   PAYLOAD = payload;
   ALL = rec.records || [];
 
+  // Debug quick visibility
+  console.log("payload.summary keys:", Object.keys(payload?.summary || {}));
+  console.log("Chart.js loaded:", hasChartJs(), "DataLabels loaded:", hasDataLabels());
+
   // KPIs
   const total = payload.summary?.total_responses ?? ALL.length ?? 0;
-  document.getElementById('kpiTotal').textContent = total.toString();
+  const kpiTotal = document.getElementById('kpiTotal');
+  if(kpiTotal) kpiTotal.textContent = total.toString();
 
   // Filters (from clean records)
   buildSelect('orgFilter', uniq(ALL.map(r => r.org_type_label)));
@@ -346,7 +404,8 @@ Promise.all([
 
   // Default table
   FILTERED = ALL.slice();
-  document.getElementById('kpiRows').textContent = FILTERED.length.toString();
+  const kpiRows = document.getElementById('kpiRows');
+  if(kpiRows) kpiRows.textContent = FILTERED.length.toString();
   renderList();
 
   // Events
@@ -364,6 +423,8 @@ Promise.all([
   exportPDF();
 }).catch(err => {
   console.error(err);
-  document.getElementById('list').innerHTML =
-    `<div class="item"><div class="item-title">Erreur de chargement. Vérifie data.json et records.json.</div></div>`;
+  const list = document.getElementById('list');
+  if(list){
+    list.innerHTML = `<div class="item"><div class="item-title">Erreur de chargement. Vérifie data.json et records.json.</div></div>`;
+  }
 });
