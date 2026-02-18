@@ -3,7 +3,6 @@ name: Refresh Kobo data
 on:
   workflow_dispatch:
   schedule:
-    # Daily at 06:00 UTC
     - cron: "0 6 * * *"
 
 permissions:
@@ -28,10 +27,9 @@ jobs:
         shell: bash
         run: |
           set -e
-          echo "PWD: $(pwd)"
-          echo "Root files:"
+          echo "Root:"
           ls -lah
-          echo "Scripts folder:"
+          echo "scripts/:"
           ls -lah scripts || true
 
       - name: Setup Python
@@ -51,17 +49,22 @@ jobs:
             pip install requests pandas
           fi
 
-      - name: Fetch Kobo and build JSON (data.json + records.json)
+      - name: Fetch Kobo and build JSON
         env:
-          # Aligné avec TON script fetch_kobo.py
+          # --- Variables attendues par update_data.py (d'après ton erreur) ---
+          KOBO_BASE_URL: ${{ vars.KOBO_BASE_URL }}
+          KOBO_ASSET_UID: ${{ vars.KOBO_ASSET_UID }}
+
+          # --- Variables attendues par fetch_kobo.py (standard) ---
           KOBO_API_URL: ${{ vars.KOBO_BASE_URL }}
           KOBO_ASSET_ID: ${{ vars.KOBO_ASSET_UID }}
+
+          # Token (commun)
           KOBO_TOKEN: ${{ secrets.KOBO_TOKEN }}
         shell: bash
         run: |
           set -e
 
-          # Choisir automatiquement le bon script existant dans le repo
           if [ -f scripts/fetch_kobo.py ]; then
             echo "Using scripts/fetch_kobo.py"
             python scripts/fetch_kobo.py
@@ -70,12 +73,11 @@ jobs:
             python scripts/update_data.py
           else
             echo "ERROR: Neither scripts/fetch_kobo.py nor scripts/update_data.py exists."
-            echo "Fix: add your generator script under scripts/ or update the workflow."
             exit 2
           fi
 
-          echo "Generated files:"
-          ls -lah data.json records.json
+          echo "Generated:"
+          ls -lah data.json records.json || true
 
       - name: Commit & push (if needed)
         env:
@@ -86,8 +88,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Ton script produit data.json + records.json (labels sont inclus dans data.json)
-          git add data.json records.json || true
+          # Ajuste selon les fichiers réellement produits par update_data.py
+          git add data.json records.json labels.json 2>/dev/null || true
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
