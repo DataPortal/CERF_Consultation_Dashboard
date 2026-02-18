@@ -8,6 +8,7 @@ function uniq(arr){
 }
 function buildSelect(id, values){
   const sel = document.getElementById(id);
+  if(!sel) return;
   sel.innerHTML = `<option value="__all__">Toutes</option>`;
   values.forEach(v=>{
     const o=document.createElement("option");
@@ -40,10 +41,10 @@ function sortRows(rows, mode){
 }
 
 function applyFilters(){
-  const org = document.getElementById("orgFilter").value || "__all__";
-  const prov = document.getElementById("provFilter").value || "__all__";
-  const q = document.getElementById("q").value || "";
-  const sortBy = document.getElementById("sortBy").value || "date_desc";
+  const org = document.getElementById("orgFilter")?.value || "__all__";
+  const prov = document.getElementById("provFilter")?.value || "__all__";
+  const q = document.getElementById("q")?.value || "";
+  const sortBy = document.getElementById("sortBy")?.value || "date_desc";
 
   FILTERED = ALL.filter(r=>{
     const okOrg = (org === "__all__") || (r.org_type_label === org);
@@ -54,20 +55,24 @@ function applyFilters(){
 
   FILTERED = sortRows(FILTERED, sortBy);
 
-  document.getElementById("kpiVisible").textContent = FILTERED.length.toString();
-  document.getElementById("kpiScope").textContent = (org === "__all__" ? "Toutes" : org);
+  const kpiVisible = document.getElementById("kpiVisible");
+  if(kpiVisible) kpiVisible.textContent = FILTERED.length.toString();
+
+  const kpiScope = document.getElementById("kpiScope");
+  if(kpiScope) kpiScope.textContent = (org === "__all__" ? "Toutes" : org);
 
   renderTable();
 }
 
 function renderTable(){
   const wrap = document.getElementById("tableWrap");
+  if(!wrap) return;
+
   if(!FILTERED.length){
     wrap.innerHTML = `<div class="item"><div class="item-title">Aucune réponse ne correspond aux filtres.</div></div>`;
     return;
   }
 
-  // Colonnes (toutes, y compris narratifs) — ordonnées pour lecture
   const COLS = [
     ["date_interview", "Date"],
     ["organisation", "Organisation"],
@@ -98,7 +103,6 @@ function renderTable(){
     ["digital_lim_label", "Limites digital"],
     ["un_support_label", "Appui UN attendu"],
 
-    // Narratifs (en bas)
     ["a1_where", "Où (service)"],
     ["a2_where", "Où (référencement)"],
     ["b1_explain", "Explication additionalité"],
@@ -115,7 +119,6 @@ function renderTable(){
     ["f2_details", "Appui UN – détails (narratif)"],
   ];
 
-  // table html (simple, lisible)
   const thead = `
     <thead>
       <tr>
@@ -132,7 +135,6 @@ function renderTable(){
       `).join("")}
     </tbody>`;
 
-  // wrapper + scrolling horizontal
   wrap.innerHTML = `
     <div class="table-scroll">
       <table class="data-table">
@@ -194,33 +196,35 @@ function exportPDF(){
   });
 }
 
-// Load records
 fetch(`records.json?v=${Date.now()}`)
   .then(r => { if(!r.ok) throw new Error("records.json introuvable"); return r.json(); })
   .then(payload => {
     ALL = payload.records || [];
-    document.getElementById("kpiTotal").textContent = ALL.length.toString();
+
+    const kpiTotal = document.getElementById("kpiTotal");
+    if(kpiTotal) kpiTotal.textContent = ALL.length.toString();
 
     buildSelect("orgFilter", uniq(ALL.map(r => r.org_type_label)));
     buildSelect("provFilter", uniq(ALL.map(r => r.province_label)));
 
     FILTERED = ALL.slice();
-    document.getElementById("kpiVisible").textContent = FILTERED.length.toString();
+    const kpiVisible = document.getElementById("kpiVisible");
+    if(kpiVisible) kpiVisible.textContent = FILTERED.length.toString();
 
-    // Events
     ["orgFilter","provFilter","sortBy"].forEach(id => {
-      document.getElementById(id).addEventListener("change", applyFilters);
+      document.getElementById(id)?.addEventListener("change", applyFilters);
     });
-    document.getElementById("q").addEventListener("input", applyFilters);
+    document.getElementById("q")?.addEventListener("input", applyFilters);
 
-    document.getElementById("btnCsv").addEventListener("click", exportCSV);
+    document.getElementById("btnCsv")?.addEventListener("click", exportCSV);
     exportPDF();
 
-    // Initial render
     applyFilters();
   })
   .catch(err => {
     console.error(err);
-    document.getElementById("tableWrap").innerHTML =
-      `<div class="item"><div class="item-title">Erreur de chargement. Vérifie records.json.</div></div>`;
+    const wrap = document.getElementById("tableWrap");
+    if(wrap){
+      wrap.innerHTML = `<div class="item"><div class="item-title">Erreur de chargement. Vérifie records.json.</div></div>`;
+    }
   });
