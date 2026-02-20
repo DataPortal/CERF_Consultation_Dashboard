@@ -544,7 +544,8 @@ function loadRecordsJson(){
       // exports
       document.getElementById("btnCsv")?.addEventListener("click", exportCSV);
       exportPDF();
-      document.getElementById("btnPdf")?.disabled = false;
+      const pdfBtn = document.getElementById("btnPdf");
+      if (pdfBtn) pdfBtn.disabled = false;
 
       __status(`✅ records.json chargé (${RECORDS.length} réponses).`, true);
     });
