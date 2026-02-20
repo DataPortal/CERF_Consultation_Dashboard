@@ -1,275 +1,320 @@
-import os
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import json
-from typing import Any, Dict, List, Tuple, Optional
+import re
+from datetime import datetime, timezone
+from collections import Counter, defaultdict
 
 import pandas as pd
 
 
-def die(msg: str) -> None:
-    raise SystemExit(f"❌ {msg}")
+# -----------------------------
+# Helpers
+# -----------------------------
+def now_iso():
+    return datetime.now(timezone.utc).isoformat()
 
 
-def load_json(path: str) -> Dict[str, Any]:
-    if not os.path.exists(path):
-        die(f"Fichier introuvable: {path}")
+def load_json(path: str):
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
-def safe_str(x: Any) -> str:
-    if x is None:
-        return ""
-    s = str(x).strip()
-    return s
-
-
-def split_multi(x: Any) -> List[str]:
-    """
-    Kobo multi-select sort souvent comme: "choice_a choice_b choice_c"
-    ou parfois déjà en liste.
-    """
-    if x is None:
-        return []
-    if isinstance(x, list):
-        return [safe_str(v) for v in x if safe_str(v)]
-    s = safe_str(x)
-    if not s:
-        return []
-    return [p.strip() for p in s.split() if p.strip()]
-
-
-def count_series(values: List[str]) -> Dict[str, int]:
-    out: Dict[str, int] = {}
-    for v in values:
-        if not v:
-            continue
-        out[v] = out.get(v, 0) + 1
-    return out
-
-
-def df_from_results(results: List[Dict[str, Any]]) -> pd.DataFrame:
-    # Aplatit JSON
-    df = pd.json_normalize(results)
-
-    # Harmonisation: certains champs sont "intro/organisation" etc.
-    # On renomme vers tes clés attendues par tes scripts front.
-    rename_map = {
-        "intro/organisation": "organisation",
-        "intro/org_type": "org_type",
-        "intro/cluster": "cluster",
-        "intro/province": "province",
-        "intro/admin2": "admin2",
-        "intro/other_provinces": "other_provinces",
-        "intro/date_interview": "date_interview",
-        "intro/consent": "consent",
-
-        # Exemple de blocs (adapte si tes noms exacts diffèrent)
-        "bloc_a/a1_service_top1": "service_top1",
-        "bloc_a/a1_service_top2": "service_top2",
-        "bloc_a/a1_service_top3": "service_top3",
-        "bloc_a/a1_where": "a1_where",
-        "bloc_a/a2_where": "a2_where",
-        "bloc_a/referral_gravity": "referral_gravity",
-        "bloc_a/restore_time": "restore_time",
-        "bloc_a/approaches": "approaches",
-
-        "bloc_b/additionality": "additionality",
-        "bloc_b/innovation_level": "innovation_level",
-        "bloc_b/b1_explain": "b1_explain",
-        "bloc_b/b2_explain": "b2_explain",
-        "bloc_b/toc": "toc",
-
-        "bloc_c/obstacles": "obstacles",
-        "bloc_c/c1_solutions": "c1_solutions",
-        "bloc_c/governance": "governance",
-        "bloc_c/capacity": "capacity",
-        "bloc_c/c4_coordination": "c4_coordination",
-
-        "bloc_d/priority_areas": "priority_areas",
-        "bloc_d/underserved": "underserved",
-        "bloc_d/meca": "meca",
-        "bloc_d/feedback_channel": "feedback_channel",
-        "bloc_d/saddd": "saddd",
-        "bloc_d/trust_plus": "trust_plus",
-        "bloc_d/trust_minus": "trust_minus",
-
-        "bloc_e/risks": "risks",
-        "bloc_e/e1_mitigation": "e1_mitigation",
-        "bloc_e/funds": "funds",
-        "bloc_e/critical_need": "critical_need",
-        "bloc_e/e3_results": "e3_results",
-
-        "bloc_f/digital_adv": "digital_adv",
-        "bloc_f/digital_lim": "digital_lim",
-        "bloc_f/f1_strengthen": "f1_strengthen",
-        "bloc_f/un_support": "un_support",
-        "bloc_f/f2_details": "f2_details",
-    }
-
-    for k, v in rename_map.items():
-        if k in df.columns and v not in df.columns:
-            df.rename(columns={k: v}, inplace=True)
-
-    return df
-
-
-def ensure_label_columns(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Tes scripts front utilisent des champs *_label.
-    Si Kobo ne fournit pas ces champs, on les crée en fallback depuis la valeur brute.
-    """
-    pairs = [
-        ("org_type", "org_type_label"),
-        ("cluster", "cluster_label"),
-        ("province", "province_label"),
-        ("other_provinces", "other_provinces_label"),
-        ("service_top1", "service_top1_label"),
-        ("service_top2", "service_top2_label"),
-        ("service_top3", "service_top3_label"),
-        ("referral_gravity", "referral_gravity_label"),
-        ("restore_time", "restore_time_label"),
-        ("approaches", "approaches_label"),
-        ("additionality", "additionality_label"),
-        ("innovation_level", "innovation_level_label"),
-        ("obstacles", "obstacles_label"),
-        ("governance", "governance_label"),
-        ("capacity", "capacity_label"),
-        ("priority_areas", "priority_areas_label"),
-        ("underserved", "underserved_label"),
-        ("meca", "meca_label"),
-        ("feedback_channel", "feedback_channel_label"),
-        ("risks", "risks_label"),
-        ("funds", "funds_label"),
-        ("critical_need", "critical_need_label"),
-        ("digital_adv", "digital_adv_label"),
-        ("digital_lim", "digital_lim_label"),
-        ("un_support", "un_support_label"),
-        ("consent", "consent_label"),
-    ]
-
-    for raw, lab in pairs:
-        if lab not in df.columns:
-            if raw in df.columns:
-                df[lab] = df[raw].apply(safe_str)
-            else:
-                df[lab] = ""
-
-    # Convertit dates
-    if "date_interview" in df.columns:
-        df["date_interview"] = df["date_interview"].apply(safe_str)
-
-    # Organisation string
-    if "organisation" in df.columns:
-        df["organisation"] = df["organisation"].apply(safe_str)
-
-    if "admin2" in df.columns:
-        df["admin2"] = df["admin2"].apply(safe_str)
-
-    return df
-
-
-def agg_counts(df: pd.DataFrame, col_label: str, multi: bool = False) -> Dict[str, int]:
-    if col_label not in df.columns:
-        return {}
-    vals: List[str] = []
-    if multi:
-        for x in df[col_label].tolist():
-            vals.extend(split_multi(x))
-    else:
-        vals = [safe_str(x) for x in df[col_label].tolist() if safe_str(x)]
-    return count_series(vals)
-
-
-def build_summary(df: pd.DataFrame) -> Dict[str, Any]:
-    """
-    Produit la structure attendue par main.js (scope.summary)
-    """
-    summary = {
-        "total_responses": int(len(df)),
-        "org_types": agg_counts(df, "org_type_label", multi=False),
-        "clusters": agg_counts(df, "cluster_label", multi=True),
-        "province_base": agg_counts(df, "province_label", multi=False),
-        "other_provinces": agg_counts(df, "other_provinces_label", multi=True),
-
-        # Bloc A
-        "top_service_1": agg_counts(df, "service_top1_label", multi=False),
-        "top_service_2": agg_counts(df, "service_top2_label", multi=False),
-        "top_service_3": agg_counts(df, "service_top3_label", multi=False),
-        "referral_gravity": agg_counts(df, "referral_gravity_label", multi=False),
-        "restore_time": agg_counts(df, "restore_time_label", multi=False),
-        "approaches": agg_counts(df, "approaches_label", multi=True),
-
-        # Bloc B
-        "additionality": agg_counts(df, "additionality_label", multi=True),
-        "innovation_level": agg_counts(df, "innovation_level_label", multi=False),
-
-        # Bloc C
-        "obstacles_wlo": agg_counts(df, "obstacles_label", multi=True),
-        "governance_mechanisms": agg_counts(df, "governance_label", multi=True),
-        "capacity_needs": agg_counts(df, "capacity_label", multi=True),
-
-        # Bloc D
-        "priority_areas": agg_counts(df, "priority_areas_label", multi=True),
-        "underserved_groups": agg_counts(df, "underserved_label", multi=True),
-        "accountability_mechanisms": agg_counts(df, "meca_label", multi=True),
-        "feedback_channel": agg_counts(df, "feedback_channel_label", multi=False),
-
-        # Bloc E
-        "operational_risks": agg_counts(df, "risks_label", multi=True),
-        "funds_leverage": agg_counts(df, "funds_label", multi=True),
-        "critical_need": agg_counts(df, "critical_need_label", multi=False),
-
-        # Bloc F
-        "digital_advantages": agg_counts(df, "digital_adv_label", multi=True),
-        "digital_limits": agg_counts(df, "digital_lim_label", multi=True),
-        "un_support": agg_counts(df, "un_support_label", multi=True),
-    }
-    return summary
-
-
-def build_payload(df: pd.DataFrame) -> Dict[str, Any]:
-    """
-    data.json: { summary: {...}, by_org_type: { "WLO": {...}, ... } }
-    """
-    payload: Dict[str, Any] = {}
-    payload["summary"] = build_summary(df)
-
-    by_org: Dict[str, Any] = {}
-    if "org_type_label" in df.columns:
-        for org in sorted(set([safe_str(x) for x in df["org_type_label"].tolist() if safe_str(x)])):
-            sub = df[df["org_type_label"] == org].copy()
-            by_org[org] = build_summary(sub)
-    payload["by_org_type"] = by_org
-    return payload
-
-
-def write_json(path: str, obj: Any) -> None:
+def save_json(path: str, obj):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(obj, f, ensure_ascii=False, indent=2)
 
 
-def main() -> None:
-    raw_path = os.path.join("data", "raw.json")
-    raw = load_json(raw_path)
+def safe_str(v):
+    if v is None:
+        return ""
+    if isinstance(v, (int, float)):
+        return str(v)
+    return str(v).strip()
 
-    # Kobo raw.json dans notre fetch contient {"results":[...]}
-    results = raw.get("results", [])
-    if not isinstance(results, list):
-        die("Format raw.json inattendu: 'results' doit être une liste.")
 
-    df = df_from_results(results)
-    df = ensure_label_columns(df)
+def split_multi(v):
+    """
+    Accept:
+    - list
+    - "a, b, c"
+    - "a; b; c"
+    - "a b c" (when Kobo stores space-separated for select_multiple)
+    """
+    if v is None:
+        return []
+    if isinstance(v, list):
+        return [safe_str(x) for x in v if safe_str(x)]
+    s = safe_str(v)
+    if not s:
+        return []
+    # Prefer comma/semicolon, fallback to spaces
+    if "," in s:
+        parts = [p.strip() for p in s.split(",")]
+    elif ";" in s:
+        parts = [p.strip() for p in s.split(";")]
+    else:
+        # Kobo select_multiple usually "a b c" (space-separated)
+        parts = [p.strip() for p in s.split()]
+    return [p for p in parts if p]
 
-    # records.json attendu par table.js : { records: [...] }
-    records = df.fillna("").to_dict(orient="records")
-    write_json("records.json", {"records": records})
 
-    # data.json attendu par main.js
-    payload = build_payload(df)
-    write_json("data.json", payload)
+def map_label(group_map: dict, code_or_label: str):
+    """
+    Map known codes -> labels using labels.json.
+    If already a human label, keep it.
+    """
+    s = safe_str(code_or_label)
+    if not s:
+        return ""
+    # Exact code mapping
+    if s in group_map:
+        return group_map[s]
+    return s
 
-    print(f"✅ records.json: {len(records)} lignes")
-    print("✅ data.json: summary + by_org_type générés")
+
+def normalize_org_type(raw_val: str, labels):
+    """
+    Your records sometimes have: nngo / Organisation conduite par des femmes (WLO) / ONG nationale...
+    Normalize to a readable label.
+    """
+    s = safe_str(raw_val)
+    if not s:
+        return ""
+
+    s_low = s.lower()
+
+    # common noisy variants
+    if s_low in ("nngo", "ong_nationale", "ong nationale", "ong nat", "national ngo"):
+        return labels["org_type"]["ong_nat"]
+    if s_low in ("ingo", "ong_internationale", "ong internationale", "international ngo"):
+        return labels["org_type"]["ong_int"]
+    if "wlo" in s_low or "organisation conduite par des femmes" in s_low:
+        return labels["org_type"]["wlo"]
+    if "agence" in s_low and ("onu" in s_low or "nations unies" in s_low):
+        return labels["org_type"]["agence_onu"]
+    if "gouvern" in s_low or "autorité" in s_low:
+        return labels["org_type"]["gouvernement"]
+
+    # If it matches one of labels values already, keep it
+    if s in labels["org_type"].values():
+        return s
+
+    return s
+
+
+def normalize_province(raw_val: str, labels):
+    s = safe_str(raw_val)
+    if not s:
+        return ""
+    s_low = s.lower().replace("-", "_").replace(" ", "_")
+    # if already proper label (Nord-Kivu), keep it
+    if s in labels["province"].values():
+        return s
+    # try code mapping
+    if s_low in labels["province"]:
+        return labels["province"][s_low]
+    # try normalize "Nord-Kivu" => "nord_kivu"
+    s_low2 = re.sub(r"[^a-z_]", "", s_low)
+    if s_low2 in labels["province"]:
+        return labels["province"][s_low2]
+    return s
+
+
+def counter_from_series(values):
+    c = Counter([v for v in values if safe_str(v)])
+    # stable sort: by count desc then label asc
+    return dict(sorted(c.items(), key=lambda kv: (-kv[1], kv[0].lower())))
+
+
+def counter_from_multis(values_list):
+    flat = []
+    for v in values_list:
+        flat.extend(split_multi(v))
+    c = Counter([v for v in flat if safe_str(v)])
+    return dict(sorted(c.items(), key=lambda kv: (-kv[1], kv[0].lower())))
+
+
+# -----------------------------
+# Transform rows -> clean records
+# -----------------------------
+def make_records(raw_rows, labels):
+    out = []
+
+    for r in raw_rows:
+        # You can adapt these keys to your Kobo form fields if needed.
+        # Here we try to support both already-clean records.json and raw Kobo records.
+        rec = {}
+
+        # Dates
+        rec["date_interview"] = safe_str(
+            r.get("date_interview") or r.get("intro/date_interview") or r.get("start") or ""
+        )[:10]
+
+        # Org
+        rec["organisation"] = safe_str(r.get("organisation") or r.get("intro/organisation") or "")
+
+        # Org type
+        raw_org_type = r.get("org_type_label") or r.get("intro/org_type") or r.get("org_type") or ""
+        rec["org_type_label"] = normalize_org_type(raw_org_type, labels)
+
+        # Cluster(s)
+        rec["cluster_label"] = safe_str(r.get("cluster_label") or r.get("intro/cluster") or "")
+
+        # Province base
+        raw_prov = r.get("province_label") or r.get("intro/province") or ""
+        rec["province_label"] = normalize_province(raw_prov, labels)
+
+        # Admin2
+        rec["admin2"] = safe_str(r.get("admin2") or r.get("intro/admin2") or "")
+
+        # Other provinces (keep as label string)
+        rec["other_provinces_label"] = safe_str(r.get("other_provinces_label") or r.get("intro/other_provinces") or "")
+
+        # Consent
+        rec["consent_label"] = safe_str(r.get("consent_label") or r.get("intro/consent") or "")
+
+        # Services Top1/2/3
+        rec["service_top1_label"] = safe_str(r.get("service_top1_label") or r.get("bloc_a/a1_service_top1") or "")
+        rec["service_top2_label"] = safe_str(r.get("service_top2_label") or r.get("bloc_a/a1_service_top2") or "")
+        rec["service_top3_label"] = safe_str(r.get("service_top3_label") or r.get("bloc_a/a1_service_top3") or "")
+
+        # Where
+        rec["a1_where"] = safe_str(r.get("a1_where") or r.get("bloc_a/a1_where") or "")
+        rec["a2_where"] = safe_str(r.get("a2_where") or r.get("bloc_a/a2_where") or "")
+
+        # Gravité / restore
+        rec["referral_gravity_label"] = safe_str(r.get("referral_gravity_label") or r.get("bloc_a/a2_gravity") or "")
+        rec["restore_time_label"] = safe_str(r.get("restore_time_label") or r.get("bloc_a/a3_restore_time") or "")
+
+        # Approaches
+        rec["approaches_label"] = safe_str(r.get("approaches_label") or r.get("bloc_a/a4_approaches") or "")
+
+        # Additionality / innovation / ToC
+        rec["additionality_label"] = safe_str(r.get("additionality_label") or r.get("bloc_b/b1_additionality") or "")
+        rec["b1_explain"] = safe_str(r.get("b1_explain") or r.get("bloc_b/b1_explain") or "")
+        rec["innovation_level_label"] = safe_str(r.get("innovation_level_label") or r.get("bloc_b/b2_innovation") or "")
+        rec["b2_explain"] = safe_str(r.get("b2_explain") or r.get("bloc_b/b2_explain") or "")
+        rec["toc"] = safe_str(r.get("toc") or r.get("bloc_b/b3_toc") or "")
+
+        # Obstacles / solutions / governance / capacity / coordination
+        rec["obstacles_label"] = safe_str(r.get("obstacles_label") or r.get("bloc_c/c1_obstacles") or "")
+        rec["c1_solutions"] = safe_str(r.get("c1_solutions") or r.get("bloc_c/c1_solutions") or "")
+        rec["governance_label"] = safe_str(r.get("governance_label") or r.get("bloc_c/c2_governance") or "")
+        rec["capacity_label"] = safe_str(r.get("capacity_label") or r.get("bloc_c/c3_capacity") or "")
+        rec["c4_coordination"] = safe_str(r.get("c4_coordination") or r.get("bloc_c/c4_coordination") or "")
+
+        # Priority areas / underserved / SADD / AAP
+        rec["priority_areas_label"] = safe_str(r.get("priority_areas_label") or r.get("bloc_d/d1_priority_areas") or "")
+        rec["underserved_label"] = safe_str(r.get("underserved_label") or r.get("bloc_d/d2_underserved") or "")
+        rec["saddd"] = safe_str(r.get("saddd") or r.get("bloc_d/d3_saddd") or "")
+        rec["meca_label"] = safe_str(r.get("meca_label") or r.get("bloc_d/d4_meca") or "")
+        rec["feedback_channel_label"] = safe_str(r.get("feedback_channel_label") or r.get("bloc_d/d5_feedback_channel") or "")
+        rec["trust_plus"] = safe_str(r.get("trust_plus") or r.get("bloc_d/d6_trust_plus") or "")
+        rec["trust_minus"] = safe_str(r.get("trust_minus") or r.get("bloc_d/d7_trust_minus") or "")
+
+        # Risks / funds / results / critical need
+        rec["risks_label"] = safe_str(r.get("risks_label") or r.get("bloc_e/e1_risks") or "")
+        rec["e1_mitigation"] = safe_str(r.get("e1_mitigation") or r.get("bloc_e/e1_mitigation") or "")
+        rec["funds_label"] = safe_str(r.get("funds_label") or r.get("bloc_e/e2_funds") or "")
+        rec["e3_results"] = safe_str(r.get("e3_results") or r.get("bloc_e/e3_results") or "")
+        rec["critical_need_label"] = safe_str(r.get("critical_need_label") or r.get("bloc_e/e4_critical_need") or "")
+
+        # Digital
+        rec["digital_adv_label"] = safe_str(r.get("digital_adv_label") or r.get("bloc_f/f1_digital_adv") or "")
+        rec["digital_lim_label"] = safe_str(r.get("digital_lim_label") or r.get("bloc_f/f2_digital_lim") or "")
+        rec["f1_strengthen"] = safe_str(r.get("f1_strengthen") or r.get("bloc_f/f3_strengthen") or "")
+        rec["un_support_label"] = safe_str(r.get("un_support_label") or r.get("bloc_f/f4_un_support") or "")
+        rec["f2_details"] = safe_str(r.get("f2_details") or r.get("bloc_f/f5_details") or "")
+
+        out.append(rec)
+
+    return out
+
+
+# -----------------------------
+# Build aggregations for main.js
+# -----------------------------
+def build_scope(df: pd.DataFrame):
+    # Basic totals
+    scope = {}
+    scope["total_responses"] = int(len(df))
+
+    # Intro charts
+    scope["org_types"] = counter_from_series(df["org_type_label"].tolist())
+    scope["clusters"] = counter_from_series(df["cluster_label"].tolist())
+    scope["province_base"] = counter_from_series(df["province_label"].tolist())
+    scope["other_provinces"] = counter_from_multis(df["other_provinces_label"].tolist())
+
+    # Bloc A
+    scope["top_service_1"] = counter_from_series(df["service_top1_label"].tolist())
+    scope["top_service_2"] = counter_from_series(df["service_top2_label"].tolist())
+    scope["top_service_3"] = counter_from_series(df["service_top3_label"].tolist())
+    scope["referral_gravity"] = counter_from_series(df["referral_gravity_label"].tolist())
+    scope["restore_time"] = counter_from_series(df["restore_time_label"].tolist())
+    scope["approaches"] = counter_from_multis(df["approaches_label"].tolist())
+
+    # Bloc B
+    scope["additionality"] = counter_from_multis(df["additionality_label"].tolist())
+    scope["innovation_level"] = counter_from_series(df["innovation_level_label"].tolist())
+
+    # Bloc C
+    scope["obstacles_wlo"] = counter_from_multis(df["obstacles_label"].tolist())
+    scope["governance_mechanisms"] = counter_from_multis(df["governance_label"].tolist())
+    scope["capacity_needs"] = counter_from_multis(df["capacity_label"].tolist())
+
+    # Bloc D
+    scope["priority_areas"] = counter_from_multis(df["priority_areas_label"].tolist())
+    scope["underserved_groups"] = counter_from_multis(df["underserved_label"].tolist())
+    scope["accountability_mechanisms"] = counter_from_multis(df["meca_label"].tolist())
+    scope["feedback_channel"] = counter_from_series(df["feedback_channel_label"].tolist())
+
+    # Bloc E
+    scope["operational_risks"] = counter_from_multis(df["risks_label"].tolist())
+    scope["funds_leverage"] = counter_from_multis(df["funds_label"].tolist())
+    scope["critical_need"] = counter_from_series(df["critical_need_label"].tolist())
+
+    # Bloc F
+    scope["digital_advantages"] = counter_from_multis(df["digital_adv_label"].tolist())
+    scope["digital_limits"] = counter_from_multis(df["digital_lim_label"].tolist())
+    scope["un_support"] = counter_from_multis(df["un_support_label"].tolist())
+
+    return scope
+
+
+def main():
+    labels = load_json("labels.json")
+    raw = load_json("kobo_raw.json")
+
+    raw_rows = raw.get("results") or []
+    records = make_records(raw_rows, labels)
+
+    # records.json for table/card views
+    records_payload = {
+        "generated_at": now_iso(),
+        "records": records
+    }
+    save_json("records.json", records_payload)
+
+    # data.json for charts / KPIs
+    df = pd.DataFrame(records)
+
+    summary = build_scope(df)
+
+    by_org_type = {}
+    for org_type, sub in df.groupby("org_type_label"):
+        by_org_type[org_type] = build_scope(sub)
+
+    data_payload = {
+        "generated_at": now_iso(),
+        "summary": summary,
+        "by_org_type": by_org_type
+    }
+    save_json("data.json", data_payload)
+
+    print("✅ Wrote records.json + data.json")
+    print("   records:", len(records))
 
 
 if __name__ == "__main__":
