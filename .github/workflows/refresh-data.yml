@@ -1,15 +1,16 @@
-name: Refresh Kobo data
+name: Refresh Kobo data (CERF Dashboard)
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 6 * * *"
+    # toutes les 10 minutes (ajuste si besoin)
+    - cron: "*/10 * * * *"
 
 permissions:
   contents: write
 
 concurrency:
-  group: refresh-kobo-data
+  group: kobo-refresh
   cancel-in-progress: false
 
 jobs:
@@ -17,86 +18,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          persist-credentials: true
-
-      - name: Debug repo structure
-        shell: bash
-        run: |
-          set -e
-          echo "PWD: $(pwd)"
-          echo "Root files:"
-          ls -lah
-          echo "Scripts folder:"
-          ls -lah scripts || true
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          cache: "pip"
 
-      - name: Install deps
-        shell: bash
+      - name: Install dependencies
         run: |
-          set -e
           python -m pip install --upgrade pip
-          if [ -f scripts/requirements.txt ]; then
-            pip install -r scripts/requirements.txt
-          else
-            pip install requests pandas
-          fi
+          pip install pandas requests
 
-      - name: Fetch Kobo and build JSON
+      - name: Fetch Kobo submissions (raw)
         env:
-          # --- Utilisés par update_data.py ---
-          KOBO_BASE_URL: ${{ secrets.KOBO_BASE_URL }}
-          KOBO_ASSET_UID: ${{ secrets.KOBO_ASSET_UID }}
-          KOBO_TOKEN: ${{ secrets.KOBO_TOKEN }}
-
-          # --- Compatibilité si tu ajoutes/uses fetch_kobo.py (standard) ---
-          KOBO_API_URL: ${{ secrets.KOBO_BASE_URL }}
-          KOBO_ASSET_ID: ${{ secrets.KOBO_ASSET_UID }}
-        shell: bash
+          KOBO_API_URL: ${{ secrets.KOBO_API_URL }}
+          KOBO_API_TOKEN: ${{ secrets.KOBO_API_TOKEN }}
         run: |
-          set -e
-          echo "KOBO_BASE_URL='${KOBO_BASE_URL}'"
-          echo "KOBO_ASSET_UID='${KOBO_ASSET_UID}'"
+          python scripts/fetch_kobo.py
 
-          if [ -f scripts/fetch_kobo.py ]; then
-            echo "Using scripts/fetch_kobo.py"
-            python scripts/fetch_kobo.py
-          elif [ -f scripts/update_data.py ]; then
-            echo "scripts/fetch_kobo.py not found; using scripts/update_data.py"
-            python scripts/update_data.py
-          else
-            echo "ERROR: Neither scripts/fetch_kobo.py nor scripts/update_data.py exists."
-            exit 2
-          fi
-
-          echo "Generated files:"
-          ls -lah data.json records.json labels.json 2>/dev/null || true
-
-      - name: Commit & push (if needed)
+      - name: Build records.json + data.json
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
+          KOBO_API_URL: ${{ secrets.KOBO_API_URL }}
+          KOBO_API_TOKEN: ${{ secrets.KOBO_API_TOKEN }}
         run: |
-          set -e
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          python scripts/update_data.py
 
-          # Ajoute uniquement ce qui existe (pas d'échec si labels.json n'est pas produit)
-          git add data.json records.json labels.json 2>/dev/null || true
-
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-            exit 0
-          fi
-
-          git commit -m "chore: refresh Kobo data"
-          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          git push
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(data): refresh Kobo data"
+          file_pattern: |
+            data/raw.json
+            records.json
+            data.json
