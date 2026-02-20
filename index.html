@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CERF – Tableau de bord (UN Women × UNFPA)</title>
-  <link rel="stylesheet" href="style.css?v=20260220_fix1" />
+  <link rel="stylesheet" href="style.css?v=20260220_fix2" />
 </head>
 
 <body>
@@ -44,6 +44,21 @@
   </header>
 
   <main id="report" class="container">
+
+    <!-- bandeau statut -->
+    <section class="card" id="statusCard" style="margin-bottom:14px;">
+      <div class="card-head">
+        <h2 class="card-title">Statut</h2>
+      </div>
+      <div class="card-body">
+        <div id="statusMsg" style="font-size:13px; color:rgba(15,23,42,.92);">
+          Chargement des données…
+        </div>
+        <div id="statusHint" style="margin-top:8px; font-size:12px; color:rgba(100,116,139,1);">
+          Si rien ne s’affiche : vérifie que <b>data.json</b> est bien présent à la racine du site (GitHub Pages) et que <b>main.js</b> le charge.
+        </div>
+      </div>
+    </section>
 
     <section class="kpis">
       <div class="kpi">
@@ -138,12 +153,50 @@
 
   </main>
 
-  <!-- libs -->
+  <!-- libs (ordre important) -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 
-  <script src="main.js?v=20260220_fix1"></script>
+  <!-- init safe + register datalabels -->
+  <script>
+    (function () {
+      // 1) Datalabels: ne casse pas si le plugin n'est pas chargé
+      try {
+        if (window.Chart && window.ChartDataLabels) {
+          Chart.register(ChartDataLabels);
+        }
+      } catch (e) {
+        console.warn("ChartDataLabels non enregistré:", e);
+      }
+
+      // 2) Gestion d'erreurs globale pour afficher un message à l’écran
+      window.addEventListener("error", function (evt) {
+        const el = document.getElementById("statusMsg");
+        if (el) {
+          el.innerHTML = "❌ Erreur JavaScript : <b>" + (evt.message || "inconnue") + "</b>. Ouvre la console (F12) pour détails.";
+        }
+      });
+
+      window.addEventListener("unhandledrejection", function (evt) {
+        const el = document.getElementById("statusMsg");
+        if (el) {
+          el.innerHTML = "❌ Erreur (Promise) : <b>" + (evt.reason?.message || evt.reason || "inconnue") + "</b>. Ouvre la console (F12) pour détails.";
+        }
+      });
+
+      // 3) Petit helper que main.js peut utiliser (optionnel)
+      window.__setStatus = function (html, ok) {
+        const el = document.getElementById("statusMsg");
+        if (!el) return;
+        el.innerHTML = html;
+        el.style.color = ok ? "rgba(15,23,42,.92)" : "#b91c1c";
+      };
+    })();
+  </script>
+
+  <!-- main (defer pour éviter les courses) -->
+  <script src="main.js?v=20260220_fix2" defer></script>
 </body>
 </html>
