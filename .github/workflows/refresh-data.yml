@@ -1,10 +1,9 @@
-name: Refresh Kobo data (CERF Dashboard)
+name: Refresh Kobo data
 
 on:
   workflow_dispatch:
   schedule:
-    # toutes les 10 minutes (ajuste si besoin)
-    - cron: "*/10 * * * *"
+    - cron: "*/30 * * * *"
 
 permissions:
   contents: write
@@ -16,9 +15,8 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -28,30 +26,26 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install deps
         run: |
           python -m pip install --upgrade pip
-          pip install pandas requests
+          pip install -r scripts/requirements.txt
 
-      - name: Fetch Kobo submissions (raw)
+      - name: Fetch Kobo
         env:
           KOBO_API_URL: ${{ secrets.KOBO_API_URL }}
-          KOBO_API_TOKEN: ${{ secrets.KOBO_API_TOKEN }}
+          KOBO_ASSET_ID: ${{ secrets.KOBO_ASSET_ID }}
+          KOBO_TOKEN: ${{ secrets.KOBO_TOKEN }}
         run: |
           python scripts/fetch_kobo.py
 
-      - name: Build records.json + data.json
-        env:
-          KOBO_API_URL: ${{ secrets.KOBO_API_URL }}
-          KOBO_API_TOKEN: ${{ secrets.KOBO_API_TOKEN }}
-        run: |
-          python scripts/update_data.py
+      # (Optionnel) si tu génères data.json/records.json via update_data.py
+      # - name: Build dashboard data
+      #   run: |
+      #     python scripts/update_data.py
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore(data): refresh Kobo data"
-          file_pattern: |
-            data/raw.json
-            records.json
-            data.json
+          commit_message: "chore: refresh Kobo data"
+          file_pattern: "data/raw_kobo.json data.json records.json"
