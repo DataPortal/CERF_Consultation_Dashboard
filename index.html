@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CERF – Tableau de bord (UN Women × UNFPA)</title>
-  <link rel="stylesheet" href="style.css?v=20260213_full1" />
+  <link rel="stylesheet" href="style.css?v=20260220_fix1" />
 </head>
 
 <body>
@@ -72,134 +72,68 @@
     <section class="grid grid-3">
       <div class="card">
         <div class="card-head"><h2 class="card-title">Types d’organisation</h2></div>
-        <div class="card-body"><canvas id="chartOrgTypes"></canvas></div>
+        <div class="card-body"><div class="chartBox"><canvas id="chartOrgTypes"></canvas></div></div>
       </div>
       <div class="card">
         <div class="card-head"><h2 class="card-title">Clusters / domaines (auto-déclarés)</h2></div>
-        <div class="card-body"><canvas id="chartClusters"></canvas></div>
+        <div class="card-body"><div class="chartBox"><canvas id="chartClusters"></canvas></div></div>
       </div>
       <div class="card">
         <div class="card-head"><h2 class="card-title">Province base (interview)</h2></div>
-        <div class="card-body"><canvas id="chartProvinceBase"></canvas></div>
+        <div class="card-body"><div class="chartBox"><canvas id="chartProvinceBase"></canvas></div></div>
       </div>
     </section>
 
     <!-- BLOC A -->
     <section class="grid grid-3">
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc A – Services Top 1</h2></div>
-        <div class="card-body"><canvas id="chartTop1"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc A – Services Top 2</h2></div>
-        <div class="card-body"><canvas id="chartTop2"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc A – Services Top 3</h2></div>
-        <div class="card-body"><canvas id="chartTop3"></canvas></div>
-      </div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc A – Services Top 1</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartTop1"></canvas></div></div></div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc A – Services Top 2</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartTop2"></canvas></div></div></div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc A – Services Top 3</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartTop3"></canvas></div></div></div>
     </section>
 
     <section class="grid grid-3">
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc A – Gravité des ruptures</h2></div>
-        <div class="card-body"><canvas id="chartGravite"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc A – Délai de rétablissement</h2></div>
-        <div class="card-body"><canvas id="chartRestoreTime"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc A – Approches efficaces</h2></div>
-        <div class="card-body"><canvas id="chartApproaches"></canvas></div>
-      </div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc A – Gravité des ruptures</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartGravite"></canvas></div></div></div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc A – Délai de rétablissement</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartRestoreTime"></canvas></div></div></div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc A – Approches efficaces</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartApproaches"></canvas></div></div></div>
     </section>
 
     <!-- BLOC B -->
     <section class="grid grid-2">
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc B – Additionalité (axes)</h2></div>
-        <div class="card-body"><canvas id="chartAdditionality"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc B – Niveau d’innovation</h2></div>
-        <div class="card-body"><canvas id="chartInnovation"></canvas></div>
-      </div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc B – Additionalité (axes)</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartAdditionality"></canvas></div></div></div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc B – Niveau d’innovation</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartInnovation"></canvas></div></div></div>
     </section>
 
     <!-- BLOC C -->
     <section class="grid grid-3">
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc C – Obstacles WLO</h2></div>
-        <div class="card-body"><canvas id="chartObstacles"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc C – Gouvernance / leadership</h2></div>
-        <div class="card-body"><canvas id="chartGovernance"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc C – Besoins de capacités</h2></div>
-        <div class="card-body"><canvas id="chartCapacity"></canvas></div>
-      </div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc C – Obstacles WLO</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartObstacles"></canvas></div></div></div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc C – Gouvernance / leadership</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartGovernance"></canvas></div></div></div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc C – Besoins de capacités</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartCapacity"></canvas></div></div></div>
     </section>
 
     <!-- BLOC D -->
     <section class="grid grid-3">
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc D – Zones prioritaires</h2></div>
-        <div class="card-body"><canvas id="chartPriorityAreas"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc D – Groupes sous-desservis</h2></div>
-        <div class="card-body"><canvas id="chartUnderserved"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc D – Canal de feedback</h2></div>
-        <div class="card-body"><canvas id="chartFeedback"></canvas></div>
-      </div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc D – Zones prioritaires</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartPriorityAreas"></canvas></div></div></div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc D – Groupes sous-desservis</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartUnderserved"></canvas></div></div></div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc D – Canal de feedback</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartFeedback"></canvas></div></div></div>
     </section>
 
     <section class="grid grid-2">
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc D – Mécanismes AAP / redevabilité</h2></div>
-        <div class="card-body"><canvas id="chartMeca"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Provinces secondaires (autres provinces)</h2></div>
-        <div class="card-body"><canvas id="chartOtherProvinces"></canvas></div>
-      </div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc D – Mécanismes AAP / redevabilité</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartMeca"></canvas></div></div></div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Provinces secondaires (autres provinces)</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartOtherProvinces"></canvas></div></div></div>
     </section>
 
     <!-- BLOC E -->
     <section class="grid grid-3">
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc E – Risques opérationnels</h2></div>
-        <div class="card-body"><canvas id="chartRisks"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc E – Fonds à articuler</h2></div>
-        <div class="card-body"><canvas id="chartFunds"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc E – Besoin le plus critique</h2></div>
-        <div class="card-body"><canvas id="chartCriticalNeed"></canvas></div>
-      </div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc E – Risques opérationnels</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartRisks"></canvas></div></div></div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc E – Fonds à articuler</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartFunds"></canvas></div></div></div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc E – Besoin le plus critique</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartCriticalNeed"></canvas></div></div></div>
     </section>
 
     <!-- BLOC F -->
     <section class="grid grid-3">
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc F – Avantages du digital</h2></div>
-        <div class="card-body"><canvas id="chartDigitalAdv"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc F – Limites / risques du digital</h2></div>
-        <div class="card-body"><canvas id="chartDigitalLim"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><h2 class="card-title">Bloc F – Appui attendu des agences UN</h2></div>
-        <div class="card-body"><canvas id="chartUNSupport"></canvas></div>
-      </div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc F – Avantages du digital</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartDigitalAdv"></canvas></div></div></div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc F – Limites / risques du digital</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartDigitalLim"></canvas></div></div></div>
+      <div class="card"><div class="card-head"><h2 class="card-title">Bloc F – Appui attendu des agences UN</h2></div><div class="card-body"><div class="chartBox"><canvas id="chartUNSupport"></canvas></div></div></div>
     </section>
 
   </main>
@@ -210,6 +144,6 @@
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 
-  <script src="main.js?v=20260213_full1"></script>
+  <script src="main.js?v=20260220_fix1"></script>
 </body>
 </html>
