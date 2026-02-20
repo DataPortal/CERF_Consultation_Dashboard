@@ -1,242 +1,490 @@
-[
-  {
-    "date": null,
-    "agent_id": null,
-    "agent": null,
-    "bureau": null,
-    "submission_time": "2026-02-13T15:24:56",
-    "_id": 671494103,
-    "_uuid": "43433709-a086-438e-a9dc-c2fa1970ebfb",
-    "_status": "submitted_via_web",
-    "tache": null,
-    "lien_activite": null,
-    "code_activite": null,
-    "resultat": null,
-    "commentaire": null,
-    "task_timestamp": null
+{
+  "generated_at": "2026-02-20T10:31:18.426517+00:00",
+  "summary": {
+    "total_responses": 15,
+    "org_types": {
+      "ONG nationale": 10,
+      "Organisation conduite par des femmes": 5
+    },
+    "clusters": {
+      "protection gbv sante": 2,
+      "gbv sante education": 1,
+      "protection coordination gbv sante abri food nutrition education ccc": 1,
+      "protection coordination gbv sante wash food nutrition autre": 1,
+      "protection gbv": 1,
+      "protection gbv education": 1,
+      "protection gbv education autre": 1,
+      "protection gbv food autre": 1,
+      "protection gbv food education": 1,
+      "protection gbv sante wash abri": 1,
+      "protection gbv sante wash food education autre": 1,
+      "protection gbv wash education": 1,
+      "protection gbv wash food education": 1,
+      "protection gbv wash food nutrition education": 1
+    },
+    "province_base": {
+      "Nord-Kivu": 15
+    },
+    "other_provinces": {
+      "sud_kivu": 9,
+      "ituri": 6,
+      "nord_kivu": 5,
+      "tanganyika": 4,
+      "tshopo": 4,
+      "haut_uele": 2,
+      "kinshasa": 2,
+      "haut_katanga": 1,
+      "kasai": 1,
+      "kasai_central": 1,
+      "mai_ndombe": 1,
+      "maniema": 1,
+      "mongala": 1
+    },
+    "top_service_1": {
+      "medical_72h": 4,
+      "mhpss": 4,
+      "gestion_cas": 3,
+      "juridique": 3,
+      "abri_securise": 1
+    },
+    "top_service_2": {
+      "mhpss": 6,
+      "gestion_cas": 3,
+      "juridique": 3,
+      "medical_72h": 2,
+      "abri_securise": 1
+    },
+    "top_service_3": {
+      "abri_securise": 5,
+      "gestion_cas": 3,
+      "juridique": 3,
+      "mhpss": 2,
+      "autre": 1,
+      "medical_72h": 1
+    },
+    "referral_gravity": {},
+    "restore_time": {
+      "15_30j": 7,
+      "8_14j": 4,
+      "plus_30j": 4
+    },
+    "approaches": {
+      "sensibilisation": 15,
+      "agr": 14,
+      "case_mgmt": 11,
+      "cash": 10,
+      "referencement": 10,
+      "safe_space": 10,
+      "autre": 2
+    },
+    "additionality": {
+      "access": 12,
+      "localization": 12,
+      "restore": 12,
+      "scale": 10,
+      "data": 8,
+      "system": 7,
+      "autre": 1
+    },
+    "innovation_level": {
+      "elevee": 12,
+      "moyenne": 3
+    },
+    "obstacles_wlo": {
+      "financement": 15,
+      "capacites": 10,
+      "administratif": 8,
+      "securite": 8,
+      "coordination": 6,
+      "fiduciaire": 5,
+      "acces": 3
+    },
+    "governance_mechanisms": {
+      "fin_direct": 15,
+      "consultations": 12,
+      "copresidence": 12,
+      "quota": 9,
+      "comites": 8,
+      "feedback_loops": 6
+    },
+    "capacity_needs": {
+      "gestion_projet": 14,
+      "data_digital": 13,
+      "gestion_fin": 13,
+      "gbv": 11,
+      "me": 11,
+      "giha": 10,
+      "safeguarding": 10,
+      "coordination": 9,
+      "autre": 2
+    },
+    "priority_areas": {
+      "nord_kivu": 15,
+      "sud_kivu": 8,
+      "ituri": 7,
+      "tanganyika": 4,
+      "bas_uele": 2,
+      "haut_uele": 2,
+      "kasai": 2,
+      "mai_ndombe": 2,
+      "maniema": 2,
+      "tshopo": 2,
+      "kasai_central": 1,
+      "kinshasa": 1,
+      "kwango": 1,
+      "lomami": 1,
+      "mongala": 1
+    },
+    "underserved_groups": {
+      "assiegee": 15,
+      "handicap": 15,
+      "ado_15_19": 13,
+      "rurales": 13,
+      "ado_10_14": 12,
+      "deplacees": 12,
+      "cheffes": 11,
+      "autre": 3
+    },
+    "accountability_mechanisms": {
+      "points_focaux": 14,
+      "boites": 13,
+      "comites": 12,
+      "osc": 9,
+      "digitaux": 8,
+      "hotline": 8
+    },
+    "feedback_channel": {},
+    "operational_risks": {
+      "securite": 13,
+      "acces": 10,
+      "donnees": 8,
+      "acceptation": 7,
+      "supply": 6,
+      "fraude": 5,
+      "rh": 2,
+      "autre": 1
+    },
+    "funds_leverage": {
+      "bilateraux": 10,
+      "cerf_autres": 10,
+      "cbpf_hrf": 9,
+      "wphf": 7,
+      "untf": 2,
+      "autre": 1
+    },
+    "critical_need": {},
+    "digital_advantages": {},
+    "digital_limits": {},
+    "un_support": {}
   },
-  {
-    "date": null,
-    "agent_id": null,
-    "agent": null,
-    "bureau": null,
-    "submission_time": "2026-02-13T15:25:12",
-    "_id": 671494263,
-    "_uuid": "47797593-5ddd-401b-9525-bdd6031bb0b5",
-    "_status": "submitted_via_web",
-    "tache": null,
-    "lien_activite": null,
-    "code_activite": null,
-    "resultat": null,
-    "commentaire": null,
-    "task_timestamp": null
-  },
-  {
-    "date": null,
-    "agent_id": null,
-    "agent": null,
-    "bureau": null,
-    "submission_time": "2026-02-13T15:36:04",
-    "_id": 671502674,
-    "_uuid": "2c992530-4938-49ed-9eda-6eaff0f1d7e6",
-    "_status": "submitted_via_web",
-    "tache": null,
-    "lien_activite": null,
-    "code_activite": null,
-    "resultat": null,
-    "commentaire": null,
-    "task_timestamp": null
-  },
-  {
-    "date": null,
-    "agent_id": null,
-    "agent": null,
-    "bureau": null,
-    "submission_time": "2026-02-13T16:49:47",
-    "_id": 671561005,
-    "_uuid": "b2c77d17-162a-4469-a105-c6d4fc4946fd",
-    "_status": "submitted_via_web",
-    "tache": null,
-    "lien_activite": null,
-    "code_activite": null,
-    "resultat": null,
-    "commentaire": null,
-    "task_timestamp": null
-  },
-  {
-    "date": null,
-    "agent_id": null,
-    "agent": null,
-    "bureau": null,
-    "submission_time": "2026-02-13T18:54:21",
-    "_id": 671649454,
-    "_uuid": "84d72f17-b0d9-46ed-8a48-8b6ac3ddfdef",
-    "_status": "submitted_via_web",
-    "tache": null,
-    "lien_activite": null,
-    "code_activite": null,
-    "resultat": null,
-    "commentaire": null,
-    "task_timestamp": null
-  },
-  {
-    "date": null,
-    "agent_id": null,
-    "agent": null,
-    "bureau": null,
-    "submission_time": "2026-02-13T21:34:28",
-    "_id": 671736345,
-    "_uuid": "822dfaf1-c64d-4d61-9e42-c098a0f4a164",
-    "_status": "submitted_via_web",
-    "tache": null,
-    "lien_activite": null,
-    "code_activite": null,
-    "resultat": null,
-    "commentaire": null,
-    "task_timestamp": null
-  },
-  {
-    "date": null,
-    "agent_id": null,
-    "agent": null,
-    "bureau": null,
-    "submission_time": "2026-02-14T12:16:06",
-    "_id": 672071018,
-    "_uuid": "1a8e7572-84dd-495d-b87f-5d539a19faaf",
-    "_status": "submitted_via_web",
-    "tache": null,
-    "lien_activite": null,
-    "code_activite": null,
-    "resultat": null,
-    "commentaire": null,
-    "task_timestamp": null
-  },
-  {
-    "date": null,
-    "agent_id": null,
-    "agent": null,
-    "bureau": null,
-    "submission_time": "2026-02-15T20:39:45",
-    "_id": 672696687,
-    "_uuid": "a63071eb-50ae-4440-b926-11a66e84b587",
-    "_status": "submitted_via_web",
-    "tache": null,
-    "lien_activite": null,
-    "code_activite": null,
-    "resultat": null,
-    "commentaire": null,
-    "task_timestamp": null
-  },
-  {
-    "date": null,
-    "agent_id": null,
-    "agent": null,
-    "bureau": null,
-    "submission_time": "2026-02-16T09:47:05",
-    "_id": 672992421,
-    "_uuid": "6e3ee4a9-b73b-479f-8426-d269e30ed5d2",
-    "_status": "submitted_via_web",
-    "tache": null,
-    "lien_activite": null,
-    "code_activite": null,
-    "resultat": null,
-    "commentaire": null,
-    "task_timestamp": null
-  },
-  {
-    "date": null,
-    "agent_id": null,
-    "agent": null,
-    "bureau": null,
-    "submission_time": "2026-02-16T14:10:42",
-    "_id": 673230895,
-    "_uuid": "0f90e07f-75c5-433f-8654-fd6a5c76c436",
-    "_status": "submitted_via_web",
-    "tache": null,
-    "lien_activite": null,
-    "code_activite": null,
-    "resultat": null,
-    "commentaire": null,
-    "task_timestamp": null
-  },
-  {
-    "date": null,
-    "agent_id": null,
-    "agent": null,
-    "bureau": null,
-    "submission_time": "2026-02-16T18:37:13",
-    "_id": 673408310,
-    "_uuid": "6cb9c8f1-3282-4200-ab1b-8a4fb37c02f4",
-    "_status": "submitted_via_web",
-    "tache": null,
-    "lien_activite": null,
-    "code_activite": null,
-    "resultat": null,
-    "commentaire": null,
-    "task_timestamp": null
-  },
-  {
-    "date": null,
-    "agent_id": null,
-    "agent": null,
-    "bureau": null,
-    "submission_time": "2026-02-16T19:13:21",
-    "_id": 673423906,
-    "_uuid": "6b95b3c7-28a1-4e60-9068-710af600c7e6",
-    "_status": "submitted_via_web",
-    "tache": null,
-    "lien_activite": null,
-    "code_activite": null,
-    "resultat": null,
-    "commentaire": null,
-    "task_timestamp": null
-  },
-  {
-    "date": null,
-    "agent_id": null,
-    "agent": null,
-    "bureau": null,
-    "submission_time": "2026-02-17T11:57:19",
-    "_id": 673913319,
-    "_uuid": "ecedf0c0-9c68-41e1-8c59-98f2c7dd3986",
-    "_status": "submitted_via_web",
-    "tache": null,
-    "lien_activite": null,
-    "code_activite": null,
-    "resultat": null,
-    "commentaire": null,
-    "task_timestamp": null
-  },
-  {
-    "date": null,
-    "agent_id": null,
-    "agent": null,
-    "bureau": null,
-    "submission_time": "2026-02-17T14:44:12",
-    "_id": 674059117,
-    "_uuid": "b4ff7bd7-ab08-4e1f-a9aa-a1f1977493c7",
-    "_status": "submitted_via_web",
-    "tache": null,
-    "lien_activite": null,
-    "code_activite": null,
-    "resultat": null,
-    "commentaire": null,
-    "task_timestamp": null
-  },
-  {
-    "date": null,
-    "agent_id": null,
-    "agent": null,
-    "bureau": null,
-    "submission_time": "2026-02-17T18:57:34",
-    "_id": 674221324,
-    "_uuid": "3bd28c9a-cbca-4b70-88bb-599d5cd4a249",
-    "_status": "submitted_via_web",
-    "tache": null,
-    "lien_activite": null,
-    "code_activite": null,
-    "resultat": null,
-    "commentaire": null,
-    "task_timestamp": null
+  "by_org_type": {
+    "ONG nationale": {
+      "total_responses": 10,
+      "org_types": {
+        "ONG nationale": 10
+      },
+      "clusters": {
+        "protection coordination gbv sante abri food nutrition education ccc": 1,
+        "protection coordination gbv sante wash food nutrition autre": 1,
+        "protection gbv": 1,
+        "protection gbv education": 1,
+        "protection gbv education autre": 1,
+        "protection gbv sante": 1,
+        "protection gbv sante wash abri": 1,
+        "protection gbv sante wash food education autre": 1,
+        "protection gbv wash education": 1,
+        "protection gbv wash food nutrition education": 1
+      },
+      "province_base": {
+        "Nord-Kivu": 10
+      },
+      "other_provinces": {
+        "sud_kivu": 6,
+        "ituri": 5,
+        "nord_kivu": 5,
+        "tshopo": 4,
+        "tanganyika": 3,
+        "haut_uele": 2,
+        "haut_katanga": 1,
+        "kasai": 1,
+        "kinshasa": 1,
+        "maniema": 1
+      },
+      "top_service_1": {
+        "medical_72h": 4,
+        "juridique": 3,
+        "gestion_cas": 2,
+        "mhpss": 1
+      },
+      "top_service_2": {
+        "mhpss": 5,
+        "gestion_cas": 2,
+        "medical_72h": 2,
+        "abri_securise": 1
+      },
+      "top_service_3": {
+        "juridique": 3,
+        "abri_securise": 2,
+        "gestion_cas": 2,
+        "mhpss": 2,
+        "medical_72h": 1
+      },
+      "referral_gravity": {},
+      "restore_time": {
+        "15_30j": 5,
+        "8_14j": 4,
+        "plus_30j": 1
+      },
+      "approaches": {
+        "agr": 10,
+        "sensibilisation": 10,
+        "case_mgmt": 8,
+        "referencement": 8,
+        "cash": 7,
+        "safe_space": 6,
+        "autre": 1
+      },
+      "additionality": {
+        "access": 8,
+        "localization": 8,
+        "restore": 8,
+        "system": 6,
+        "data": 5,
+        "scale": 5
+      },
+      "innovation_level": {
+        "elevee": 8,
+        "moyenne": 2
+      },
+      "obstacles_wlo": {
+        "financement": 10,
+        "capacites": 6,
+        "securite": 6,
+        "administratif": 5,
+        "coordination": 5,
+        "fiduciaire": 3,
+        "acces": 2
+      },
+      "governance_mechanisms": {
+        "fin_direct": 10,
+        "consultations": 8,
+        "copresidence": 8,
+        "comites": 5,
+        "quota": 5,
+        "feedback_loops": 3
+      },
+      "capacity_needs": {
+        "gestion_fin": 9,
+        "gestion_projet": 9,
+        "data_digital": 8,
+        "giha": 7,
+        "me": 7,
+        "safeguarding": 7,
+        "coordination": 6,
+        "gbv": 6,
+        "autre": 2
+      },
+      "priority_areas": {
+        "nord_kivu": 10,
+        "ituri": 5,
+        "sud_kivu": 5,
+        "haut_uele": 2,
+        "tanganyika": 2,
+        "tshopo": 2,
+        "bas_uele": 1,
+        "kasai": 1,
+        "kasai_central": 1,
+        "lomami": 1,
+        "mai_ndombe": 1,
+        "maniema": 1
+      },
+      "underserved_groups": {
+        "assiegee": 10,
+        "handicap": 10,
+        "ado_15_19": 8,
+        "rurales": 8,
+        "ado_10_14": 7,
+        "cheffes": 7,
+        "deplacees": 7,
+        "autre": 2
+      },
+      "accountability_mechanisms": {
+        "points_focaux": 9,
+        "boites": 8,
+        "comites": 7,
+        "digitaux": 7,
+        "osc": 7,
+        "hotline": 6
+      },
+      "feedback_channel": {},
+      "operational_risks": {
+        "securite": 9,
+        "acces": 6,
+        "donnees": 5,
+        "fraude": 4,
+        "supply": 4,
+        "acceptation": 3,
+        "autre": 1,
+        "rh": 1
+      },
+      "funds_leverage": {
+        "cbpf_hrf": 7,
+        "bilateraux": 6,
+        "cerf_autres": 6,
+        "wphf": 5,
+        "autre": 1,
+        "untf": 1
+      },
+      "critical_need": {},
+      "digital_advantages": {},
+      "digital_limits": {},
+      "un_support": {}
+    },
+    "Organisation conduite par des femmes": {
+      "total_responses": 5,
+      "org_types": {
+        "Organisation conduite par des femmes": 5
+      },
+      "clusters": {
+        "gbv sante education": 1,
+        "protection gbv food autre": 1,
+        "protection gbv food education": 1,
+        "protection gbv sante": 1,
+        "protection gbv wash food education": 1
+      },
+      "province_base": {
+        "Nord-Kivu": 5
+      },
+      "other_provinces": {
+        "sud_kivu": 3,
+        "ituri": 1,
+        "kasai_central": 1,
+        "kinshasa": 1,
+        "mai_ndombe": 1,
+        "mongala": 1,
+        "tanganyika": 1
+      },
+      "top_service_1": {
+        "mhpss": 3,
+        "abri_securise": 1,
+        "gestion_cas": 1
+      },
+      "top_service_2": {
+        "juridique": 3,
+        "gestion_cas": 1,
+        "mhpss": 1
+      },
+      "top_service_3": {
+        "abri_securise": 3,
+        "autre": 1,
+        "gestion_cas": 1
+      },
+      "referral_gravity": {},
+      "restore_time": {
+        "plus_30j": 3,
+        "15_30j": 2
+      },
+      "approaches": {
+        "sensibilisation": 5,
+        "agr": 4,
+        "safe_space": 4,
+        "case_mgmt": 3,
+        "cash": 3,
+        "referencement": 2,
+        "autre": 1
+      },
+      "additionality": {
+        "scale": 5,
+        "access": 4,
+        "localization": 4,
+        "restore": 4,
+        "data": 3,
+        "autre": 1,
+        "system": 1
+      },
+      "innovation_level": {
+        "elevee": 4,
+        "moyenne": 1
+      },
+      "obstacles_wlo": {
+        "financement": 5,
+        "capacites": 4,
+        "administratif": 3,
+        "fiduciaire": 2,
+        "securite": 2,
+        "acces": 1,
+        "coordination": 1
+      },
+      "governance_mechanisms": {
+        "fin_direct": 5,
+        "consultations": 4,
+        "copresidence": 4,
+        "quota": 4,
+        "comites": 3,
+        "feedback_loops": 3
+      },
+      "capacity_needs": {
+        "data_digital": 5,
+        "gbv": 5,
+        "gestion_projet": 5,
+        "gestion_fin": 4,
+        "me": 4,
+        "coordination": 3,
+        "giha": 3,
+        "safeguarding": 3
+      },
+      "priority_areas": {
+        "nord_kivu": 5,
+        "sud_kivu": 3,
+        "ituri": 2,
+        "tanganyika": 2,
+        "bas_uele": 1,
+        "kasai": 1,
+        "kinshasa": 1,
+        "kwango": 1,
+        "mai_ndombe": 1,
+        "maniema": 1,
+        "mongala": 1
+      },
+      "underserved_groups": {
+        "ado_10_14": 5,
+        "ado_15_19": 5,
+        "assiegee": 5,
+        "deplacees": 5,
+        "handicap": 5,
+        "rurales": 5,
+        "cheffes": 4,
+        "autre": 1
+      },
+      "accountability_mechanisms": {
+        "boites": 5,
+        "comites": 5,
+        "points_focaux": 5,
+        "hotline": 2,
+        "osc": 2,
+        "digitaux": 1
+      },
+      "feedback_channel": {},
+      "operational_risks": {
+        "acceptation": 4,
+        "acces": 4,
+        "securite": 4,
+        "donnees": 3,
+        "supply": 2,
+        "fraude": 1,
+        "rh": 1
+      },
+      "funds_leverage": {
+        "bilateraux": 4,
+        "cerf_autres": 4,
+        "cbpf_hrf": 2,
+        "wphf": 2,
+        "untf": 1
+      },
+      "critical_need": {},
+      "digital_advantages": {},
+      "digital_limits": {},
+      "un_support": {}
+    }
   }
-]
+}
