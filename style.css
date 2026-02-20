@@ -146,9 +146,19 @@ select option{ color:#0f172a; }
 }
 .card-body{ padding:12px 14px 10px; }
 
-canvas{ width:100%!important; height:330px!important; }
+/* ===== Charts (FIX robuste) ===== */
+.chartBox{
+  height:330px;
+  width:100%;
+  position:relative;
+}
+.chartBox canvas{
+  width:100% !important;
+  height:100% !important;
+  display:block;
+}
 
-/* List/table (accordéons) */
+/* List/cards */
 .list{ display:flex; flex-direction:column; gap:10px; }
 
 .item{
@@ -196,14 +206,50 @@ canvas{ width:100%!important; height:330px!important; }
 .k{ color:var(--muted); font-size:12px; }
 .v{ font-size:13px; white-space:pre-wrap; line-height:1.35; }
 
+/* Table */
+.table-scroll{
+  overflow:auto;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:#fff;
+}
+.data-table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  min-width:1100px;
+}
+.data-table th{
+  position:sticky;
+  top:0;
+  z-index:2;
+  background: linear-gradient(90deg, rgba(68,139,202,.92), rgba(68,139,202,.75));
+  color:#fff;
+  text-align:left;
+  font-size:12px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  padding:10px 10px;
+  border-bottom:1px solid rgba(255,255,255,.2);
+}
+.data-table td{
+  padding:10px 10px;
+  border-bottom:1px solid rgba(15,23,42,.08);
+  font-size:13px;
+  vertical-align:top;
+  white-space:pre-wrap;
+}
+.data-table tr:nth-child(even) td{ background: rgba(15,23,42,.02); }
+
 @media (max-width:1100px){
   .topbar-inner{ flex-direction:column; align-items:flex-start; }
   .kpis{ grid-template-columns: 1fr; }
   .grid-2, .grid-3{ grid-template-columns: 1fr; }
-  canvas{ height:300px!important; }
+  .chartBox{ height:300px; }
   .item-head{ grid-template-columns: 1fr; }
   select, .input{ min-width: 220px; }
 }
+
 .narrative ul{
   margin: 0;
   padding-left: 18px;
@@ -213,13 +259,7 @@ canvas{ width:100%!important; height:330px!important; }
   line-height: 1.45;
   color: rgba(15,23,42,.92);
 }
-/* --- FIX charts visibility (Chart.js) --- */
-.card-body { 
-  min-height: 320px; 
-}
 
-.card-body canvas { 
-  width: 100% !important; 
-  height: 280px !important; 
-  display: block; 
+@media print{
+  .topbar{ position:static; }
 }
