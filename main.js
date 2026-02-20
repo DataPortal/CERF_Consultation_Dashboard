@@ -1,4 +1,4 @@
-console.log("✅ main.js (full) chargé");
+console.log("✅ main.js (fix) chargé");
 
 let charts = {};
 let PAYLOAD = null;
@@ -6,8 +6,13 @@ let ALL = [];
 let FILTERED = [];
 
 /* -----------------------------
-   Helpers Chart.js safety
+   Theme
 ------------------------------ */
+const THEME = {
+  blue: getComputedStyle(document.documentElement).getPropertyValue('--uw-blue').trim() || '#448BCA',
+  orange: getComputedStyle(document.documentElement).getPropertyValue('--unfpa-orange').trim() || '#F58220'
+};
+
 function hasChartJs(){ return typeof window.Chart !== "undefined"; }
 function hasDataLabels(){ return typeof window.ChartDataLabels !== "undefined"; }
 
@@ -22,27 +27,78 @@ function normalizeValues(dataObj){
   return { labels, values };
 }
 
-function barChart(canvasId, dataObj){
+function sum(values){ return values.reduce((a,b)=>a+b,0); }
+function pct(v, total){ return total ? (v*100/total) : 0; }
+
+/* -----------------------------
+   Chart builders
+   - Bar: horizontal (%) + datalabels %
+   - Doughnut: % + tooltip
+------------------------------ */
+function barChartPct(canvasId, dataObj){
   if(!hasChartJs()){
     console.warn("Chart.js non chargé → chart ignoré:", canvasId);
     return;
   }
-
   destroyChart(canvasId);
 
   const { labels, values } = normalizeValues(dataObj);
   const el = document.getElementById(canvasId);
   if(!el) return;
 
+  const total = sum(values);
+  const dl = hasDataLabels();
+  const pluginsArr = dl ? [ChartDataLabels] : [];
+
   charts[canvasId] = new Chart(el, {
     type: 'bar',
-    data: { labels, datasets: [{ data: values }] },
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        backgroundColor: THEME.blue
+      }]
+    },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: { y: { beginAtZero: true } }
-    }
+      indexAxis: 'y',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const v = ctx.parsed.x ?? ctx.parsed ?? 0;
+              const p = pct(v, total);
+              return ` ${v} (${p.toFixed(0)}%)`;
+            }
+          }
+        },
+        ...(dl ? {
+          datalabels: {
+            anchor: 'end',
+            align: 'end',
+            color: '#0f172a',
+            font: { weight: '800' },
+            formatter: (v) => total ? `${pct(v,total).toFixed(0)}%` : ''
+          }
+        } : {})
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: {
+            callback: (v) => `${v}`
+          },
+          grid: { color: 'rgba(15,23,42,.08)' }
+        },
+        y: {
+          ticks: { autoSkip: false },
+          grid: { display: false }
+        }
+      }
+    },
+    plugins: pluginsArr
   });
 }
 
@@ -51,25 +107,29 @@ function doughnutChartWithPct(canvasId, dataObj){
     console.warn("Chart.js non chargé → doughnut ignoré:", canvasId);
     return;
   }
-
   destroyChart(canvasId);
 
   const { labels, values } = normalizeValues(dataObj);
   const el = document.getElementById(canvasId);
   if(!el) return;
 
-  const total = values.reduce((a,b)=>a+b,0);
+  const total = sum(values);
   const dl = hasDataLabels();
-
-  if(!dl){
-    console.warn("ChartDataLabels non chargé → % désactivés:", canvasId);
-  }
-
   const pluginsArr = dl ? [ChartDataLabels] : [];
+
+  const colors = labels.map((_,i)=> i % 2 === 0 ? THEME.orange : THEME.blue);
 
   charts[canvasId] = new Chart(el, {
     type: 'doughnut',
-    data: { labels, datasets: [{ data: values }] },
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        backgroundColor: colors,
+        borderColor: 'rgba(255,255,255,.9)',
+        borderWidth: 2
+      }]
+    },
     options: {
       responsive: true,
       maintainAspectRatio: false,
@@ -80,8 +140,8 @@ function doughnutChartWithPct(canvasId, dataObj){
           callbacks: {
             label: (ctx) => {
               const v = ctx.parsed || 0;
-              const pct = total ? (v * 100 / total) : 0;
-              return ` ${ctx.label}: ${v} (${pct.toFixed(0)}%)`;
+              const p = pct(v, total);
+              return ` ${ctx.label}: ${v} (${p.toFixed(0)}%)`;
             }
           }
         },
@@ -90,16 +150,11 @@ function doughnutChartWithPct(canvasId, dataObj){
             display: (ctx) => {
               const v = ctx.dataset.data[ctx.dataIndex] || 0;
               if(!total) return false;
-              const pct = (v * 100 / total);
-              return pct >= 8;
+              return pct(v,total) >= 8;
             },
-            formatter: (value) => {
-              if(!total) return '';
-              const pct = (value * 100 / total);
-              return `${pct.toFixed(0)}%`;
-            },
+            formatter: (value) => total ? `${pct(value,total).toFixed(0)}%` : '',
             color: '#ffffff',
-            font: { weight: '800', size: 12 }
+            font: { weight: '900', size: 12 }
           }
         } : {})
       }
@@ -142,6 +197,7 @@ function setScopeLabel(label){
 
 function getScope(payload, orgLabel){
   if(orgLabel === '__all__') return payload.summary;
+  // payload.by_org_type doit être indexé par label affiché
   return payload.by_org_type?.[orgLabel] || payload.summary;
 }
 
@@ -152,43 +208,43 @@ function applyScopeToCharts(scope){
   }
 
   // Intro
-  barChart('chartOrgTypes', scope?.org_types || {});
-  barChart('chartClusters', scope?.clusters || {});
-  barChart('chartProvinceBase', scope?.province_base || {});
-  barChart('chartOtherProvinces', scope?.other_provinces || {});
+  barChartPct('chartOrgTypes', scope?.org_types || {});
+  barChartPct('chartClusters', scope?.clusters || {});
+  barChartPct('chartProvinceBase', scope?.province_base || {});
+  barChartPct('chartOtherProvinces', scope?.other_provinces || {});
 
   // Bloc A
-  barChart('chartTop1', scope?.top_service_1 || {});
-  barChart('chartTop2', scope?.top_service_2 || {});
-  barChart('chartTop3', scope?.top_service_3 || {});
+  barChartPct('chartTop1', scope?.top_service_1 || {});
+  barChartPct('chartTop2', scope?.top_service_2 || {});
+  barChartPct('chartTop3', scope?.top_service_3 || {});
   doughnutChartWithPct('chartGravite', scope?.referral_gravity || {});
-  barChart('chartRestoreTime', scope?.restore_time || {});
-  barChart('chartApproaches', scope?.approaches || {});
+  barChartPct('chartRestoreTime', scope?.restore_time || {});
+  barChartPct('chartApproaches', scope?.approaches || {});
 
   // Bloc B
-  barChart('chartAdditionality', scope?.additionality || {});
+  barChartPct('chartAdditionality', scope?.additionality || {});
   doughnutChartWithPct('chartInnovation', scope?.innovation_level || {});
 
   // Bloc C
-  barChart('chartObstacles', scope?.obstacles_wlo || {});
-  barChart('chartGovernance', scope?.governance_mechanisms || {});
-  barChart('chartCapacity', scope?.capacity_needs || {});
+  barChartPct('chartObstacles', scope?.obstacles_wlo || {});
+  barChartPct('chartGovernance', scope?.governance_mechanisms || {});
+  barChartPct('chartCapacity', scope?.capacity_needs || {});
 
   // Bloc D
-  barChart('chartPriorityAreas', scope?.priority_areas || {});
-  barChart('chartUnderserved', scope?.underserved_groups || {});
+  barChartPct('chartPriorityAreas', scope?.priority_areas || {});
+  barChartPct('chartUnderserved', scope?.underserved_groups || {});
   doughnutChartWithPct('chartFeedback', scope?.feedback_channel || {});
-  barChart('chartMeca', scope?.accountability_mechanisms || {});
+  barChartPct('chartMeca', scope?.accountability_mechanisms || {});
 
   // Bloc E
-  barChart('chartRisks', scope?.operational_risks || {});
-  barChart('chartFunds', scope?.funds_leverage || {});
+  barChartPct('chartRisks', scope?.operational_risks || {});
+  barChartPct('chartFunds', scope?.funds_leverage || {});
   doughnutChartWithPct('chartCriticalNeed', scope?.critical_need || {});
 
   // Bloc F
-  barChart('chartDigitalAdv', scope?.digital_advantages || {});
-  barChart('chartDigitalLim', scope?.digital_limits || {});
-  barChart('chartUNSupport', scope?.un_support || {});
+  barChartPct('chartDigitalAdv', scope?.digital_advantages || {});
+  barChartPct('chartDigitalLim', scope?.digital_limits || {});
+  barChartPct('chartUNSupport', scope?.un_support || {});
 }
 
 /* -----------------------------
@@ -216,7 +272,6 @@ function renderList(){
     const org = r.org_type_label || "—";
     const prov = r.province_label || "—";
     const cluster = r.cluster_label || "—";
-
     const top1 = r.service_top1_label || "—";
     const grav = r.referral_gravity_label || "—";
 
@@ -348,7 +403,7 @@ function exportPDF(){
     const report = document.getElementById('report');
     const { jsPDF } = window.jspdf;
 
-    const canvas = await html2canvas(report, { scale: 2, useCORS:true });
+    const canvas = await html2canvas(report, { scale: 2, useCORS:true, backgroundColor: "#ffffff" });
     const imgData = canvas.toDataURL('image/png');
 
     const pdf = new jsPDF('p','mm','a4');
@@ -383,9 +438,10 @@ Promise.all([
   fetch(`records.json?v=${Date.now()}`).then(r => { if(!r.ok) throw new Error("records.json introuvable"); return r.json(); })
 ]).then(([payload, rec]) => {
   PAYLOAD = payload;
-  ALL = rec.records || [];
 
-  // Debug quick visibility
+  // records.json : racine "records"
+  ALL = rec.records || rec?.payload?.records || [];
+
   console.log("payload.summary keys:", Object.keys(payload?.summary || {}));
   console.log("Chart.js loaded:", hasChartJs(), "DataLabels loaded:", hasDataLabels());
 
@@ -394,7 +450,7 @@ Promise.all([
   const kpiTotal = document.getElementById('kpiTotal');
   if(kpiTotal) kpiTotal.textContent = total.toString();
 
-  // Filters (from clean records)
+  // Filters
   buildSelect('orgFilter', uniq(ALL.map(r => r.org_type_label)));
   buildSelect('provinceFilter', uniq(ALL.map(r => r.province_label)));
 
