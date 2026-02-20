@@ -1,15 +1,15 @@
-name: Refresh Kobo data
+name: Refresh Kobo data (records + analytics)
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "*/15 * * * *"   # toutes les 15 min
 
 permissions:
   contents: write
 
 concurrency:
-  group: kobo-refresh
+  group: kobo-sync
   cancel-in-progress: false
 
 jobs:
@@ -31,21 +31,32 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r scripts/requirements.txt
 
-      - name: Fetch Kobo
+      - name: Fetch Kobo submissions (raw)
         env:
-          KOBO_API_URL: ${{ secrets.KOBO_API_URL }}
-          KOBO_ASSET_ID: ${{ secrets.KOBO_ASSET_ID }}
           KOBO_TOKEN: ${{ secrets.KOBO_TOKEN }}
+          KOBO_API_URL: ${{ secrets.KOBO_API_URL }}
         run: |
           python scripts/fetch_kobo.py
 
-      # (Optionnel) si tu génères data.json/records.json via update_data.py
-      # - name: Build dashboard data
-      #   run: |
-      #     python scripts/update_data.py
+      - name: Build records.json + data.json (aggregations)
+        run: |
+          python scripts/update_data.py
 
-      - name: Commit changes
+      - name: Debug outputs
+        run: |
+          echo "---- files ----"
+          ls -lh records.json data.json labels.json || true
+          echo "---- counts ----"
+          python - <<'PY'
+          import json
+          rec = json.load(open("records.json","r",encoding="utf-8"))
+          dat = json.load(open("data.json","r",encoding="utf-8"))
+          print("records:", len(rec.get("records",[])))
+          print("data.summary keys:", list((dat.get("summary") or {}).keys()))
+          PY
+
+      - name: Commit & push if changed
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: refresh Kobo data"
-          file_pattern: "data/raw_kobo.json data.json records.json"
+          file_pattern: "records.json data.json kobo_raw.json"
