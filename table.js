@@ -1,4 +1,4 @@
-console.log("✅ table.js chargé");
+console.log("✅ table.js (fix) chargé");
 
 let ALL = [];
 let FILTERED = [];
@@ -9,12 +9,14 @@ function uniq(arr){
 function buildSelect(id, values){
   const sel = document.getElementById(id);
   if(!sel) return;
+  const current = sel.value || "__all__";
   sel.innerHTML = `<option value="__all__">Toutes</option>`;
   values.forEach(v=>{
     const o=document.createElement("option");
     o.value=v; o.textContent=v;
     sel.appendChild(o);
   });
+  sel.value = values.includes(current) ? current : "__all__";
 }
 function matchesQuery(obj, q){
   if(!q) return true;
@@ -169,7 +171,7 @@ function exportPDF(){
     const report = document.getElementById('report');
     const { jsPDF } = window.jspdf;
 
-    const canvas = await html2canvas(report, { scale: 2, useCORS:true });
+    const canvas = await html2canvas(report, { scale: 2, useCORS:true, backgroundColor:"#ffffff" });
     const imgData = canvas.toDataURL('image/png');
 
     const pdf = new jsPDF('p','mm','a4');
