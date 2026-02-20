@@ -1,95 +1,105 @@
 import os
+import sys
 import json
-import time
-from typing import Any, Dict, List, Optional
-
 import requests
+from urllib.parse import urljoin
 
-
-def die(msg: str) -> None:
-    raise SystemExit(f"❌ {msg}")
-
-
-def get_env(name: str) -> str:
-    v = os.getenv(name, "").strip()
-    if not v:
-        die(f"Variable d'environnement manquante: {name}")
-    return v
-
-
-def fetch_all(url: str, token: str, page_size: int = 1000, max_pages: int = 500) -> Dict[str, Any]:
+def build_data_url(kobo_api_url: str, asset_id: str) -> str:
     """
-    Kobo v2 data endpoint returns:
-      { "count": int, "next": url|null, "previous": url|null, "results": [...] }
+    Accepte:
+      - base URL: https://kf.kobotoolbox.org
+      - ou endpoint complet: https://kf.kobotoolbox.org/api/v2/assets/<id>/data/
+    Retourne toujours l'endpoint data canonique.
     """
-    headers = {
-        "Authorization": f"Token {token}",
-        "Accept": "application/json",
-    }
+    if not kobo_api_url:
+        raise ValueError("KOBO_API_URL est vide.")
+    if not asset_id:
+        raise ValueError("KOBO_ASSET_ID est vide.")
 
-    params = {"limit": page_size}
-    all_results: List[Dict[str, Any]] = []
+    u = kobo_api_url.strip()
 
-    next_url: Optional[str] = url
-    page = 0
+    # Lien UI → interdit
+    if "#/forms/" in u:
+        raise ValueError(
+            "KOBO_API_URL pointe vers l'interface web (#/forms/...). "
+            "Utilise l'API: https://kf.kobotoolbox.org/api/v2/assets/<ASSET_ID>/data/"
+        )
 
-    while next_url:
-        page += 1
-        if page > max_pages:
-            die(f"Trop de pages (> {max_pages}). Vérifie l'URL ou augmente max_pages.")
+    # Si l'utilisateur a déjà mis l'endpoint data complet
+    if "/api/v2/assets/" in u and "/data" in u:
+        # Normaliser pour finir par /data/
+        if not u.endswith("/"):
+            u += "/"
+        return u
 
-        print(f"➡️  Fetch page {page}: {next_url}")
-        r = requests.get(next_url, headers=headers, params=params, timeout=60)
+    # Si l'utilisateur a mis /api/v2/assets/<id> sans /data/
+    if "/api/v2/assets/" in u and "/data" not in u:
+        if not u.endswith("/"):
+            u += "/"
+        return u + "data/"
 
-        if r.status_code == 401:
-            die("Unauthorized (401). Token KOBO invalide ou expiré.")
-        if r.status_code == 403:
-            die("Forbidden (403). Token OK mais pas d'accès à l'asset.")
-        if not r.ok:
-            die(f"Erreur HTTP {r.status_code}: {r.text[:300]}")
+    # Sinon: base URL (recommandé)
+    base = u
+    if not base.endswith("/"):
+        base += "/"
+    return urljoin(base, f"api/v2/assets/{asset_id}/data/")
+
+def ensure_json_response(r: requests.Response):
+    ctype = (r.headers.get("content-type") or "").lower()
+    if r.status_code >= 400:
+        preview = (r.text or "")[:400].replace("\n", " ")
+        raise RuntimeError(f"HTTP {r.status_code} — Réponse: {preview}")
+    if "json" not in ctype:
+        preview = (r.text or "")[:400].replace("\n", " ")
+        raise RuntimeError(
+            f"Réponse non-JSON (content-type={ctype}). "
+            f"Probable erreur d'auth/accès. Preview: {preview}"
+        )
+
+def fetch_all(data_url: str, token: str) -> dict:
+    headers = {"Authorization": f"Token {token}"}
+    params = {"format": "json"}  # KoBo renvoie parfois JSON sans mais on force.
+
+    out = {"count": 0, "next": None, "previous": None, "results": []}
+
+    url = data_url
+    page = 1
+    while url:
+        print(f"➡️ Fetch page {page}: {url}")
+        r = requests.get(url, headers=headers, params=params, timeout=60)
+        ensure_json_response(r)
 
         payload = r.json()
-        results = payload.get("results", [])
-        if not isinstance(results, list):
-            die("Format inattendu: 'results' n'est pas une liste.")
+        if page == 1:
+            out["count"] = payload.get("count", 0)
+            out["previous"] = payload.get("previous")
 
-        all_results.extend(results)
-        next_url = payload.get("next")
+        out["results"].extend(payload.get("results", []))
+        url = payload.get("next")  # Kobo pagination canonique
+        out["next"] = url
+        page += 1
 
-        # Respect rate limits
-        time.sleep(0.2)
-
-        # Kobo ignore params sur next_url (next_url est déjà complet)
-        params = {}
-
-    out = {
-        "fetched_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-        "count": len(all_results),
-        "results": all_results,
-    }
+    out["count"] = len(out["results"])  # sécurise la cohérence
     return out
 
+def main():
+    kobo_api_url = os.getenv("KOBO_API_URL", "").strip()
+    asset_id = os.getenv("KOBO_ASSET_ID", "").strip()
+    token = os.getenv("KOBO_TOKEN", "").strip()
 
-def main() -> None:
-    url = get_env("KOBO_API_URL")
-    token = get_env("KOBO_API_TOKEN")
+    if not token:
+        print("❌ KOBO_TOKEN manquant (GitHub Secret KOBO_TOKEN).")
+        sys.exit(2)
 
-    # Normalise l'URL (assure /data/)
-    if not url.endswith("/"):
-        url += "/"
-    if "/data/" not in url:
-        # on n'essaie pas de deviner l'asset id ici, mais on alerte
-        print("⚠️ KOBO_API_URL ne contient pas '/data/'. Assure-toi que c'est bien l'endpoint data de l'asset.")
+    data_url = build_data_url(kobo_api_url, asset_id)
 
-    payload = fetch_all(url, token)
+    payload = fetch_all(data_url, token)
 
     os.makedirs("data", exist_ok=True)
-    out_path = os.path.join("data", "raw.json")
-    with open(out_path, "w", encoding="utf-8") as f:
+    with open("data/raw_kobo.json", "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
-    print(f"✅ raw sauvegardé: {out_path} ({payload['count']} soumissions)")
-
+    print(f"✅ OK — {payload.get('count', 0)} soumissions enregistrées dans data/raw_kobo.json")
 
 if __name__ == "__main__":
     main()
